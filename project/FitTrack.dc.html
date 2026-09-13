@@ -1,0 +1,3081 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="stylesheet" href="_ds/modernist-525bb907-ec46-4e79-9cd9-d5cf465c8ec8/styles.css">
+<script src="_ds/modernist-525bb907-ec46-4e79-9cd9-d5cf465c8ec8/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap">
+<style>
+body{margin:0;background:#e4e2e0;font-family:"Archivo",system-ui,sans-serif;color:#201e1d}
+*,*::before,*::after{box-sizing:border-box}
+a{color:#ec3013;text-underline-offset:3px}
+a:hover{color:#ae1800}
+input,button{font-family:"Archivo",system-ui,sans-serif;color:#201e1d}
+input::placeholder{color:#9b9797}
+:focus{outline:none}
+:focus-visible{outline:2px solid #ec3013;outline-offset:2px}
+::selection{background:rgba(236,48,19,.3)}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+@keyframes ftbar{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+@keyframes ftup{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+
+<div style="height:100%;display:flex;flex-direction:column;background:#f3f2f2;position:relative;overflow:hidden">
+
+<sc-if value="{{ isWelcome }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Welcome" style="flex:1;min-height:0;display:flex;flex-direction:column;background:#ec3013;color:#fff;overflow-y:auto">
+<div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:56px 16px 11px;border-bottom:2px solid rgba(255,255,255,.5)">
+<div style="font:800 11px/1 Archivo;letter-spacing:.24em;text-transform:uppercase">Fittrack</div>
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;opacity:.8">Strength &amp; speed</div>
+</div>
+<div style="position:relative;flex:none;padding:34px 16px 26px;border-bottom:2px solid rgba(255,255,255,.5);overflow:hidden;background:#201e1d">
+<div style="position:absolute;inset:0;filter:grayscale(1) contrast(1.25) brightness(.62)"><image-slot id="ft-hero" src="images/sled.jpg" shape="rect" fit="cover" placeholder="Drop a photo"></image-slot></div>
+<div style="position:absolute;inset:0;background:#ec3013;mix-blend-mode:multiply;opacity:.6;pointer-events:none"></div>
+<div style="position:relative;pointer-events:none">
+<div style="font:800 44px/0.98 Archivo;letter-spacing:-.035em;text-transform:uppercase;text-wrap:balance">Log the load.<br>Beat it next<br>week.</div>
+<div style="font:400 13px/1.5 Archivo;color:#fff;margin-top:16px;max-width:290px;text-wrap:pretty">A training log that remembers what you lifted and tells you what to beat.</div>
+</div>
+</div>
+<div style="position:relative;width:100%;height:210px;overflow:hidden;background:#201e1d;border-bottom:2px solid rgba(255,255,255,.5)">
+<div style="position:absolute;inset:0;filter:grayscale(1) contrast(1.2) brightness(.8)"><image-slot id="ft-welcome" src="images/run.jpg" shape="rect" fit="cover" placeholder="Drop a photo"></image-slot></div>
+<div style="position:absolute;inset:0;background:#ec3013;mix-blend-mode:multiply;opacity:.55;pointer-events:none"></div>
+<div style="position:absolute;left:16px;bottom:14px;right:16px;font:800 12px/1.3 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#fff;pointer-events:none">Every session, on the record</div>
+</div>
+<div style="flex:none">
+<sc-for list="{{ welcomePoints }}" as="p" hint-placeholder-count="3">
+<div style="display:flex;align-items:flex-start;gap:14px;padding:15px 16px;border-bottom:1px solid rgba(255,255,255,.35)">
+<div style="flex:none;font:800 13px/1.2 Archivo;letter-spacing:.04em;opacity:.7;width:22px">{{ p.n }}</div>
+<div style="min-width:0">
+<div style="font:800 14px/1.2 Archivo;letter-spacing:.02em;text-transform:uppercase">{{ p.label }}</div>
+<div style="font:400 12px/1.4 Archivo;color:#ffe0d9;margin-top:4px;text-wrap:pretty">{{ p.note }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="flex:1"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;border-top:2px solid rgba(255,255,255,.5)">
+<div style="position:relative;overflow:hidden;height:92px;background:#201e1d">
+<div style="position:absolute;inset:0;filter:grayscale(1) contrast(1.2) brightness(.85)"><image-slot id="ft-w1" src="images/rack.jpg" shape="rect" fit="cover" placeholder=""></image-slot></div>
+<div style="position:absolute;inset:0;background:#ec3013;mix-blend-mode:multiply;opacity:.5;pointer-events:none"></div>
+</div>
+<div style="position:relative;overflow:hidden;height:92px;background:#201e1d">
+<div style="position:absolute;inset:0;filter:grayscale(1) contrast(1.2) brightness(.85)"><image-slot id="ft-w2" src="images/lunge.jpg" shape="rect" fit="cover" placeholder=""></image-slot></div>
+<div style="position:absolute;inset:0;background:#ec3013;mix-blend-mode:multiply;opacity:.5;pointer-events:none"></div>
+</div>
+<div style="position:relative;overflow:hidden;height:92px;background:#201e1d">
+<div style="position:absolute;inset:0;filter:grayscale(1) contrast(1.2) brightness(.85)"><image-slot id="ft-w3" src="images/row.jpg" shape="rect" fit="cover" placeholder=""></image-slot></div>
+<div style="position:absolute;inset:0;background:#ec3013;mix-blend-mode:multiply;opacity:.5;pointer-events:none"></div>
+</div>
+</div>
+<div style="flex:none;padding:20px 16px 30px">
+<button onClick="{{ goAuthRegister }}" style="width:100%;display:flex;align-items:center;background:#201e1d;color:#f3f2f2;border:0;padding:18px 16px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#000">Get started</button>
+<button onClick="{{ goAuthSignin }}" style="width:100%;display:flex;align-items:center;background:transparent;border:2px solid rgba(255,255,255,.6);color:#fff;padding:16px;margin-top:10px;cursor:pointer;font:800 12px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#fff;color:#ec3013;border-color:#fff">I have an account</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAuth }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Sign up" style="flex:1;min-height:0;display:flex;flex-direction:column;overflow-y:auto">
+<div style="flex:none;background:#ec3013;color:#fff;padding:64px 16px 22px">
+<div style="font:800 10px/1 Archivo;letter-spacing:.2em;text-transform:uppercase;opacity:.85">Fittrack</div>
+<div style="font:800 33px/1.04 Archivo;letter-spacing:-.025em;margin-top:16px;text-wrap:pretty">Log the load. Beat it next week.</div>
+<div style="font:400 13px/1.45 Archivo;margin-top:12px;color:#ffe0d9;max-width:280px">Your plans, your weights and every personal best, kept on this phone.</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #201e1d">
+<button onClick="{{ setRegister }}" style="{{ regTabStyle }}">Create account</button>
+<button onClick="{{ setSignin }}" style="{{ signTabStyle }}">Sign in</button>
+</div>
+<button onClick="{{ backToWelcome }}" style="display:flex;align-items:center;gap:5px;background:transparent;border:0;padding:12px 16px 0;cursor:pointer;font:600 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d" style-hover="color:#ec3013">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"></path></svg>
+Back
+</button>
+<div style="padding:20px 16px 28px">
+
+<sc-if value="{{ isRegister }}" hint-placeholder-val="{{ true }}">
+<div style="margin-bottom:16px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d">Name</div>
+<input type="text" autocomplete="name" placeholder="Alex Mercer" value="{{ formName }}" onChange="{{ onName }}" style="width:100%;border:2px solid #201e1d;background:#fff;padding:13px 12px;margin-top:8px;font:600 15px/1.2 Archivo">
+</div>
+</sc-if>
+
+<div style="margin-bottom:16px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d">Email</div>
+<input type="email" autocomplete="email" placeholder="you@email.com" value="{{ formEmail }}" onChange="{{ onEmail }}" style="width:100%;border:2px solid #201e1d;background:#fff;padding:13px 12px;margin-top:8px;font:600 15px/1.2 Archivo">
+</div>
+
+<div style="margin-bottom:16px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d">Password</div>
+<input type="password" placeholder="At least 8 characters" value="{{ formPassword }}" onChange="{{ onPassword }}" style="width:100%;border:2px solid #201e1d;background:#fff;padding:13px 12px;margin-top:8px;font:600 15px/1.2 Archivo">
+</div>
+
+<sc-if value="{{ isRegister }}" hint-placeholder-val="{{ true }}">
+<div style="margin-bottom:16px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d">Confirm password</div>
+<input type="password" placeholder="Type it again" value="{{ formConfirm }}" onChange="{{ onConfirm }}" style="width:100%;border:2px solid #201e1d;background:#fff;padding:13px 12px;margin-top:8px;font:600 15px/1.2 Archivo">
+</div>
+</sc-if>
+
+<sc-if value="{{ hasAuthError }}" hint-placeholder-val="{{ false }}">
+<div style="border-left:3px solid #ec3013;background:#fff2ef;padding:10px 12px;margin-bottom:14px;font:600 12px/1.45 Archivo;color:#ae1800">{{ authError }}</div>
+</sc-if>
+
+<button onClick="{{ submitAuth }}" style="width:100%;display:flex;align-items:center;background:#ec3013;color:#fff;border:0;padding:17px 16px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">{{ submitLabel }}</button>
+
+<div style="font:400 11px/1.5 Archivo;color:#605d5d;margin-top:12px;text-wrap:pretty">{{ authFootnote }}</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isOnboard }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Onboarding" style="flex:1;min-height:0;display:flex;flex-direction:column;overflow-y:auto">
+<div style="flex:none;background:#201e1d;color:#f3f2f2;padding:58px 16px 20px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.18em;text-transform:uppercase;color:#ff9783">{{ onboardStepLabel }}</div>
+<div style="font:800 28px/1.06 Archivo;letter-spacing:-.02em;margin-top:12px;text-wrap:pretty">{{ onboardHeading }}</div>
+<div style="font:400 13px/1.45 Archivo;color:#d7d3d3;margin-top:9px;text-wrap:pretty">{{ onboardNote }}</div>
+</div>
+<div style="flex:none;height:5px;background:#d7d3d3"><div style="{{ onboardRailStyle }}"></div></div>
+<div style="flex:1;padding:20px 16px 0">
+
+<sc-if value="{{ stepRole }}" hint-placeholder-val="{{ true }}">
+<div>
+<sc-for list="{{ roleOptions }}" as="r" hint-placeholder-count="3">
+<button onClick="{{ r.pick }}" style="{{ r.style }}">
+<span style="font:800 13px/1.2 Archivo;letter-spacing:.06em;text-transform:uppercase">{{ r.label }}</span>
+<span style="font:400 11px/1.4 Archivo;opacity:.75;margin-top:4px;text-wrap:pretty">{{ r.note }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ stepUnits }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d">Units</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;border:2px solid #201e1d;margin-top:8px">
+<button onClick="{{ setKg }}" style="{{ unitCellKg }}">Kilograms</button>
+<button onClick="{{ setLb }}" style="{{ unitCellLb }}">Pounds</button>
+</div>
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d;margin-top:20px">Bodyweight</div>
+<div style="display:flex;align-items:stretch;border:2px solid #201e1d;margin-top:8px;background:#fff">
+<input type="number" inputmode="decimal" placeholder="0" value="{{ formBodyweight }}" onChange="{{ onBodyweight }}" style="flex:1;min-width:0;border:0;background:transparent;padding:13px 12px;font:800 22px/1 Archivo">
+<div style="flex:none;display:flex;align-items:center;padding:0 14px;border-left:2px solid #201e1d;font:800 12px/1 Archivo;letter-spacing:.1em;color:#605d5d">{{ unitLabel }}</div>
+</div>
+<div style="font:400 11px/1.5 Archivo;color:#605d5d;margin-top:9px">Optional — it gives bodyweight exercises something to measure against.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ stepGoal }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d">Focus</div>
+<sc-for list="{{ goalOptions }}" as="g" hint-placeholder-count="3">
+<button onClick="{{ g.pick }}" style="{{ g.style }}">
+<span style="font:800 12px/1.2 Archivo;letter-spacing:.08em;text-transform:uppercase">{{ g.label }}</span>
+<span style="font:400 11px/1.3 Archivo;opacity:.75;margin-top:3px">{{ g.note }}</span>
+</button>
+</sc-for>
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d;margin-top:20px">Days a week</div>
+<div style="display:flex;border:2px solid #201e1d;margin-top:8px">
+<sc-for list="{{ dayOptions }}" as="d" hint-placeholder-count="5">
+<button onClick="{{ d.pick }}" style="{{ d.style }}">{{ d.label }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+</div>
+<div style="flex:none;padding:20px 16px 30px">
+<button onClick="{{ nextStep }}" style="width:100%;display:flex;align-items:center;background:#ec3013;color:#fff;border:0;padding:17px 16px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">{{ nextLabel }}</button>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px">
+<sc-if value="{{ canGoBack }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ prevStep }}" style="background:transparent;border:0;padding:0;cursor:pointer;font:600 11px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;color:#605d5d" style-hover="color:#ec3013">Back</button>
+</sc-if>
+<button onClick="{{ finishOnboard }}" style="margin-left:auto;background:transparent;border:0;padding:0;cursor:pointer;font:600 11px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;color:#605d5d" style-hover="color:#ec3013">Skip setup</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isToday }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Today" style="flex:1;min-height:0;display:flex;flex-direction:column">
+<div style="flex:none;padding:58px 16px 10px;border-bottom:2px solid rgba(32,30,29,.4);display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+<div>
+<div style="font:800 24px/1 Archivo;letter-spacing:-.02em;text-transform:uppercase">Fittrack</div>
+<div style="font:600 11px/1.4 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ todayLabel }}</div>
+</div>
+<div style="display:flex;border:2px solid #201e1d">
+<button onClick="{{ setKg }}" style="{{ kgStyle }}">KG</button>
+<button onClick="{{ setLb }}" style="{{ lbStyle }}">LB</button>
+</div>
+</div>
+
+<div style="flex:1;overflow-y:auto;padding-bottom:24px">
+
+
+
+<div style="position:relative;width:100%;height:150px;overflow:hidden;background:#201e1d;border-bottom:2px solid rgba(32,30,29,.4)">
+<div style="position:absolute;inset:0;filter:grayscale(1) contrast(1.18) brightness(.85)"><image-slot id="ft-today" src="images/dumbbell.jpg" shape="rect" fit="cover" placeholder="Drop a photo"></image-slot></div>
+<div style="position:absolute;inset:0;background:#ec3013;mix-blend-mode:multiply;opacity:.55;pointer-events:none"></div>
+</div>
+<button onClick="{{ goPlay }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;border:0;border-bottom:2px solid rgba(32,30,29,.4);background:#eae9e9;padding:13px 16px;cursor:pointer" style-hover="background:#fff2ef">
+<span style="min-width:0">
+<span style="display:block;font:800 13px/1.2 Archivo;letter-spacing:.02em">{{ pointsLabel }} · {{ streakLabel }}</span>
+<span style="display:block;font:400 11px/1.3 Archivo;color:#ae1800;margin-top:3px">{{ pushLine }}</span>
+</span>
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ec3013" stroke-width="2.5" style="flex:none"><path d="m9 18 6-6-6-6"></path></svg>
+</button>
+<div style="padding:20px 16px 0">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+<div style="font:800 10px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#605d5d">Your plans</div>
+<button onClick="{{ exportData }}" style="border:0;background:transparent;padding:0;cursor:pointer;font:600 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;color:#ae1800" style-hover="color:#ec3013">Export history</button>
+</div>
+<input type="text" placeholder="Search every exercise" value="{{ queryValue }}" onChange="{{ onQuery }}" style="width:100%;border:1px solid rgba(32,30,29,.25);background:#fff;padding:12px;margin-top:10px;font:400 13px/1.3 Archivo">
+<sc-if value="{{ hasQuery }}" hint-placeholder-val="{{ false }}">
+<div style="border:1px solid rgba(32,30,29,.25);border-top:0;background:#fff">
+<sc-for list="{{ searchResults }}" as="q" hint-placeholder-count="3">
+<button onClick="{{ q.open }}" style="width:100%;display:block;text-align:left;border:0;border-bottom:1px solid rgba(32,30,29,.14);background:transparent;padding:11px 12px;cursor:pointer" style-hover="background:#fff2ef">
+<span style="display:block;font:600 13px/1.2 Archivo">{{ q.name }}</span>
+<span style="display:block;font:400 11px/1.3 Archivo;color:#605d5d;margin-top:3px">{{ q.detail }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+
+<sc-for list="{{ planCards }}" as="p" hint-placeholder-count="2">
+<div onClick="{{ p.open }}" style="margin:12px 16px 0;border:2px solid #201e1d;background:#fff;cursor:pointer" style-hover="border-color:#ec3013">
+<div style="display:flex;align-items:stretch;border-bottom:2px solid #201e1d">
+<div style="width:62px;flex:none;background:#201e1d;color:#f3f2f2;display:flex;flex-direction:column;justify-content:center;padding:12px 10px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;opacity:.7">Day</div>
+<div style="font:800 26px/1 Archivo;margin-top:4px">{{ p.day }}</div>
+</div>
+<div style="flex:1;min-width:0;padding:12px 14px;display:flex;flex-direction:column;justify-content:center">
+<div style="font:800 19px/1.1 Archivo;letter-spacing:-.01em;text-transform:uppercase">{{ p.title }}</div>
+<div style="font:400 12px/1.35 Archivo;color:#605d5d;margin-top:4px">{{ p.summary }}</div>
+</div>
+</div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:9px 14px">
+<div style="font:600 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d">{{ p.count }} exercises</div>
+<div style="font:600 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#ec3013">{{ p.status }}</div>
+</div>
+</div>
+</sc-for>
+
+<div style="padding:20px 16px 0">
+<button onClick="{{ openAdd }}" style="width:100%;display:flex;align-items:center;gap:10px;background:#ec3013;color:#fff;border:0;padding:16px 16px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+Add a plan
+</button>
+<div style="font:400 11px/1.5 Archivo;color:#605d5d;margin-top:8px">Photograph a written plan, upload a file, or build one by hand.</div>
+</div>
+
+<div style="margin:26px 16px 0;border-top:2px solid rgba(32,30,29,.4);padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+<div style="min-width:0">
+<div style="font:600 13px/1.2 Archivo">{{ userName }}</div>
+<div style="font:400 11px/1.3 Archivo;color:#605d5d;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ userMeta }}</div>
+</div>
+<button onClick="{{ signOut }}" style="flex:none;border:2px solid #201e1d;background:transparent;padding:9px 12px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#201e1d;color:#f3f2f2">Sign out</button>
+</div>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Plan" style="flex:1;min-height:0;display:flex;flex-direction:column">
+<div style="flex:none;padding:54px 16px 10px;border-bottom:2px solid rgba(32,30,29,.4)">
+<button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:5px;background:none;border:0;padding:0 0 8px;cursor:pointer;font:600 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d" style-hover="color:#ec3013">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"></path></svg>
+All plans
+</button>
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px">
+<div style="font:800 26px/1.05 Archivo;letter-spacing:-.02em;text-transform:uppercase">{{ planTitle }}</div>
+<div style="font:600 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d;padding-bottom:4px">Day {{ planDay }}</div>
+</div>
+<button onClick="{{ startPlanSession }}" style="width:100%;display:flex;align-items:center;gap:8px;background:#ec3013;color:#fff;border:0;padding:14px;margin-top:12px;cursor:pointer;font:800 12px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21"></polygon></svg>
+Start guided session
+</button>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+<button onClick="{{ completeSession }}" style="display:flex;align-items:center;background:transparent;border:2px solid #201e1d;padding:12px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#201e1d;color:#f3f2f2">Mark done</button>
+<button onClick="{{ askDeletePlan }}" style="display:flex;align-items:center;background:transparent;border:2px solid rgba(32,30,29,.3);padding:12px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;color:#605d5d" style-hover="background:#ec3013;border-color:#ec3013;color:#fff">Delete plan</button>
+</div>
+<sc-if value="{{ confirmPlanOpen }}" hint-placeholder-val="{{ false }}">
+<div style="border-left:3px solid #ec3013;background:#fff2ef;padding:11px 13px;margin-top:8px">
+<div style="font:600 12px/1.45 Archivo;color:#ae1800">Delete this plan and everything logged against it?</div>
+<div style="display:flex;gap:8px;margin-top:9px">
+<button onClick="{{ deletePlan }}" style="background:#ec3013;color:#fff;border:0;padding:9px 12px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#ae1800">Delete</button>
+<button onClick="{{ cancelDeletePlan }}" style="background:transparent;border:1px solid rgba(32,30,29,.3);padding:9px 12px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#201e1d;color:#f3f2f2">Keep it</button>
+</div>
+</div>
+</sc-if>
+</div>
+<div style="flex:1;overflow-y:auto;padding-bottom:24px">
+<div style="position:relative;width:100%;height:130px;overflow:hidden;background:#201e1d;border-bottom:2px solid rgba(32,30,29,.4)">
+<div style="position:absolute;inset:0;filter:grayscale(1) contrast(1.18) brightness(.85)"><image-slot id="ft-plan" src="images/curl.jpg" shape="rect" fit="cover" placeholder="Drop a photo"></image-slot></div>
+<div style="position:absolute;inset:0;background:#ec3013;mix-blend-mode:multiply;opacity:.5;pointer-events:none"></div>
+</div>
+<sc-for list="{{ planSections }}" as="sec" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:16px 16px 8px;border-bottom:2px solid #201e1d;margin-top:6px">
+<div style="font:800 11px/1 Archivo;letter-spacing:.14em;text-transform:uppercase">{{ sec.title }}</div>
+<div style="font:600 10px/1 Archivo;letter-spacing:.1em;color:#605d5d">{{ sec.count }}</div>
+</div>
+<sc-for list="{{ sec.exercises }}" as="ex" hint-placeholder-count="3">
+<div style="display:flex;align-items:stretch;border-bottom:1px solid rgba(32,30,29,.18);background:#fff">
+<div onClick="{{ ex.open }}" style="flex:1;min-width:0;padding:13px 12px 13px 16px;cursor:pointer" style-hover="background:#fff2ef">
+<div style="font:600 15px/1.25 Archivo;text-wrap:pretty">{{ ex.name }}</div>
+<div style="font:400 12px/1.3 Archivo;color:#605d5d;margin-top:3px">{{ ex.prescription }}</div>
+<sc-if value="{{ ex.hasNudge }}" hint-placeholder-val="{{ false }}">
+<div style="display:inline-flex;align-items:center;gap:6px;margin-top:7px;border-left:3px solid #ec3013;padding:3px 8px;background:#fff2ef">
+<span style="font:800 10px/1.3 Archivo;letter-spacing:.06em;text-transform:uppercase;color:#ae1800">{{ ex.nudge }}</span>
+</div>
+</sc-if>
+</div>
+<div style="flex:none;display:flex;flex-direction:column;border-left:1px solid rgba(32,30,29,.18)">
+<button onClick="{{ ex.up }}" title="Move up" style="flex:1;width:34px;border:0;border-bottom:1px solid rgba(32,30,29,.18);background:#f3f2f2;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#605d5d" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m18 15-6-6-6 6"></path></svg>
+</button>
+<button onClick="{{ ex.down }}" title="Move down" style="flex:1;width:34px;border:0;background:#f3f2f2;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#605d5d" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"></path></svg>
+</button>
+</div>
+<button onClick="{{ ex.watch }}" title="Watch demo" style="flex:none;width:50px;border:0;border-left:1px solid rgba(32,30,29,.18);background:#f3f2f2;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#201e1d" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21"></polygon></svg>
+</button>
+</div>
+</sc-for>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isExercise }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Exercise" style="flex:1;min-height:0;display:flex;flex-direction:column">
+<div style="flex:none;padding:54px 16px 10px;border-bottom:2px solid rgba(32,30,29,.4)">
+<button onClick="{{ backToPlan }}" style="display:flex;align-items:center;gap:5px;background:none;border:0;padding:0 0 8px;cursor:pointer;font:600 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d" style-hover="color:#ec3013">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"></path></svg>
+{{ exBackLabel }}
+</button>
+<sc-if value="{{ isEditing }}" hint-placeholder-val="{{ false }}">
+<div>
+<input type="text" value="{{ editValue }}" onChange="{{ onEditName }}" style="width:100%;border:2px solid #201e1d;background:#fff;padding:11px 12px;font:600 16px/1.2 Archivo">
+<div style="display:flex;gap:8px;margin-top:8px">
+<button onClick="{{ saveRename }}" style="background:#ec3013;color:#fff;border:0;padding:10px 13px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">Save name</button>
+<button onClick="{{ cancelRename }}" style="background:transparent;border:1px solid rgba(32,30,29,.3);padding:10px 13px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#201e1d;color:#f3f2f2">Cancel</button>
+<button onClick="{{ deleteExercise }}" style="margin-left:auto;background:transparent;border:1px solid rgba(32,30,29,.3);padding:10px 13px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;color:#605d5d" style-hover="background:#ec3013;border-color:#ec3013;color:#fff">Delete</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ notEditing }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+<div style="min-width:0">
+<div style="font:800 22px/1.1 Archivo;letter-spacing:-.01em;text-wrap:pretty">{{ exName }}</div>
+<div style="font:400 12px/1.3 Archivo;color:#605d5d;margin-top:5px">{{ exPrescription }}</div>
+</div>
+<button onClick="{{ startRename }}" title="Edit" style="flex:none;width:34px;height:34px;border:1px solid rgba(32,30,29,.25);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#605d5d" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg>
+</button>
+</div>
+</sc-if>
+</div>
+<div style="flex:1;overflow-y:auto;padding-bottom:28px">
+
+<div onClick="{{ watchEx }}" style="position:relative;background:#201e1d;aspect-ratio:16/9;display:flex;flex-direction:column;justify-content:flex-end;padding:14px 16px;cursor:pointer" style-hover="background:#2d2b2b">
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+<div style="width:56px;height:56px;background:#ec3013;display:flex;align-items:center;justify-content:center;color:#fff">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21"></polygon></svg>
+</div>
+</div>
+<div style="position:relative;font:800 11px/1.3 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#f3f2f2">Watch demo on YouTube</div>
+<div style="position:relative;font:400 11px/1.3 Archivo;color:#bab6b6;margin-top:3px">Opens a search for this exercise</div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid rgba(32,30,29,.4)">
+<sc-for list="{{ exFacts }}" as="f" hint-placeholder-count="4">
+<div style="padding:12px 14px;border-right:1px solid rgba(32,30,29,.18);border-bottom:1px solid rgba(32,30,29,.18)">
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d">{{ f.label }}</div>
+<div style="font:800 17px/1.1 Archivo;margin-top:5px">{{ f.value }}</div>
+</div>
+</sc-for>
+</div>
+
+<sc-if value="{{ exLoggable }}" hint-placeholder-val="{{ true }}">
+<div>
+<sc-if value="{{ hasLast }}" hint-placeholder-val="{{ true }}">
+<div style="background:#201e1d;color:#f3f2f2;padding:16px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#ff9783">Last session</div>
+<div style="font:800 28px/1.05 Archivo;margin-top:8px">{{ lastLine }}</div>
+<div style="font:400 12px/1.4 Archivo;color:#d7d3d3;margin-top:6px;text-wrap:pretty">{{ nudgeLine }}</div>
+</div>
+</sc-if>
+
+<div style="padding:18px 16px 0">
+<sc-if value="{{ showWatch }}" hint-placeholder-val="{{ false }}">
+<div style="background:#201e1d;color:#f3f2f2;padding:16px;margin:0 -16px 18px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#ff9783">Stopwatch</div>
+<div style="font:400 10px/1 Archivo;color:#bab6b6">{{ watchTargetLine }}</div>
+</div>
+<div style="font:800 56px/1 Archivo;letter-spacing:-.035em;margin-top:10px;font-variant-numeric:tabular-nums">{{ watchClock }}</div>
+<div style="{{ watchPaceStyle }}">{{ watchPaceLine }}</div>
+<div style="display:flex;gap:8px;margin-top:14px">
+<sc-if value="{{ watchIdle }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ startWatch }}" style="flex:1;display:flex;align-items:center;background:#ec3013;color:#fff;border:0;padding:15px;cursor:pointer;font:800 12px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#ff563c">{{ watchStartLabel }}</button>
+</sc-if>
+<sc-if value="{{ watchRunning }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ stopWatch }}" style="flex:1;display:flex;align-items:center;background:#f3f2f2;color:#201e1d;border:0;padding:15px;cursor:pointer;font:800 12px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#fff">Stop</button>
+</sc-if>
+<sc-if value="{{ watchHasTime }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ saveWatch }}" style="flex:1;display:flex;align-items:center;background:#ec3013;color:#fff;border:0;padding:15px;cursor:pointer;font:800 12px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#ff563c">Save time</button>
+</sc-if>
+<button onClick="{{ resetWatch }}" style="flex:none;border:1px solid rgba(243,242,242,.4);background:transparent;color:#f3f2f2;padding:15px 14px;cursor:pointer;font:800 11px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#f3f2f2;color:#201e1d">Reset</button>
+</div>
+</div>
+</sc-if>
+
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+<div style="font:800 10px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#605d5d">{{ logLabel }}</div>
+<sc-if value="{{ canChangeMetric }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ changeMetric }}" style="border:0;background:transparent;padding:0;cursor:pointer;font:600 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;color:#ae1800" style-hover="color:#ec3013">Change</button>
+</sc-if>
+</div>
+<div style="display:flex;align-items:stretch;border:2px solid #201e1d;margin-top:10px;background:#fff">
+<input type="number" step="0.5" min="0" inputmode="decimal" placeholder="0" value="{{ inputVal }}" onChange="{{ onInput }}" style="flex:1;min-width:0;border:0;background:transparent;padding:14px 14px;font:800 30px/1 Archivo;letter-spacing:-.02em">
+<div style="flex:none;display:flex;align-items:center;padding:0 14px;border-left:2px solid #201e1d;font:800 13px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;color:#605d5d">{{ exUnitLabel }}</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;margin-top:10px;border:1px solid rgba(32,30,29,.25)">
+<sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+<button onClick="{{ s.apply }}" style="border:0;border-right:1px solid rgba(32,30,29,.25);background:#eae9e9;padding:13px 4px;cursor:pointer;font:800 13px/1 Archivo" style-hover="background:#201e1d;color:#f3f2f2">{{ s.label }}</button>
+</sc-for>
+</div>
+<button onClick="{{ saveWeight }}" style="width:100%;display:flex;align-items:center;gap:8px;background:#ec3013;color:#fff;border:0;padding:16px;margin-top:10px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">Save this set</button>
+<input type="text" placeholder="Note — felt heavy, shoulder tight…" value="{{ noteValue }}" onChange="{{ onNote }}" style="width:100%;border:1px solid rgba(32,30,29,.25);background:#fff;padding:12px;margin-top:10px;font:400 13px/1.3 Archivo">
+
+<div style="display:flex;align-items:center;gap:8px;margin-top:14px">
+<div style="flex:none;font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d">Rest</div>
+<sc-for list="{{ restOptions }}" as="r" hint-placeholder-count="3">
+<button onClick="{{ r.start }}" style="flex:1;border:1px solid rgba(32,30,29,.25);background:#eae9e9;padding:11px 4px;cursor:pointer;font:800 11px/1 Archivo;letter-spacing:.06em" style-hover="background:#201e1d;color:#f3f2f2">{{ r.label }}</button>
+</sc-for>
+</div>
+</div>
+
+<sc-if value="{{ hasStats }}" hint-placeholder-val="{{ false }}">
+<div style="margin:22px 0 0;border-top:2px solid rgba(32,30,29,.4)">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr">
+<sc-for list="{{ statCells }}" as="c" hint-placeholder-count="3">
+<div style="padding:12px 14px;border-right:1px solid rgba(32,30,29,.18);border-bottom:2px solid rgba(32,30,29,.4)">
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d">{{ c.label }}</div>
+<div style="font:800 18px/1 Archivo;margin-top:6px;color:{{ c.accent }}">{{ c.value }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<div style="padding:22px 16px 0">
+<div style="display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid #201e1d;padding-bottom:8px">
+<div style="font:800 11px/1 Archivo;letter-spacing:.14em;text-transform:uppercase">History</div>
+<div style="font:600 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;color:#ae1800">{{ exBestLabel }}</div>
+</div>
+<sc-if value="{{ hasChart }}" hint-placeholder-val="{{ false }}">
+<div style="padding:14px 0 6px;border-bottom:1px solid rgba(32,30,29,.18)">{{ exChart }}</div>
+</sc-if>
+<sc-for list="{{ exHistory }}" as="h" hint-placeholder-count="2">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.18)">
+<div style="min-width:0">
+<div style="font:600 13px/1.2 Archivo">{{ h.date }}</div>
+<div style="font:400 11px/1.2 Archivo;color:#605d5d;margin-top:2px">{{ h.ago }}</div>
+<sc-if value="{{ h.hasNote }}" hint-placeholder-val="{{ false }}">
+<div style="font:400 11px/1.35 Archivo;color:#ae1800;margin-top:4px;text-wrap:pretty">{{ h.note }}</div>
+</sc-if>
+</div>
+<div style="display:flex;align-items:center;gap:10px;flex:none">
+<span style="font:600 11px/1 Archivo;letter-spacing:.04em;color:{{ h.deltaColor }}">{{ h.delta }}</span>
+<span style="font:800 16px/1 Archivo">{{ h.weight }}</span>
+<button onClick="{{ h.remove }}" title="Delete entry" style="width:26px;height:26px;border:1px solid rgba(32,30,29,.25);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#605d5d" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{ noHistory }}" hint-placeholder-val="{{ false }}">
+<div style="padding:18px 0;font:400 12px/1.5 Archivo;color:#605d5d">Nothing logged yet. Save your first set and the app will remind you of it next time.</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ exNotLoggable }}" hint-placeholder-val="{{ false }}">
+<div style="padding:20px 16px 26px">
+<div style="font:800 10px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#605d5d">Start a record</div>
+<div style="font:400 13px/1.5 Archivo;color:#201e1d;margin-top:8px;text-wrap:pretty">This exercise has no load or clock set yet. Pick what you want to track and the app will keep your best, average and history for it.</div>
+<div style="margin-top:14px">
+<sc-for list="{{ metricOptions }}" as="m" hint-placeholder-count="3">
+<button onClick="{{ m.pick }}" style="{{ m.style }}">
+<span style="font:800 12px/1.2 Archivo;letter-spacing:.08em;text-transform:uppercase">{{ m.label }}</span>
+<span style="font:400 11px/1.3 Archivo;opacity:.75;margin-top:3px">{{ m.note }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isClients }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Clients" style="flex:1;min-height:0;display:flex;flex-direction:column">
+<div style="flex:none;padding:58px 16px 10px;border-bottom:2px solid rgba(32,30,29,.4);display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+<div>
+<div style="font:800 24px/1 Archivo;letter-spacing:-.02em;text-transform:uppercase">Clients</div>
+<div style="font:600 10px/1.4 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d;margin-top:6px">{{ rosterHeadline }}</div>
+</div>
+<div style="font:800 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;color:#ae1800;padding-bottom:4px">{{ attentionCount }}</div>
+</div>
+<div style="flex:1;overflow-y:auto;padding-bottom:24px">
+<sc-for list="{{ clientRows }}" as="c" hint-placeholder-count="6">
+<div onClick="{{ c.open }}" style="display:flex;align-items:stretch;border-bottom:1px solid rgba(32,30,29,.18);background:#fff;cursor:pointer" style-hover="background:#fff2ef">
+<div style="{{ c.markStyle }}">{{ c.initials }}</div>
+<div style="flex:1;min-width:0;padding:12px 14px">
+<div style="font:800 15px/1.2 Archivo;letter-spacing:-.01em">{{ c.name }}</div>
+<div style="font:400 11px/1.35 Archivo;color:#605d5d;margin-top:3px">{{ c.focus }} · {{ c.plan }}</div>
+<div style="font:600 11px/1.3 Archivo;color:#201e1d;margin-top:5px">{{ c.last }}</div>
+<sc-if value="{{ c.hasFlag }}" hint-placeholder-val="{{ false }}">
+<div style="display:inline-block;margin-top:7px;border-left:3px solid #ec3013;padding:3px 8px;background:#fff2ef;font:800 10px/1.3 Archivo;letter-spacing:.06em;text-transform:uppercase;color:#ae1800">{{ c.flag }}</div>
+</sc-if>
+</div>
+</div>
+</sc-for>
+<div style="padding:18px 16px 0;font:400 11px/1.5 Archivo;color:#605d5d;text-wrap:pretty">Demo roster held on this device. Real client sync needs a server.</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isClient }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Client" style="flex:1;min-height:0;display:flex;flex-direction:column">
+<div style="flex:none;padding:54px 16px 12px;border-bottom:2px solid rgba(32,30,29,.4)">
+<button onClick="{{ backToRoster }}" style="display:flex;align-items:center;gap:5px;background:none;border:0;padding:0 0 8px;cursor:pointer;font:600 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d" style-hover="color:#ec3013">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"></path></svg>
+All clients
+</button>
+<div style="font:800 26px/1.05 Archivo;letter-spacing:-.02em;text-wrap:pretty">{{ clientName }}</div>
+<div style="font:400 12px/1.3 Archivo;color:#605d5d;margin-top:5px">{{ clientFocus }}</div>
+</div>
+<div style="flex:1;overflow-y:auto;padding-bottom:28px">
+
+<sc-if value="{{ clientHasFlags }}" hint-placeholder-val="{{ false }}">
+<div style="background:#ec3013;color:#fff;padding:14px 16px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;opacity:.85">Needs a look</div>
+<sc-for list="{{ clientFlags }}" as="fl" hint-placeholder-count="1">
+<div style="font:800 16px/1.25 Archivo;margin-top:7px;text-wrap:pretty">{{ fl }}</div>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:2px solid rgba(32,30,29,.4)">
+<sc-for list="{{ clientStatCells }}" as="c" hint-placeholder-count="3">
+<div style="padding:12px 12px;border-right:1px solid rgba(32,30,29,.18)">
+<div style="font:600 9px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d">{{ c.label }}</div>
+<div style="font:800 18px/1 Archivo;margin-top:6px">{{ c.value }}</div>
+</div>
+</sc-for>
+</div>
+
+<div style="padding:18px 16px 8px;border-bottom:2px solid #201e1d;font:800 11px/1 Archivo;letter-spacing:.14em;text-transform:uppercase">Personal bests</div>
+<sc-for list="{{ clientBests }}" as="b" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;border-bottom:1px solid rgba(32,30,29,.18);background:#fff">
+<div style="min-width:0">
+<div style="font:600 13px/1.25 Archivo;text-wrap:pretty">{{ b.name }}</div>
+<div style="font:400 11px/1.3 Archivo;color:#605d5d;margin-top:3px">{{ b.latest }}</div>
+</div>
+<div style="flex:none;text-align:right">
+<div style="font:800 15px/1 Archivo">{{ b.best }}</div>
+<div style="font:600 10px/1 Archivo;letter-spacing:.06em;text-transform:uppercase;margin-top:4px;color:{{ b.dirColor }}">{{ b.dirLabel }}</div>
+</div>
+</div>
+</sc-for>
+
+<div style="padding:18px 16px 8px;border-bottom:2px solid #201e1d;font:800 11px/1 Archivo;letter-spacing:.14em;text-transform:uppercase">Recent sets</div>
+<sc-for list="{{ clientSets }}" as="e" hint-placeholder-count="4">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid rgba(32,30,29,.14);background:#fff">
+<span style="font:600 13px/1.25 Archivo;min-width:0;text-wrap:pretty">{{ e.name }}</span>
+<span style="flex:none;font:400 11px/1.2 Archivo;color:#605d5d">{{ e.value }} · {{ e.ago }}</span>
+</div>
+</sc-for>
+
+<div style="padding:18px 16px 0">
+<button onClick="{{ openAssign }}" style="width:100%;display:flex;align-items:center;gap:8px;background:#ec3013;color:#fff;border:0;padding:16px;cursor:pointer;font:800 12px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+Assign a plan
+</button>
+<sc-if value="{{ assignOpen }}" hint-placeholder-val="{{ false }}">
+<div style="border:2px solid #201e1d;margin-top:10px;background:#fff">
+<sc-for list="{{ assignOptions }}" as="a" hint-placeholder-count="2">
+<button onClick="{{ a.pick }}" style="width:100%;display:block;text-align:left;border:0;border-bottom:1px solid rgba(32,30,29,.18);background:transparent;padding:12px 14px;cursor:pointer" style-hover="background:#fff2ef">
+<span style="display:block;font:600 13px/1.2 Archivo">{{ a.label }}</span>
+<span style="display:block;font:400 11px/1.3 Archivo;color:#605d5d;margin-top:3px">{{ a.detail }}</span>
+</button>
+</sc-for>
+<button onClick="{{ cancelAssign }}" style="width:100%;border:0;background:#eae9e9;padding:11px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d" style-hover="background:#201e1d;color:#f3f2f2">Cancel</button>
+</div>
+</sc-if>
+</div>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isPlay }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Play" style="flex:1;min-height:0;display:flex;flex-direction:column">
+<div style="flex:none;padding:58px 16px 10px;border-bottom:2px solid rgba(32,30,29,.4)">
+<div style="font:800 24px/1 Archivo;letter-spacing:-.02em;text-transform:uppercase">Play</div>
+<div style="font:600 10px/1.4 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d;margin-top:6px">{{ levelLabel }} · {{ levelTitle }}</div>
+</div>
+<div style="flex:1;overflow-y:auto;padding-bottom:24px">
+<div style="position:relative;width:100%;height:140px;overflow:hidden;background:#201e1d;border-bottom:2px solid rgba(32,30,29,.4)">
+<div style="position:absolute;inset:0;filter:grayscale(1) contrast(1.18) brightness(.85)"><image-slot id="ft-play" src="images/kettlebells.jpg" shape="rect" fit="cover" placeholder="Drop a photo"></image-slot></div>
+<div style="position:absolute;inset:0;background:#ec3013;mix-blend-mode:multiply;opacity:.55;pointer-events:none"></div>
+</div>
+<sc-if value="{{ showRecap }}" hint-placeholder-val="{{ true }}">
+<div style="background:#ec3013;color:#fff;padding:18px 16px 20px">
+<div style="font:800 10px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;opacity:.85">This week</div>
+<div style="font:800 30px/1.05 Archivo;letter-spacing:-.02em;margin-top:10px;text-wrap:pretty">{{ recapHeadline }}</div>
+<sc-if value="{{ hasRecapNames }}" hint-placeholder-val="{{ false }}">
+<div style="font:600 13px/1.4 Archivo;color:#ffe0d9;margin-top:8px;text-wrap:pretty">On {{ recapNames }}</div>
+</sc-if>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;margin-top:16px;border-top:2px solid rgba(255,255,255,.45)">
+<div style="padding:10px 8px 0 0"><div style="font:800 20px/1 Archivo">{{ recapDays }}</div><div style="font:600 9px/1.3 Archivo;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-top:5px">Days</div></div>
+<div style="padding:10px 8px 0;border-left:2px solid rgba(255,255,255,.45)"><div style="font:800 20px/1 Archivo">{{ recapSets }}</div><div style="font:600 9px/1.3 Archivo;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-top:5px">Sets</div></div>
+<div style="padding:10px 8px 0;border-left:2px solid rgba(255,255,255,.45)"><div style="font:800 20px/1 Archivo">{{ recapPrs }}</div><div style="font:600 9px/1.3 Archivo;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-top:5px">New PRs</div></div>
+<div style="padding:10px 0 0 8px;border-left:2px solid rgba(255,255,255,.45)"><div style="font:800 20px/1 Archivo">{{ recapVolume }}</div><div style="font:600 9px/1.3 Archivo;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-top:5px">Heaviest</div></div>
+</div>
+</div>
+</sc-if>
+<div style="display:flex;align-items:stretch;border-bottom:2px solid rgba(32,30,29,.4);margin-top:18px">
+<div style="flex:1;min-width:0;padding:12px 14px 12px 16px;border-right:1px solid rgba(32,30,29,.18)">
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d">{{ levelLabel }} · {{ levelTitle }}</div>
+<div style="font:800 26px/1 Archivo;margin-top:6px">{{ pointsLabel }}</div>
+<div style="height:5px;background:#d7d3d3;margin-top:9px"><div style="{{ levelBarStyle }}"></div></div>
+<div style="font:400 10px/1.3 Archivo;color:#605d5d;margin-top:6px">{{ toNextLevel }}</div>
+</div>
+<div style="width:120px;flex:none;padding:12px 16px 12px 14px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d">Streak</div>
+<div style="font:800 20px/1.1 Archivo;margin-top:6px;color:#ae1800">{{ streakLabel }}</div>
+<div style="font:400 10px/1.3 Archivo;color:#605d5d;margin-top:6px">{{ streakNote }}</div>
+</div>
+</div>
+
+<div style="padding:18px 16px 0">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+<div style="font:800 10px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#605d5d">This week's card</div>
+<div style="font:600 10px/1 Archivo;letter-spacing:.08em;text-transform:uppercase;color:#ae1800">{{ weekDone }}</div>
+</div>
+<div style="border:2px solid #201e1d;margin-top:10px">
+<sc-for list="{{ weekTasks }}" as="t" hint-placeholder-count="5">
+<div style="{{ t.rowStyle }}">
+<div style="{{ t.markStyle }}">{{ t.mark }}</div>
+<div style="flex:1;min-width:0;font:600 13px/1.25 Archivo">{{ t.label }}</div>
+<div style="flex:none;font:600 11px/1 Archivo;color:#605d5d">{{ t.progress }}</div>
+</div>
+</sc-for>
+<div style="padding:10px 14px;background:#201e1d;color:#f3f2f2;font:800 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase">{{ weekPoints }}</div>
+</div>
+</div>
+
+<div style="padding:18px 16px 0">
+<div style="font:800 10px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#605d5d">Play</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;margin-top:10px;border:2px solid #201e1d">
+<button onClick="{{ openGhost }}" style="display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:5px;border:0;border-right:1px solid rgba(32,30,29,.2);border-bottom:1px solid rgba(32,30,29,.2);background:#fff;padding:14px;cursor:pointer" style-hover="background:#fff2ef">
+<span style="font:800 12px/1.2 Archivo;letter-spacing:.06em;text-transform:uppercase">Beat your ghost</span>
+<span style="font:400 11px/1.35 Archivo;color:#605d5d">Race your best time live</span>
+</button>
+<button onClick="{{ openWheel }}" style="display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:5px;border:0;border-bottom:1px solid rgba(32,30,29,.2);background:#fff;padding:14px;cursor:pointer" style-hover="background:#fff2ef">
+<span style="font:800 12px/1.2 Archivo;letter-spacing:.06em;text-transform:uppercase">Spin a finisher</span>
+<span style="font:400 11px/1.35 Archivo;color:#605d5d">One random gut-punch</span>
+</button>
+<button onClick="{{ openRounds }}" style="grid-column:1 / -1;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:5px;border:0;border-bottom:1px solid rgba(32,30,29,.2);background:#fff;padding:14px;cursor:pointer" style-hover="background:#fff2ef">
+<span style="font:800 12px/1.2 Archivo;letter-spacing:.06em;text-transform:uppercase">Round timer</span>
+<span style="font:400 11px/1.35 Archivo;color:#605d5d">Boxing and MMA rounds — work, rest, automatic bells</span>
+</button>
+<div style="grid-column:1 / -1;padding:14px;background:#fff;border-bottom:1px solid rgba(32,30,29,.2)">
+<div style="font:800 12px/1.2 Archivo;letter-spacing:.06em;text-transform:uppercase">You vs last week</div>
+<div style="font:400 11px/1.35 Archivo;color:#605d5d;margin-top:4px">{{ rivalLine }}</div>
+<div style="display:flex;flex-direction:column;gap:5px;margin-top:10px">
+<div style="{{ rivalBarYou }}"></div>
+<div style="{{ rivalBarThem }}"></div>
+</div>
+<div style="font:800 10px/1.3 Archivo;letter-spacing:.06em;text-transform:uppercase;color:#ae1800;margin-top:9px">{{ rivalVerdict }}</div>
+</div>
+<sc-if value="{{ hasWeeklyChallenge }}" hint-placeholder-val="{{ false }}">
+<div style="grid-column:1 / -1;padding:14px;background:#ec3013;color:#fff">
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;opacity:.85">Challenge of the week</div>
+<div style="font:800 18px/1.15 Archivo;margin-top:7px;text-wrap:pretty">{{ weeklyChallenge }}</div>
+<div style="font:400 11px/1.4 Archivo;margin-top:5px;color:#ffe0d9;text-wrap:pretty">{{ weeklyChallengeNote }}</div>
+<button onClick="{{ acceptChallenge }}" style="margin-top:11px;background:#fff;color:#201e1d;border:0;padding:11px 14px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#201e1d;color:#fff">Accept it</button>
+</div>
+</sc-if>
+</div>
+</div>
+
+<div style="padding:18px 16px 0">
+<div style="font:800 10px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#605d5d">Your best weeks</div>
+<div style="border:2px solid #201e1d;margin-top:10px">
+<sc-for list="{{ leaderRows }}" as="l" hint-placeholder-count="3">
+<div style="{{ l.style }}">
+<div style="flex:none;font:800 15px/1 Archivo;color:#ae1800;width:24px">{{ l.rank }}</div>
+<div style="flex:1;min-width:0">
+<div style="font:600 12px/1.2 Archivo">{{ l.label }}</div>
+<div style="font:400 10px/1.3 Archivo;color:#605d5d;margin-top:2px">{{ l.detail }}</div>
+</div>
+<div style="flex:none;font:800 13px/1 Archivo">{{ l.points }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="padding:18px 16px 0">
+<div style="font:800 10px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#605d5d">Badges</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:2px solid rgba(32,30,29,.4);border-left:1px solid rgba(32,30,29,.18);margin-top:10px">
+<sc-for list="{{ badgeCells }}" as="b" hint-placeholder-count="6">
+<div style="{{ b.style }}">{{ b.label }}</div>
+</sc-for>
+</div>
+</div>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTrending }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Trending" style="flex:1;min-height:0;display:flex;flex-direction:column">
+<div style="flex:none;padding:58px 16px 10px;border-bottom:2px solid rgba(32,30,29,.4);display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+<div>
+<div style="font:800 24px/1 Archivo;letter-spacing:-.02em;text-transform:uppercase">Trending</div>
+<div style="font:600 10px/1.4 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d;margin-top:6px">{{ trendsMeta }}</div>
+</div>
+<button onClick="{{ refreshTrends }}" style="flex:none;border:2px solid #201e1d;background:transparent;padding:9px 11px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#201e1d;color:#f3f2f2">Refresh</button>
+</div>
+<div style="flex:1;overflow-y:auto;padding-bottom:24px">
+
+<div style="position:relative;width:100%;height:120px;overflow:hidden;background:#201e1d;border-bottom:2px solid rgba(32,30,29,.4)">
+<div style="position:absolute;inset:0;filter:grayscale(1) contrast(1.18) brightness(.85)"><image-slot id="ft-trending" src="images/pulldown.jpg" shape="rect" fit="cover" placeholder="Drop a photo"></image-slot></div>
+<div style="position:absolute;inset:0;background:#ec3013;mix-blend-mode:multiply;opacity:.5;pointer-events:none"></div>
+</div>
+<div style="{{ liveStyle }}">{{ liveSources }}</div>
+
+<sc-if value="{{ trendsBusy }}" hint-placeholder-val="{{ false }}">
+<div style="padding:20px 16px">
+<div style="font:800 20px/1.15 Archivo;letter-spacing:-.01em;text-wrap:pretty">Pulling what people are training right now.</div>
+<div style="height:4px;background:#d7d3d3;margin-top:16px;overflow:hidden"><div style="height:100%;width:100%;background:#ec3013;animation:ftbar 1.1s linear infinite"></div></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ trendsError }}" hint-placeholder-val="{{ false }}">
+<div style="margin:16px;border-left:3px solid #ec3013;background:#fff2ef;padding:12px 14px;font:400 12px/1.5 Archivo;color:#ae1800">{{ trendsErrorText }}</div>
+</sc-if>
+
+<sc-for list="{{ trendCards }}" as="t" hint-placeholder-count="3">
+<div style="border-bottom:1px solid rgba(32,30,29,.18);background:#fff">
+<div onClick="{{ t.toggle }}" style="display:flex;align-items:stretch;cursor:pointer" style-hover="background:#fff2ef">
+<div style="width:54px;flex:none;background:#201e1d;color:#f3f2f2;display:flex;align-items:center;justify-content:flex-start;padding:14px 0 14px 14px;font:800 22px/1 Archivo">{{ t.rank }}</div>
+<div style="flex:1;min-width:0;padding:13px 14px">
+<div style="font:800 16px/1.15 Archivo;letter-spacing:-.01em;text-wrap:pretty">{{ t.title }}</div>
+<div style="font:400 12px/1.4 Archivo;color:#605d5d;margin-top:4px;text-wrap:pretty">{{ t.blurb }}</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:9px">
+<span style="font:800 9px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;background:#fff2ef;color:#ae1800;padding:5px 7px">{{ t.tag }}</span>
+<span style="font:800 9px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;background:#eae9e9;color:#605d5d;padding:5px 7px">{{ t.level }}</span>
+<span style="font:800 9px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;background:#eae9e9;color:#605d5d;padding:5px 7px">{{ t.minutes }}</span>
+</div>
+<sc-if value="{{ t.hasSignal }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:baseline;gap:7px;margin-top:9px;border-left:3px solid #ec3013;padding:3px 8px;background:#fff2ef">
+<span style="font:600 10px/1.35 Archivo;color:#ae1800;text-wrap:pretty">{{ t.signal }}</span>
+</div>
+</sc-if>
+</div>
+</div>
+<sc-if value="{{ t.open }}" hint-placeholder-val="{{ false }}">
+<div style="border-top:1px solid rgba(32,30,29,.18);background:#f3f2f2">
+<sc-for list="{{ t.exercises }}" as="e" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:12px;padding:8px 8px 8px 14px;border-bottom:1px solid rgba(32,30,29,.12)">
+<div style="flex:1;min-width:0">
+<div style="font:600 13px/1.25 Archivo;text-wrap:pretty">{{ e.name }}</div>
+<div style="font:400 11px/1.2 Archivo;color:#605d5d;margin-top:2px">{{ e.detail }}</div>
+</div>
+<button onClick="{{ e.watch }}" title="Watch demo" style="flex:none;width:40px;height:40px;border:1px solid rgba(32,30,29,.2);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#201e1d" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21"></polygon></svg>
+</button>
+</div>
+</sc-for>
+<div style="padding:12px 14px 16px">
+<button onClick="{{ t.add }}" style="width:100%;display:flex;align-items:center;gap:8px;background:#ec3013;color:#fff;border:0;padding:15px 14px;cursor:pointer;font:800 12px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+Add to my plans
+</button>
+<button onClick="{{ t.follow }}" style="width:100%;display:flex;align-items:center;gap:8px;background:#201e1d;color:#f3f2f2;border:0;padding:15px 14px;margin-top:8px;cursor:pointer;font:800 12px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#3a3736">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21"></polygon></svg>
+Follow it now
+</button>
+<button onClick="{{ t.watchAll }}" style="width:100%;display:flex;align-items:center;gap:8px;background:transparent;border:2px solid #201e1d;padding:13px 14px;margin-top:8px;cursor:pointer;font:800 11px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21"></polygon></svg>
+Watch this workout
+</button>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+
+<sc-if value="{{ trendsEmpty }}" hint-placeholder-val="{{ true }}">
+<div style="padding:24px 16px;font:400 13px/1.55 Archivo;color:#605d5d;text-wrap:pretty">Nothing loaded yet. Hit refresh and the app's assistant will put together what is popular in training right now.</div>
+</sc-if>
+
+<div style="margin:20px 16px 0;border-top:2px solid rgba(32,30,29,.4);padding-top:10px;font:400 11px/1.5 Archivo;color:#605d5d;text-wrap:pretty">Suggested by the app's assistant, not a live feed. Check anything unfamiliar before you load it heavy.</div>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isProgress }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Progress" style="flex:1;min-height:0;display:flex;flex-direction:column">
+<div style="flex:none;padding:58px 16px 10px;border-bottom:2px solid rgba(32,30,29,.4);display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+<div style="font:800 24px/1 Archivo;letter-spacing:-.02em;text-transform:uppercase">Progress</div>
+<div style="display:flex;border:2px solid #201e1d">
+<button onClick="{{ setKg }}" style="{{ kgStyle }}">KG</button>
+<button onClick="{{ setLb }}" style="{{ lbStyle }}">LB</button>
+</div>
+</div>
+<div style="flex:1;overflow-y:auto;padding-bottom:24px">
+<div style="position:relative;width:100%;height:130px;overflow:hidden;background:#201e1d;border-bottom:2px solid rgba(32,30,29,.4)">
+<div style="position:absolute;inset:0;filter:grayscale(1) contrast(1.18) brightness(.85)"><image-slot id="ft-progress" src="images/plates.jpg" shape="rect" fit="cover" placeholder="Drop a photo"></image-slot></div>
+<div style="position:absolute;inset:0;background:#ec3013;mix-blend-mode:multiply;opacity:.5;pointer-events:none"></div>
+</div>
+<div style="padding:16px;border-bottom:2px solid rgba(32,30,29,.4);background:#eae9e9">
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#605d5d">Weekly recap</div>
+<div style="font:600 14px/1.45 Archivo;margin-top:8px;text-wrap:pretty">{{ recapSentence }}</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+<button onClick="{{ openDayReport }}" style="display:flex;align-items:center;background:#201e1d;color:#f3f2f2;border:0;padding:12px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#3a3736">Today's report</button>
+<button onClick="{{ openWeekReport }}" style="display:flex;align-items:center;background:#ec3013;color:#fff;border:0;padding:12px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">Week report</button>
+</div>
+</div>
+
+<div style="padding:16px 16px 0">
+<div style="font:800 10px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#605d5d">Last four weeks</div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);border-top:2px solid rgba(32,30,29,.4);border-left:1px solid rgba(32,30,29,.18);margin-top:10px">
+<sc-for list="{{ calendarCells }}" as="d" hint-placeholder-count="28">
+<div style="{{ d.style }}">{{ d.label }}</div>
+</sc-for>
+</div>
+<div style="font:400 11px/1.4 Archivo;color:#605d5d;margin-top:8px">Red days are days you trained.</div>
+</div>
+
+<div style="padding:20px 16px 0">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+<div style="font:800 10px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#605d5d">Bodyweight</div>
+<div style="font:600 10px/1 Archivo;letter-spacing:.08em;text-transform:uppercase;color:#ae1800">{{ bwChange }}</div>
+</div>
+<div style="border:2px solid #201e1d;background:#fff;margin-top:10px">
+<div style="display:flex;align-items:stretch;border-bottom:1px solid rgba(32,30,29,.18)">
+<input type="number" step="0.1" min="0" inputmode="decimal" placeholder="{{ bwLatest }}" value="{{ bwValue }}" onChange="{{ onBwInput }}" style="flex:1;min-width:0;border:0;background:transparent;padding:13px 12px;font:800 22px/1 Archivo">
+<button onClick="{{ logBodyweight }}" style="flex:none;border:0;border-left:2px solid #201e1d;background:#ec3013;color:#fff;padding:0 16px;cursor:pointer;font:800 11px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">Log</button>
+</div>
+<sc-if value="{{ hasBwChart }}" hint-placeholder-val="{{ false }}">
+<div style="padding:10px 8px 4px">{{ bwChart }}</div>
+</sc-if>
+</div>
+</div>
+<sc-for list="{{ progressCards }}" as="c" hint-placeholder-count="2">
+<div onClick="{{ c.open }}" style="margin:14px 16px 0;border:2px solid #201e1d;background:#fff;cursor:pointer" style-hover="border-color:#ec3013">
+<div style="padding:13px 14px 10px;border-bottom:1px solid rgba(32,30,29,.18)">
+<div style="font:600 14px/1.25 Archivo;text-wrap:pretty">{{ c.name }}</div>
+<div style="font:400 11px/1.3 Archivo;color:#605d5d;margin-top:3px">{{ c.sub }}</div>
+</div>
+<div style="padding:10px 8px 4px">{{ c.chart }}</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(32,30,29,.18)">
+<div style="padding:10px 12px"><div style="font:600 9px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d">Latest</div><div style="font:800 16px/1 Archivo;margin-top:5px">{{ c.latest }}</div></div>
+<div style="padding:10px 12px;border-left:1px solid rgba(32,30,29,.18)"><div style="font:600 9px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d">{{ c.pbLabel }}</div><div style="font:800 16px/1 Archivo;margin-top:5px;color:#ae1800">{{ c.pb }}</div></div>
+<div style="padding:10px 12px;border-left:1px solid rgba(32,30,29,.18)"><div style="font:600 9px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d">Change</div><div style="font:800 16px/1 Archivo;margin-top:5px;color:{{ c.trendColor }}">{{ c.trend }}</div></div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(32,30,29,.18)">
+<div style="padding:10px 12px"><div style="font:600 9px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d">Average</div><div style="font:800 16px/1 Archivo;margin-top:5px">{{ c.avg }}</div></div>
+<div style="padding:10px 12px;border-left:1px solid rgba(32,30,29,.18)"><div style="font:600 9px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d">{{ c.worstLabel }}</div><div style="font:800 16px/1 Archivo;margin-top:5px">{{ c.worst }}</div></div>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{ noProgress }}" hint-placeholder-val="{{ false }}">
+<div style="padding:26px 16px;font:400 13px/1.55 Archivo;color:#605d5d;text-wrap:pretty">No weights logged yet. Open any loaded exercise, save a set, and its chart appears here.</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isBuilder }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Builder" style="flex:1;min-height:0;display:flex;flex-direction:column">
+<div style="flex:none;padding:54px 16px 10px;border-bottom:2px solid rgba(32,30,29,.4)">
+<button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:5px;background:none;border:0;padding:0 0 8px;cursor:pointer;font:600 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d" style-hover="color:#ec3013">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"></path></svg>
+Cancel
+</button>
+<div style="font:800 24px/1.05 Archivo;letter-spacing:-.02em;text-transform:uppercase">New plan</div>
+</div>
+<div style="flex:1;overflow-y:auto;padding:16px 16px 28px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d">Plan name</div>
+<input type="text" placeholder="Lower body" value="{{ draftTitle }}" onChange="{{ onDraftTitle }}" style="width:100%;border:2px solid #201e1d;background:#fff;padding:12px 12px;margin-top:8px;font:600 16px/1.2 Archivo">
+<div style="font:600 9px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;color:#605d5d;margin-top:20px">Exercises</div>
+<sc-for list="{{ draftRows }}" as="r" hint-placeholder-count="2">
+<div style="border:1px solid rgba(32,30,29,.25);background:#fff;margin-top:10px">
+<div style="display:flex;align-items:center;border-bottom:1px solid rgba(32,30,29,.18)">
+<input type="text" placeholder="Exercise name" value="{{ r.name }}" onChange="{{ r.setName }}" style="flex:1;min-width:0;border:0;background:transparent;padding:12px;font:600 14px/1.2 Archivo">
+<button onClick="{{ r.remove }}" style="width:42px;height:42px;flex:none;border:0;border-left:1px solid rgba(32,30,29,.18);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#605d5d" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="display:flex;align-items:stretch">
+<input type="text" placeholder="Sets" value="{{ r.sets }}" onChange="{{ r.setSets }}" style="flex:1;min-width:0;border:0;border-right:1px solid rgba(32,30,29,.18);background:transparent;padding:11px 12px;font:400 13px/1.2 Archivo">
+<input type="text" placeholder="Reps" value="{{ r.reps }}" onChange="{{ r.setReps }}" style="flex:1;min-width:0;border:0;border-right:1px solid rgba(32,30,29,.18);background:transparent;padding:11px 12px;font:400 13px/1.2 Archivo">
+<button onClick="{{ r.toggleWeighted }}" style="{{ r.weightedStyle }}">Loaded</button>
+</div>
+</div>
+</sc-for>
+<button onClick="{{ addRow }}" style="width:100%;display:flex;align-items:center;gap:8px;background:transparent;border:2px solid #201e1d;padding:13px 14px;margin-top:12px;cursor:pointer;font:800 11px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+Add exercise
+</button>
+<button onClick="{{ saveDraft }}" style="width:100%;display:flex;align-items:center;background:#ec3013;color:#fff;border:0;padding:16px;margin-top:12px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">Save plan</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAuthed }}" hint-placeholder-val="{{ false }}">
+<div style="flex:none;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border-top:2px solid rgba(32,30,29,.4);padding-bottom:26px;background:#f3f2f2;position:relative;z-index:5">
+<button onClick="{{ goHome }}" style="{{ tabHomeStyle }}">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+<span style="font:800 9px/1 Archivo;letter-spacing:.1em;text-transform:uppercase">Today</span>
+</button>
+<button onClick="{{ goPlay }}" style="{{ tabTwoStyle }}">
+<sc-if value="{{ isCoach }}" hint-placeholder-val="{{ false }}">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+</sc-if>
+<sc-if value="{{ notCoach }}" hint-placeholder-val="{{ true }}">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>
+</sc-if>
+<span style="font:800 9px/1 Archivo;letter-spacing:.1em;text-transform:uppercase">{{ tabTwoLabel }}</span>
+</button>
+<button onClick="{{ goTrending }}" style="{{ tabTrendingStyle }}">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+<span style="font:800 9px/1 Archivo;letter-spacing:.1em;text-transform:uppercase">Trending</span>
+</button>
+<button onClick="{{ goProgress }}" style="{{ tabProgressStyle }}">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+<span style="font:800 9px/1 Archivo;letter-spacing:.1em;text-transform:uppercase">Progress</span>
+</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:40;display:flex;flex-direction:column;justify-content:flex-end;background:rgba(32,30,29,.55)">
+<div onClick="{{ closeAdd }}" style="flex:1;cursor:pointer"></div>
+<div style="background:#f3f2f2;border-top:2px solid #201e1d;padding-bottom:30px;animation:ftup .18s ease-out">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:16px 16px 12px;border-bottom:2px solid #201e1d">
+<div style="font:800 15px/1 Archivo;letter-spacing:.02em;text-transform:uppercase">Add a plan</div>
+<button onClick="{{ closeAdd }}" style="width:30px;height:30px;border:1px solid rgba(32,30,29,.3);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<button onClick="{{ pickPhoto }}" style="width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border:0;border-bottom:1px solid rgba(32,30,29,.18);padding:15px 16px;cursor:pointer" style-hover="background:#fff2ef">
+<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#ec3013" stroke-width="2"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>
+<span><span style="display:block;font:800 13px/1.2 Archivo;letter-spacing:.04em;text-transform:uppercase">Photo of a plan</span><span style="display:block;font:400 11px/1.35 Archivo;color:#605d5d;margin-top:3px">Handwritten or printed — read into exercises</span></span>
+</button>
+<button onClick="{{ pickFile }}" style="width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border:0;border-bottom:1px solid rgba(32,30,29,.18);padding:15px 16px;cursor:pointer" style-hover="background:#fff2ef">
+<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#ec3013" stroke-width="2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+<span><span style="display:block;font:800 13px/1.2 Archivo;letter-spacing:.04em;text-transform:uppercase">PDF or spreadsheet</span><span style="display:block;font:400 11px/1.35 Archivo;color:#605d5d;margin-top:3px">PDF, CSV or text export from your coach</span></span>
+</button>
+<button onClick="{{ startBuilder }}" style="width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border:0;border-bottom:1px solid rgba(32,30,29,.18);padding:15px 16px;cursor:pointer" style-hover="background:#fff2ef">
+<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#ec3013" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg>
+<span><span style="display:block;font:800 13px/1.2 Archivo;letter-spacing:.04em;text-transform:uppercase">Build by hand</span><span style="display:block;font:400 11px/1.35 Archivo;color:#605d5d;margin-top:3px">Add exercises one at a time</span></span>
+</button>
+<sc-for list="{{ dupOptions }}" as="d" hint-placeholder-count="2">
+<button onClick="{{ d.run }}" style="width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:#eae9e9;border:0;border-bottom:1px solid rgba(32,30,29,.18);padding:13px 16px;cursor:pointer" style-hover="background:#fff2ef">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#605d5d" stroke-width="2"><rect x="9" y="9" width="13" height="13"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+<span style="font:600 12px/1.2 Archivo">{{ d.label }}</span>
+</button>
+</sc-for>
+<sc-if value="{{ sheetError }}" hint-placeholder-val="{{ false }}">
+<div style="margin:14px 16px 0;border-left:3px solid #ec3013;background:#fff2ef;padding:10px 12px;font:400 12px/1.45 Archivo;color:#ae1800">{{ errorText }}</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ roundsOpen }}" hint-placeholder-val="{{ false }}">
+<div style="{{ roundsShellStyle }}">
+<div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:58px 16px 14px;border-bottom:2px solid rgba(255,255,255,.45)">
+<div style="font:800 15px/1 Archivo;letter-spacing:.04em;text-transform:uppercase">Round timer</div>
+<div style="display:flex;align-items:center;gap:8px">
+<button onClick="{{ toggleMute }}" style="{{ soundStyle }}">{{ soundLabel }}</button>
+<button onClick="{{ closeRounds }}" style="width:30px;height:30px;flex:none;border:1px solid rgba(255,255,255,.5);background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#fff;color:#201e1d">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+</div>
+<div style="flex:none;height:5px;background:rgba(255,255,255,.3)"><div style="{{ roundsBarStyle }}"></div></div>
+<div style="flex:1;overflow-y:auto;padding:24px 16px">
+<div style="font:800 11px/1 Archivo;letter-spacing:.18em;text-transform:uppercase;opacity:.85">{{ roundsPhaseLabel }}</div>
+<div style="font:800 82px/1 Archivo;letter-spacing:-.04em;margin-top:12px;font-variant-numeric:tabular-nums">{{ roundsClock }}</div>
+<div style="font:400 13px/1.45 Archivo;margin-top:8px;opacity:.9;text-wrap:pretty">{{ roundsNote }}</div>
+
+<div style="display:flex;gap:8px;margin-top:20px">
+<sc-if value="{{ roundsIdle }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ startRounds }}" style="flex:1;display:flex;align-items:center;background:#fff;color:#201e1d;border:0;padding:17px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#201e1d;color:#fff">Ring the bell</button>
+</sc-if>
+<sc-if value="{{ roundsRunning }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ pauseRounds }}" style="flex:1;display:flex;align-items:center;background:transparent;border:2px solid rgba(255,255,255,.7);color:#fff;padding:16px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#fff;color:#201e1d">Pause</button>
+</sc-if>
+</div>
+
+<sc-if value="{{ roundsSetup }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top:24px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;opacity:.8">Rounds</div>
+<div style="display:flex;border:2px solid rgba(255,255,255,.6);margin-top:8px">
+<sc-for list="{{ roundCountOptions }}" as="r" hint-placeholder-count="5">
+<button onClick="{{ r.pick }}" style="{{ r.style }}">{{ r.label }}</button>
+</sc-for>
+</div>
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;opacity:.8;margin-top:18px">Work</div>
+<div style="display:flex;border:2px solid rgba(255,255,255,.6);margin-top:8px">
+<sc-for list="{{ workOptions }}" as="w" hint-placeholder-count="4">
+<button onClick="{{ w.pick }}" style="{{ w.style }}">{{ w.label }}</button>
+</sc-for>
+</div>
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;opacity:.8;margin-top:18px">Rest</div>
+<div style="display:flex;border:2px solid rgba(255,255,255,.6);margin-top:8px">
+<sc-for list="{{ restOptionsRound }}" as="r" hint-placeholder-count="4">
+<button onClick="{{ r.pick }}" style="{{ r.style }}">{{ r.label }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ reportOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:58;background:#f3f2f2;display:flex;flex-direction:column">
+<div style="flex:none;padding:58px 16px 14px;border-bottom:2px solid rgba(32,30,29,.4);display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+<div>
+<div style="font:800 22px/1.05 Archivo;letter-spacing:-.02em;text-transform:uppercase">{{ reportTitle }}</div>
+<div style="font:600 10px/1.4 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d;margin-top:6px">{{ reportSub }}</div>
+</div>
+<button onClick="{{ closeReport }}" style="width:30px;height:30px;flex:none;border:1px solid rgba(32,30,29,.3);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="flex:1;overflow-y:auto;padding-bottom:28px">
+
+<sc-if value="{{ reportBusy }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 16px">
+<div style="height:4px;background:#d7d3d3;overflow:hidden"><div style="height:100%;width:100%;background:#ec3013;animation:ftbar 1.1s linear infinite"></div></div>
+<div style="font:400 12px/1.5 Archivo;color:#605d5d;margin-top:10px">Reading your numbers.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ hasReportText }}" hint-placeholder-val="{{ false }}">
+<div style="background:#201e1d;color:#f3f2f2;padding:18px 16px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#ff9783">Coach read-out</div>
+<div style="font:400 14px/1.55 Archivo;margin-top:10px;white-space:pre-wrap;text-wrap:pretty">{{ reportText }}</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ reportEmpty }}" hint-placeholder-val="{{ false }}">
+<div style="padding:22px 16px;font:400 13px/1.55 Archivo;color:#605d5d;text-wrap:pretty">Nothing logged in this window, so there is nothing to report on yet.</div>
+</sc-if>
+
+<sc-if value="{{ hasStrong }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;padding:18px 16px 8px;border-bottom:2px solid #201e1d">
+<div style="font:800 11px/1 Archivo;letter-spacing:.14em;text-transform:uppercase">Best results</div>
+</div>
+<sc-for list="{{ strongRows }}" as="r" hint-placeholder-count="3">
+<div style="padding:11px 16px;border-bottom:1px solid rgba(32,30,29,.18);background:#fff">
+<div style="font:600 13px/1.25 Archivo;text-wrap:pretty">{{ r.name }}</div>
+<div style="font:400 11px/1.35 Archivo;color:#ae1800;margin-top:3px;text-wrap:pretty">{{ r.line }}</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ hasWeak }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="padding:18px 16px 8px;border-bottom:2px solid #201e1d;font:800 11px/1 Archivo;letter-spacing:.14em;text-transform:uppercase">Below your best</div>
+<sc-for list="{{ weakRows }}" as="r" hint-placeholder-count="2">
+<div style="padding:11px 16px;border-bottom:1px solid rgba(32,30,29,.18);background:#fff">
+<div style="font:600 13px/1.25 Archivo;text-wrap:pretty">{{ r.name }}</div>
+<div style="font:400 11px/1.35 Archivo;color:#605d5d;margin-top:3px;text-wrap:pretty">{{ r.line }}</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ hasStale }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="padding:18px 16px 8px;border-bottom:2px solid #201e1d;font:800 11px/1 Archivo;letter-spacing:.14em;text-transform:uppercase">Going cold</div>
+<sc-for list="{{ staleRows }}" as="r" hint-placeholder-count="2">
+<div style="padding:11px 16px;border-bottom:1px solid rgba(32,30,29,.18);background:#fff">
+<div style="font:600 13px/1.25 Archivo;text-wrap:pretty">{{ r.name }}</div>
+<div style="font:400 11px/1.35 Archivo;color:#605d5d;margin-top:3px">{{ r.line }}</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ sessionOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:55;background:#f3f2f2;display:flex;flex-direction:column">
+<div style="flex:none;padding:58px 16px 12px;border-bottom:2px solid rgba(32,30,29,.4);display:flex;align-items:center;justify-content:space-between;gap:12px">
+<div>
+<div style="font:800 15px/1 Archivo;letter-spacing:.04em;text-transform:uppercase">Follow along</div>
+<div style="font:600 10px/1.4 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d;margin-top:5px">{{ sessionStep }}</div>
+</div>
+<button onClick="{{ closeSession }}" style="width:30px;height:30px;flex:none;border:1px solid rgba(32,30,29,.3);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="flex:none;height:5px;background:#d7d3d3"><div style="{{ sessionBarStyle }}"></div></div>
+<div style="flex:1;overflow-y:auto">
+
+<sc-if value="{{ sessionRunning }}" hint-placeholder-val="{{ true }}">
+<div>
+<div onClick="{{ sessionWatch }}" style="position:relative;background:#201e1d;aspect-ratio:16/9;display:flex;flex-direction:column;justify-content:flex-end;padding:14px 16px;cursor:pointer" style-hover="background:#2d2b2b">
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+<div style="width:56px;height:56px;background:#ec3013;display:flex;align-items:center;justify-content:center;color:#fff">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21"></polygon></svg>
+</div>
+</div>
+<div style="position:relative;font:800 11px/1.3 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#f3f2f2">Watch the movement</div>
+</div>
+<div style="padding:18px 16px 0">
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#605d5d">{{ sessionSection }}</div>
+<div style="font:800 24px/1.1 Archivo;letter-spacing:-.01em;margin-top:8px;text-wrap:pretty">{{ sessionName }}</div>
+<div style="font:400 12px/1.4 Archivo;color:#605d5d;margin-top:5px">{{ sessionDetail }}</div>
+<div style="font:600 11px/1.4 Archivo;color:#ae1800;margin-top:9px">{{ sessionLast }}</div>
+
+<sc-if value="{{ sessionCanLog }}" hint-placeholder-val="{{ true }}">
+<div>
+<div style="display:flex;align-items:stretch;border:2px solid #201e1d;margin-top:14px;background:#fff">
+<input type="number" step="0.5" min="0" inputmode="decimal" placeholder="0" value="{{ inputVal }}" onChange="{{ onInput }}" style="flex:1;min-width:0;border:0;background:transparent;padding:14px;font:800 30px/1 Archivo;letter-spacing:-.02em">
+<div style="flex:none;display:flex;align-items:center;padding:0 14px;border-left:2px solid #201e1d;font:800 13px/1 Archivo;letter-spacing:.1em;color:#605d5d">{{ sessionUnit }}</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;margin-top:10px;border:1px solid rgba(32,30,29,.25)">
+<sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+<button onClick="{{ s.apply }}" style="border:0;border-right:1px solid rgba(32,30,29,.25);background:#eae9e9;padding:13px 4px;cursor:pointer;font:800 13px/1 Archivo" style-hover="background:#201e1d;color:#f3f2f2">{{ s.label }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<button onClick="{{ doSessionLog }}" style="width:100%;display:flex;align-items:center;background:#ec3013;color:#fff;border:0;padding:17px 16px;margin-top:12px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">Log and continue</button>
+<button onClick="{{ doSessionSkip }}" style="width:100%;display:flex;align-items:center;background:transparent;border:2px solid #201e1d;padding:14px 16px;margin:10px 0 24px;cursor:pointer;font:800 11px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#201e1d;color:#f3f2f2">Skip this one</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ sessionDone }}" hint-placeholder-val="{{ false }}">
+<div style="padding:26px 16px">
+<div style="font:800 10px/1 Archivo;letter-spacing:.18em;text-transform:uppercase;color:#ec3013">Session complete</div>
+<div style="font:800 30px/1.08 Archivo;letter-spacing:-.02em;margin-top:12px;text-wrap:pretty">That is the whole thing done.</div>
+<div style="font:600 13px/1.5 Archivo;color:#201e1d;margin-top:12px">{{ sessionSummary }}</div>
+<div style="font:600 13px/1.5 Archivo;color:#ae1800;margin-top:4px">{{ sessionPoints }}</div>
+<div style="font:400 12px/1.5 Archivo;color:#605d5d;margin-top:12px;text-wrap:pretty">Everything you logged is in Progress now, with your best, average and the line since your first attempt.</div>
+<button onClick="{{ closeSession }}" style="width:100%;display:flex;align-items:center;background:#ec3013;color:#fff;border:0;padding:17px 16px;margin-top:20px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#dd2b0f">Done</button>
+</div>
+</sc-if>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ ghostOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:50;background:#201e1d;color:#f3f2f2;display:flex;flex-direction:column">
+<div style="flex:none;display:flex;align-items:center;justify-content:space-between;padding:58px 16px 14px;border-bottom:2px solid rgba(243,242,242,.35)">
+<div style="font:800 15px/1 Archivo;letter-spacing:.04em;text-transform:uppercase">Beat your ghost</div>
+<button onClick="{{ closeOverlay }}" style="width:30px;height:30px;border:1px solid rgba(243,242,242,.4);background:transparent;color:#f3f2f2;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#f3f2f2;color:#201e1d">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="flex:1;overflow-y:auto">
+<sc-if value="{{ ghostMissing }}" hint-placeholder-val="{{ false }}">
+<div style="padding:24px 16px;font:400 13px/1.6 Archivo;color:#d7d3d3;text-wrap:pretty">No timed exercise has a recorded time yet. Log one sprint or drill and your ghost will be waiting here.</div>
+</sc-if>
+<sc-if value="{{ ghostReady }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="padding:22px 16px 18px">
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#ff9783">Chasing</div>
+<div style="font:800 22px/1.1 Archivo;margin-top:8px;text-wrap:pretty">{{ ghostName }}</div>
+<div style="font:400 12px/1.4 Archivo;color:#d7d3d3;margin-top:5px">Ghost time {{ ghostTarget }}</div>
+<div style="font:800 74px/1 Archivo;letter-spacing:-.04em;margin-top:18px">{{ ghostClock }}</div>
+<div style="font:600 12px/1.3 Archivo;color:#ff9783;margin-top:8px">{{ ghostDiff }}</div>
+<sc-if value="{{ ghostIdle }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ startGhost }}" style="width:100%;display:flex;align-items:center;background:#ec3013;color:#fff;border:0;padding:18px 16px;margin-top:20px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#ff563c">Start</button>
+</sc-if>
+<sc-if value="{{ ghostRunning }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ stopGhost }}" style="width:100%;display:flex;align-items:center;background:#f3f2f2;color:#201e1d;border:0;padding:18px 16px;margin-top:20px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#fff">Stop and log</button>
+</sc-if>
+<sc-if value="{{ ghostHasResult }}" hint-placeholder-val="{{ false }}">
+<div style="border-left:3px solid #ec3013;padding:12px 14px;margin-top:18px;background:rgba(243,242,242,.08)">
+<div style="font:800 15px/1.2 Archivo">{{ ghostResultTitle }}</div>
+<div style="font:400 12px/1.4 Archivo;color:#d7d3d3;margin-top:5px">{{ ghostResultNote }}</div>
+</div>
+</sc-if>
+</div>
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#9b9797;padding:0 16px 8px">Pick another ghost</div>
+<sc-for list="{{ ghostPicker }}" as="g" hint-placeholder-count="2">
+<button onClick="{{ g.pick }}" style="{{ g.style }}">
+<span style="min-width:0;text-align:left">{{ g.label }}</span>
+<span style="flex:none;opacity:.7">{{ g.detail }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ wheelOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:50;background:#f3f2f2;display:flex;flex-direction:column">
+<div style="flex:none;display:flex;align-items:center;justify-content:space-between;padding:58px 16px 14px;border-bottom:2px solid rgba(32,30,29,.4)">
+<div style="font:800 15px/1 Archivo;letter-spacing:.04em;text-transform:uppercase">Spin a finisher</div>
+<button onClick="{{ closeOverlay }}" style="width:30px;height:30px;border:1px solid rgba(32,30,29,.3);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#201e1d;color:#f3f2f2">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="flex:1;overflow-y:auto;padding:22px 16px">
+<div style="border:2px solid #201e1d;background:#fff;padding:26px 18px;min-height:180px;display:flex;flex-direction:column;justify-content:center">
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#605d5d">Your finisher</div>
+<div style="font:800 30px/1.08 Archivo;letter-spacing:-.02em;margin-top:12px;text-wrap:pretty">{{ wheelName }}</div>
+<div style="font:400 13px/1.4 Archivo;color:#605d5d;margin-top:8px">{{ wheelNote }}</div>
+</div>
+<button onClick="{{ spinWheel }}" style="width:100%;display:flex;align-items:center;background:#ec3013;color:#fff;border:0;padding:18px 16px;margin-top:14px;cursor:pointer;font:800 13px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#dd2b0f">Spin</button>
+<sc-if value="{{ wheelLanded }}" hint-placeholder-val="{{ false }}">
+<div style="border-left:3px solid #ec3013;background:#fff2ef;padding:11px 13px;margin-top:12px;font:600 12px/1.45 Archivo;color:#ae1800">Locked in. +5 pts, and it ticks the spin task on this week's card.</div>
+</sc-if>
+<div style="font:400 11px/1.5 Archivo;color:#605d5d;margin-top:14px;text-wrap:pretty">Ten finishers in the drum. Whatever lands, you do at the end of today's session.</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ busy }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:60;background:#f3f2f2;display:flex;flex-direction:column;justify-content:center;padding:0 28px">
+<div style="font:800 10px/1 Archivo;letter-spacing:.18em;text-transform:uppercase;color:#ec3013">Reading your plan</div>
+<div style="font:800 30px/1.1 Archivo;letter-spacing:-.02em;margin-top:12px;text-wrap:pretty">{{ busyLine }}</div>
+<div style="height:4px;background:#d7d3d3;margin-top:22px;overflow:hidden"><div style="height:100%;width:100%;background:#ec3013;animation:ftbar 1.1s linear infinite"></div></div>
+<div style="font:400 12px/1.5 Archivo;color:#605d5d;margin-top:14px">{{ busyFile }}</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ restOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;bottom:0;z-index:65;background:#201e1d;color:#f3f2f2;padding:16px 16px 30px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+<div>
+<div style="font:600 9px/1 Archivo;letter-spacing:.16em;text-transform:uppercase;color:#ff9783">Rest</div>
+<div style="font:800 34px/1 Archivo;letter-spacing:-.02em;margin-top:6px">{{ restClock }}</div>
+</div>
+<button onClick="{{ stopRest }}" style="flex:none;border:1px solid rgba(243,242,242,.4);background:transparent;color:#f3f2f2;padding:11px 14px;cursor:pointer;font:800 10px/1 Archivo;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#f3f2f2;color:#201e1d">Done</button>
+</div>
+<div style="height:4px;background:rgba(243,242,242,.25);margin-top:12px"><div style="{{ restBarStyle }}"></div></div>
+<sc-if value="{{ restDone }}" hint-placeholder-val="{{ false }}">
+<div style="font:800 11px/1.3 Archivo;letter-spacing:.1em;text-transform:uppercase;color:#ff9783;margin-top:10px">Time — go again</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ pbOpen }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ dismissPb }}" style="position:absolute;inset:0;z-index:75;background:#ec3013;color:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 20px;cursor:pointer;animation:ftup .2s ease-out">
+<div style="font:800 12px/1 Archivo;letter-spacing:.24em;text-transform:uppercase;opacity:.85">{{ pbHeadline }}</div>
+<div style="font:800 76px/0.94 Archivo;letter-spacing:-.04em;margin-top:14px">{{ pbValue }}</div>
+<div style="font:800 20px/1.15 Archivo;letter-spacing:-.01em;margin-top:14px;text-wrap:pretty">{{ pbName }}</div>
+<div style="font:400 14px/1.45 Archivo;margin-top:10px;color:#ffe0d9;text-wrap:pretty">{{ pbGain }}</div>
+<sc-if value="{{ pbHasPrev }}" hint-placeholder-val="{{ false }}">
+<div style="font:600 11px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;margin-top:18px;padding-top:14px;border-top:2px solid rgba(255,255,255,.45)">{{ pbPrev }}</div>
+</sc-if>
+<div style="font:600 10px/1 Archivo;letter-spacing:.14em;text-transform:uppercase;margin-top:26px;opacity:.7">Tap to carry on</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ toastOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:16px;right:16px;bottom:108px;z-index:70;background:#201e1d;color:#f3f2f2;padding:13px 14px;font:600 12px/1.3 Archivo;animation:ftup .16s ease-out">{{ toastText }}</div>
+</sc-if>
+
+<input type="file" accept="image/*" ref="{{ photoRef }}" onChange="{{ onPhoto }}" style="display:none">
+<input type="file" accept=".pdf,.csv,.txt,.tsv,text/plain,application/pdf" ref="{{ fileRef }}" onChange="{{ onFile }}" style="display:none">
+
+</div>
+</x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:450,&quot;height&quot;:920},&quot;showRecap&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;},&quot;nudgeMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Suggest next weight&quot;,&quot;Show last only&quot;],&quot;default&quot;:&quot;Suggest next weight&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behaviour&quot;},&quot;defaultUnit&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;kg&quot;,&quot;lb&quot;],&quot;default&quot;:&quot;kg&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behaviour&quot;}}">
+const KG_PER_LB = 0.45359237;
+const LS_PLANS = 'fittrack_plans_v2';
+const LS_LOG = 'fittrack_log_v2';
+const LS_UNIT = 'fittrack_unit_v2';
+const LS_USER = 'fittrack_user_v2';
+const LS_SESSION = 'fittrack_session_v2';
+const LS_TRENDS = 'fittrack_trends_v2';
+const LS_EVENTS = 'fittrack_events_v2';
+const PB_HEADS = ['New best', 'Record broken', 'Past your ceiling', 'Better than ever', 'That is the new number', 'Top of the pile'];
+const BASE_HEADS = ['On the board', 'Baseline set', 'First mark down', 'Starting line'];
+const BASE_LINES = [
+  'Everything from here is progress.',
+  'Now there is a number to beat.',
+  'This is the floor, not the ceiling.',
+  'The comparison starts next session.'
+];
+const PUSH_NONE = [
+  'One set puts you back on the board.',
+  'Nothing logged yet. Fix that today.',
+  'The log is empty. Give it something.',
+  'Start small, but start.'
+];
+const PUSH_DAY1 = [
+  'Day 1. Show up tomorrow and it counts as a streak.',
+  'One day down. The second one is the hard one.',
+  'You turned up. Do it again tomorrow.'
+];
+const PUSH_MID = [
+  '{n} days running. Two more makes it a habit.',
+  '{n} days in. Do not negotiate with yourself now.',
+  '{n} straight. Keep the chain going.',
+  '{n} days. This is where most people stop.'
+];
+const PUSH_LONG = [
+  '{n} days unbroken. Do not be the one who stops it.',
+  '{n} days straight. That is a training block, not a mood.',
+  '{n} days. You are the consistent one now.',
+  '{n} unbroken. Protect it.'
+];
+const NUDGE_UP = [
+  'You held {last} cleanly. Good day to go for {next}.',
+  '{last} looked comfortable. Put {next} on the bar.',
+  'Last time {last}. {next} is the honest next step.',
+  '{last} is yours now. Take {next}.'
+];
+const NUDGE_BACK = [
+  'Your best is {best}, average {avg}. Match it before adding load.',
+  'You have had {best} before. Get back there first.',
+  'Average is {avg}, best is {best}. Today is a rebuild day.',
+  '{best} is still on the record. Chase it down.'
+];
+const LS_MUTED = 'fittrack_muted_v2';
+const LS_CLIENTS = 'fittrack_clients_v2';
+const CLIENT_SEED = [
+  { id: 'c1', name: 'Nadia Okafor', focus: 'Sprint speed', plan: 'Day 2 — Speed', sets: [
+    ['Sprint 25m Max Effort', 'time', 3.62, 1], ['Sprint 25m Max Effort', 'time', 3.71, 5], ['Sprint 15m Max Effort', 'time', 2.31, 1],
+    ['Knee Drive March on Sled', 'load', 70, 2], ['Knee Drive March on Sled', 'load', 65, 9]] },
+  { id: 'c2', name: 'Tom Brennan', focus: 'Return from injury', plan: 'Day 1 — Speed', sets: [
+    ['Knee Drive March on Sled', 'load', 45, 3], ['Knee Drive March on Sled', 'load', 50, 10], ['Broad Jumps', 'load', 0, 12]] },
+  { id: 'c3', name: 'Priya Raman', focus: 'General strength', plan: 'Push / Pull', sets: [
+    ['Bench Press', 'load', 52.5, 1], ['Bench Press', 'load', 50, 8], ['Bench Press', 'load', 47.5, 15],
+    ['Back Squat', 'load', 80, 2]] },
+  { id: 'c4', name: 'Marcus Vale', focus: 'Fight camp', plan: 'Rounds & conditioning', sets: [
+    ['Battle Rope 30s', 'time', 30, 11], ['Air Bike Intervals', 'time', 40, 12]] },
+  { id: 'c5', name: 'Elena Fischer', focus: 'Marathon build', plan: 'Base miles', sets: [
+    ['Sprint 15m Max Effort', 'time', 2.55, 2], ['Sprint 15m Max Effort', 'time', 2.49, 6], ['Broad Jumps', 'load', 0, 4]] },
+  { id: 'c6', name: 'Dio Hartley', focus: 'First barbell block', plan: 'Day 1 — Speed', sets: [
+    ['Back Squat', 'load', 60, 0], ['Back Squat', 'load', 57.5, 4], ['Back Squat', 'load', 55, 11], ['Bench Press', 'load', 40, 0]] }
+];
+const LEVEL_TITLES = ['Warming up', 'Regular', 'Consistent', 'Sharp', 'Relentless', 'Machine', 'Unreasonable'];
+const FINISHERS = [
+  { name: '40 kettlebell swings', note: 'Unbroken if you can' },
+  { name: '100 m sled push', note: 'Heavy, walk it back' },
+  { name: '3 min plank ladder', note: '30s on, 15s off' },
+  { name: '50 air squats', note: 'Fast and honest' },
+  { name: '500 m row', note: 'Under two minutes' },
+  { name: '8 hill sprints', note: '15 seconds each' },
+  { name: '2 min battle rope', note: '20s hard, 10s easy' },
+  { name: '30 burpees', note: 'Chest to floor' },
+  { name: '400 m farmer carry', note: 'Pick a weight you regret' },
+  { name: '60 mountain climbers', note: 'Hips down' }
+];
+const TREND_SOURCES = [
+  { id: 'r/Fitness', url: 'https://www.reddit.com/r/Fitness/top.json?t=week&limit=15' },
+  { id: 'r/running', url: 'https://www.reddit.com/r/running/top.json?t=week&limit=10' },
+  { id: 'r/bodyweightfitness', url: 'https://www.reddit.com/r/bodyweightfitness/top.json?t=week&limit=10' },
+  { id: 'r/crossfit', url: 'https://www.reddit.com/r/crossfit/top.json?t=week&limit=10' }
+];
+const TRENDS_PROMPT = 'Suggest 5 workout formats that are popular in gyms and online training culture right now. Mix strength, conditioning, running and hybrid-race styles, and vary the length. Reply with ONLY a JSON object, no prose, no code fence:\n{"workouts":[{"title":"short name, max 4 words","tag":"category, 1-2 words","blurb":"one sentence, max 18 words, plain and factual","minutes":35,"level":"Beginner or Intermediate or Advanced","source":null,"signal":null,"exercises":[{"name":"exercise name","sets":"3","reps":"10","isWeighted":true,"isTimed":false}]}]}\nGive each workout 4 to 7 exercises in the order they are performed. isWeighted true for external load; isTimed true when scored by time. Use null, not empty strings.';
+const GOALS = [
+  { id: 'speed', label: 'Speed', note: 'Sprints, sled and plyometrics' },
+  { id: 'strength', label: 'Strength', note: 'Heavy loads, low reps' },
+  { id: 'general', label: 'General fitness', note: 'A bit of everything' }
+];
+
+const SEED = [
+  { id: 'day1', day: 1, title: 'Speed', sections: [
+    { title: 'Sled Work', exercises: [
+      { id: 'd1e1', name: 'Single Switch on Sled', reps: '10' },
+      { id: 'd1e2', name: 'Double Switch on Sled', reps: '6ES' },
+      { id: 'd1e3', name: 'Triple Switch on Sled', reps: '6ES' },
+      { id: 'd1e4', name: 'Knee Drive March on Sled', sets: '4', distance: '10m', weight: '50-70', isWeighted: true }
+    ]},
+    { title: 'OH Plate Hold Series', exercises: [
+      { id: 'd1e5', name: 'A March with OH Plate Hold', sets: '2', distance: '10m', isWeighted: true },
+      { id: 'd1e6', name: 'A Switch with OH Plate Hold', sets: '2', distance: '10m', isWeighted: true },
+      { id: 'd1e7', name: 'A Switch with Double Skip OH Plate Hold', sets: '2', distance: '10m', isWeighted: true },
+      { id: 'd1e8', name: 'Straight Leg Runs with OH Plate Hold', sets: '2', distance: '10m', isWeighted: true }
+    ]},
+    { title: 'Jumps', exercises: [
+      { id: 'd1e9', name: 'Broad Jumps', sets: '3', reps: '3', weight: 'BW' },
+      { id: 'd1e10', name: 'Single Leg Step Up Jumps (Alternating)', sets: '3', reps: '10ES', weight: 'BW' }
+    ]}
+  ]},
+  { id: 'day2', day: 2, title: 'Speed', sections: [
+    { title: 'Stretch', exercises: [{ id: 'd2e0', name: 'Dynamic Stretching Routine', sets: '1' }] },
+    { title: 'Drills', exercises: [
+      { id: 'd2e1', name: 'High Knees', sets: '2', distance: '20m' },
+      { id: 'd2e2', name: 'Butt Kicks', sets: '2', distance: '20m' },
+      { id: 'd2e3', name: 'A Skip', sets: '3', distance: '20m' },
+      { id: 'd2e4', name: 'B Skip', sets: '3', distance: '20m' },
+      { id: 'd2e5', name: 'Power Skip', sets: '3', distance: '20m' }
+    ]},
+    { title: 'Sprints (Band Resisted)', exercises: [
+      { id: 'd2e6', name: 'Band Resisted Sprint 5m', sets: '3', reps: '3', distance: '5m', rest: '2-3 min' },
+      { id: 'd2e7', name: 'Band Resisted Sprint 10m', sets: '3', reps: '2', distance: '10m', rest: '2-3 min' }
+    ]},
+    { title: 'Sprints (Straight Line)', exercises: [
+      { id: 'd2e8', name: 'Sprint 15m Max Effort', reps: '3', distance: '15m', rest: '2 min per rep' },
+      { id: 'd2e9', name: 'Sprint 25m Max Effort', reps: '2', distance: '25m', rest: '2-3 min per rep' }
+    ]},
+    { title: 'Conditioning', exercises: [
+      { id: 'd2e10', name: 'Air Bike — 250 cals @ 16-18 km/h', sets: '1' },
+      { id: 'd2e11', name: 'Air Bike — 40s @ 12-14 km/h / 20s @ 20-24 km/h', reps: '8-10 repeats' },
+      { id: 'd2e12', name: 'Battle Rope — 30s Hard / 30s Rest', reps: '8-10 repeats' }
+    ]}
+  ]}
+];
+
+const PARSE_PROMPT = 'You are reading a strength/speed training plan. Extract every exercise exactly as written. Reply with ONLY a JSON object, no prose, no code fence:\n{"title":"short plan name in 1-2 words","sections":[{"title":"section heading, or Workout if none","exercises":[{"name":"exercise name verbatim","sets":"e.g. 4 or null","reps":"e.g. 8 or 6ES or null","distance":"e.g. 10m or null","weight":"prescribed load as written, e.g. 50-70 or BW or null","isWeighted":true,"isTimed":false}]}]}\nSet isWeighted true when the exercise uses external load (barbell, dumbbell, plate, sled, machine). Set isTimed true when the exercise is scored by time or speed (sprints, runs, timed carries, intervals). Keep the original order. Use null, not empty strings.';
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.photoRef = React.createRef();
+    this.fileRef = React.createRef();
+    this.state = {
+      screen: 'auth', planId: null, exId: null,
+      unit: 'kg', plans: SEED, log: [],
+      input: '', sheet: false, busy: false, busyFile: '', error: '',
+      toast: '', draft: null,
+      user: null, account: null, mode: 'register', authError: '',
+      trends: [], trendsAt: null, trendsBusy: false, trendsError: '', openTrend: null,
+      trendSources: [], trendPosts: 0,
+      events: [], overlay: null, ghost: null, wheel: null, session: null,
+      editName: null, confirmPlan: false, rest: null, note: '', bwInput: '', query: '',
+      report: null, reportText: '', reportBusy: false, watch: null, rounds: null,
+      clients: CLIENT_SEED, clientId: null, assignFor: null, pb: null, muted: false,
+      step: 0,
+      form: { name: '', email: '', password: '', confirm: '', bodyweight: '', goal: 'speed', role: 'solo', days: 3 }
+    };
+  }
+
+  componentDidMount() {
+    let plans = SEED, log = [], unit = this.props.defaultUnit === 'lb' ? 'lb' : 'kg';
+    let account = null, session = false;
+    try {
+      const p = localStorage.getItem(LS_PLANS); if (p) plans = JSON.parse(p);
+      const l = localStorage.getItem(LS_LOG); if (l) log = JSON.parse(l).map(e => e.kind ? e : { id: e.id, exerciseId: e.exerciseId, kind: 'load', value: e.weight, date: e.date });
+      const u = localStorage.getItem(LS_UNIT); if (u === 'kg' || u === 'lb') unit = u;
+      const a = localStorage.getItem(LS_USER); if (a) account = JSON.parse(a);
+      session = localStorage.getItem(LS_SESSION) === '1';
+    } catch (e) {}
+    let trends = [], trendsAt = null, events = [], trendSources = [], trendPosts = 0;
+    try {
+      const ev = localStorage.getItem(LS_EVENTS); if (ev) events = JSON.parse(ev);
+      const cl = localStorage.getItem(LS_CLIENTS); if (cl) this._clients = JSON.parse(cl);
+      this._muted = localStorage.getItem(LS_MUTED) === '1';
+    } catch (e) {}
+    try {
+      const t = localStorage.getItem(LS_TRENDS);
+      if (t) {
+        const parsed = JSON.parse(t);
+        trends = parsed.list || []; trendsAt = parsed.at || null;
+        trendSources = parsed.sources || []; trendPosts = parsed.posts || 0;
+      }
+    } catch (e) {}
+    const user = session && account ? account : null;
+    this.setState({
+      plans, log, unit, account, user, trends, trendsAt, events, trendSources, trendPosts,
+      clients: this._clients || CLIENT_SEED, muted: !!this._muted,
+      screen: user ? 'today' : account ? 'auth' : 'welcome',
+      mode: account ? 'signin' : 'register',
+      form: Object.assign({}, this.state.form, { email: account ? account.email : '' })
+    });
+  }
+
+  // — account —
+  setForm(key, value) {
+    this.setState({ form: Object.assign({}, this.state.form, { [key]: value }), authError: '' });
+  }
+  persistAccount(account, session) {
+    try {
+      localStorage.setItem(LS_USER, JSON.stringify(account));
+      localStorage.setItem(LS_SESSION, session ? '1' : '0');
+    } catch (e) {}
+  }
+  submitAuth() {
+    const f = this.state.form;
+    const email = f.email.trim().toLowerCase();
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (this.state.mode === 'register') {
+      if (!f.name.trim()) return this.setState({ authError: 'Add your name so the app knows who is lifting.' });
+      if (!emailOk) return this.setState({ authError: 'That email address does not look right.' });
+      if (f.password.length < 8) return this.setState({ authError: 'Passwords need at least 8 characters.' });
+      if (f.password !== f.confirm) return this.setState({ authError: 'The two passwords do not match.' });
+      const account = { name: f.name.trim(), email: email, goal: 'speed', role: 'solo', days: 3, bodyweight: null, joined: new Date().toISOString() };
+      this.persistAccount(account, true);
+      this.setState({ account: account, user: account, screen: 'onboard', step: 0, authError: '' });
+      return;
+    }
+    if (!emailOk) return this.setState({ authError: 'That email address does not look right.' });
+    if (!f.password) return this.setState({ authError: 'Enter your password.' });
+    const acc = this.state.account;
+    if (!acc || acc.email !== email) return this.setState({ authError: 'No account on this device with that email. Create one instead.' });
+    this.persistAccount(acc, true);
+    this.setState({ user: acc, screen: 'today', authError: '' });
+    this.toast('Welcome back, ' + acc.name.split(' ')[0]);
+  }
+  finishOnboard() {
+    const f = this.state.form;
+    const bw = parseFloat(f.bodyweight);
+    const account = Object.assign({}, this.state.account, {
+      goal: f.goal, role: f.role, days: f.days,
+      bodyweight: isNaN(bw) || bw <= 0 ? null : this.toKg(bw)
+    });
+    this.persistAccount(account, true);
+    this.setState({ account: account, user: account, screen: 'today', step: 0 });
+    this.toast('You are set up, ' + account.name.split(' ')[0]);
+  }
+  signOut() {
+    try { localStorage.setItem(LS_SESSION, '0'); } catch (e) {}
+    this.setState({
+      user: null, screen: 'welcome', mode: 'signin', sheet: false, authError: '',
+      form: Object.assign({}, this.state.form, { password: '', confirm: '', email: this.state.account ? this.state.account.email : '' })
+    });
+  }
+
+  persist(patch) {
+    this.setState(patch, () => {
+      try {
+        localStorage.setItem(LS_PLANS, JSON.stringify(this.state.plans));
+        localStorage.setItem(LS_LOG, JSON.stringify(this.state.log));
+        localStorage.setItem(LS_UNIT, this.state.unit);
+      } catch (e) {}
+    });
+  }
+
+  toast(msg) {
+    clearTimeout(this._t);
+    this.setState({ toast: msg });
+    this._t = setTimeout(() => this.setState({ toast: '' }), 2600);
+  }
+
+  // — metrics —
+  metricOf(ex) {
+    if (!ex) return null;
+    if (ex.metric) return ex.metric === 'none' ? null : ex.metric;
+    if (ex.isWeighted) return 'load';
+    if (ex.isTimed || ex.distance) return 'time';
+    return null;
+  }
+  setMetric(exId, kind) {
+    const plans = this.state.plans.map(p => ({
+      id: p.id, day: p.day, title: p.title,
+      sections: p.sections.map(sec => ({
+        title: sec.title,
+        exercises: sec.exercises.map(e => e.id === exId ? Object.assign({}, e, { metric: kind }) : e)
+      }))
+    }));
+    this.persist({ plans: plans });
+    this.setState({ input: '' });
+  }
+  fmtVal(kind, v) {
+    if (kind === 'time') return (Math.round(v * 100) / 100).toFixed(2) + 's';
+    if (kind === 'reps') return (Math.round(v * 10) / 10) + ' reps';
+    return this.fmt(v);
+  }
+  betterIsHigher(kind) { return kind !== 'time'; }
+  statsFor(id) {
+    const h = this.entriesFor(id);
+    if (!h.length) return null;
+    const kind = h[0].kind || 'load';
+    const vals = h.map(e => e.value);
+    const max = Math.max.apply(null, vals), min = Math.min.apply(null, vals);
+    const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+    return {
+      kind: kind, count: vals.length, latest: vals[0], first: vals[vals.length - 1],
+      max: max, min: min, avg: avg,
+      best: this.betterIsHigher(kind) ? max : min,
+      worst: this.betterIsHigher(kind) ? min : max
+    };
+  }
+
+  // — units —
+  toDisplay(kg) { return this.state.unit === 'kg' ? kg : kg / KG_PER_LB; }
+  toKg(v) { return this.state.unit === 'kg' ? v : v * KG_PER_LB; }
+  round(v) { return Math.round(v * 2) / 2; }
+  fmt(kg) { return this.round(this.toDisplay(kg)) + ' ' + this.state.unit.toUpperCase(); }
+
+  // — data —
+  allExercises() {
+    const out = [];
+    this.state.plans.forEach(p => p.sections.forEach(s => s.exercises.forEach(e =>
+      out.push(Object.assign({}, e, { planId: p.id, planTitle: p.title, planDay: p.day })))));
+    return out;
+  }
+  findEx(id) { return this.allExercises().find(e => e.id === id) || null; }
+  entriesFor(id) {
+    return this.state.log.filter(e => e.exerciseId === id).sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+  suggestTime(sec) { return Math.max(0.5, Math.round((sec - Math.max(0.05, sec * 0.02)) * 100) / 100); }
+  prescription(ex) {
+    const parts = [];
+    if (ex.sets) parts.push(ex.sets + ' sets');
+    if (ex.reps) parts.push(ex.reps + ' reps');
+    if (ex.distance) parts.push(ex.distance);
+    if (ex.weight) parts.push(ex.weight === 'BW' ? 'bodyweight' : ex.weight + ' kg prescribed');
+    return parts.join(' · ') || 'As prescribed';
+  }
+  daysAgo(iso) {
+    const d = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+    if (d <= 0) return 'today';
+    if (d === 1) return 'yesterday';
+    if (d < 7) return d + ' days ago';
+    if (d < 14) return 'last week';
+    return Math.floor(d / 7) + ' weeks ago';
+  }
+  dateLabel(iso) {
+    return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+  suggest(kg) {
+    const step = kg >= 60 ? 5 : kg >= 20 ? 2.5 : 1;
+    return kg + step;
+  }
+  nudgeFor(ex) {
+    const kind = this.metricOf(ex);
+    const st = this.statsFor(ex.id);
+    if (!st) return kind ? (kind === 'time' ? 'No time recorded yet — set a baseline' : 'Not logged yet — set a baseline') : '';
+    const h = this.entriesFor(ex.id);
+    const last = h[0];
+    const f = (v) => this.fmtVal(st.kind, v);
+    if (this.props.nudgeMode === 'Show last only') return 'Last ' + f(last.value) + ' · ' + this.daysAgo(last.date);
+    if (st.kind === 'time') {
+      if (last.value > st.best) return 'Last ' + f(last.value) + ' — best is ' + f(st.best) + ', go get it';
+      return 'Last ' + f(last.value) + ' ' + this.daysAgo(last.date) + ' → chase ' + f(this.suggestTime(last.value));
+    }
+    if (last.value < st.best) return 'Last ' + f(last.value) + ' — best is ' + f(st.best) + ', match it';
+    return 'Last ' + f(last.value) + ' ' + this.daysAgo(last.date) + ' → try ' + f(this.suggest(last.value));
+  }
+
+  chart(raw, kind) {
+    if (raw.length < 2) return null;
+    const vals = kind === 'time' ? raw.map(v => Math.round(v * 100) / 100) : raw.map(k => this.round(this.toDisplay(k)));
+    const W = 300, H = 74, n = vals.length;
+    const min = Math.min.apply(null, vals), max = Math.max.apply(null, vals), rng = (max - min) || 1;
+    const pts = vals.map((v, i) => [8 + i * (W - 16) / (n - 1), H - 10 - ((v - min) / rng) * (H - 26)]);
+    const kids = [
+      React.createElement('line', { key: 'b', x1: 0, y1: H - 1, x2: W, y2: H - 1, stroke: 'rgba(32,30,29,.18)', strokeWidth: 2 }),
+      React.createElement('polyline', { key: 'l', points: pts.map(p => p.join(',')).join(' '), fill: 'none', stroke: '#ec3013', strokeWidth: 2 })
+    ];
+    pts.forEach((p, i) => kids.push(React.createElement('rect', {
+      key: 'p' + i, x: p[0] - 3, y: p[1] - 3, width: 6, height: 6,
+      fill: i === n - 1 ? '#ec3013' : '#201e1d'
+    })));
+    return React.createElement('svg', { viewBox: '0 0 ' + W + ' ' + H, style: { width: '100%', height: 'auto', display: 'block' } }, kids);
+  }
+
+  // — actions —
+  go(screen, patch) { this.setState(Object.assign({ screen: screen, sheet: false }, patch || {})); }
+  openExercise(id) {
+    const h = this.entriesFor(id);
+    this.setState({
+      screen: 'exercise', exId: id, sheet: false,
+      input: h.length ? String(this.round(this.toDisplay(h[0].weight))) : ''
+    });
+  }
+  watch(ex) {
+    const q = encodeURIComponent(ex.name.replace(/[—–]/g, ' ') + ' exercise technique');
+    window.open('https://www.youtube.com/results?search_query=' + q, '_blank', 'noopener');
+  }
+  saveWeight() {
+    const ex = this.findEx(this.state.exId);
+    const kind = this.metricOf(ex);
+    const v = parseFloat(this.state.input);
+    if (!ex || !kind || isNaN(v) || v <= 0) { this.toast(kind === 'time' ? 'Enter a time first' : 'Enter a weight first'); return; }
+    const value = kind === 'time' ? Math.round(v * 100) / 100 : kind === 'reps' ? Math.round(v * 10) / 10 : this.toKg(v);
+    const st = this.statsFor(ex.id);
+    const prev = this.entriesFor(ex.id)[0];
+    const log = this.state.log.concat([{ id: 'e' + Date.now(), exerciseId: ex.id, kind: kind, value: value, date: new Date().toISOString(), note: this.state.note.trim().slice(0, 120) || null }]);
+    this.persist({ log: log });
+    this.setState({ note: '' });
+    const f = (x) => this.fmtVal(kind, x);
+    const improved = st && (kind === 'time' ? value < st.best : value > st.best);
+    if (improved) {
+      clearTimeout(this._pb);
+      const gain = kind === 'time' ? (st.best - value).toFixed(2) + 's faster than your best' : this.fmt(value - st.best) + ' more than you have ever held';
+      this.setState({ pb: { name: ex.name, value: f(value), gain: gain, prev: f(st.best), head: this.pick(PB_HEADS) } });
+      this._pb = setTimeout(() => this.setState({ pb: null }), 3400);
+    } else if (!st) {
+      clearTimeout(this._pb);
+      this.setState({ pb: { name: ex.name, value: f(value), gain: this.pick(BASE_LINES), prev: null, head: this.pick(BASE_HEADS) } });
+      this._pb = setTimeout(() => this.setState({ pb: null }), 3000);
+    }
+    const vals = log.filter(e => e.exerciseId === ex.id).map(e => e.value);
+    const now = {
+      best: kind === 'time' ? Math.min.apply(null, vals) : Math.max.apply(null, vals),
+      avg: vals.reduce((a, b) => a + b, 0) / vals.length
+    };
+    if (improved) this.toast('Logged ' + f(value) + ' — new personal best');
+    else if (prev && value === prev.value) this.toast('Logged ' + f(value) + ' — matched last session');
+    else if (prev) this.toast('Logged ' + f(value) + ' · best ' + f(now.best) + ' · average ' + f(now.avg));
+    else this.toast('Logged ' + f(value) + ' — baseline set');
+  }
+  removeEntry(id) { this.persist({ log: this.state.log.filter(e => e.id !== id) }); this.toast('Entry deleted'); }
+
+  // — import —
+  readB64(file) {
+    return new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(String(r.result).split(',')[1]);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+  }
+  async handleFile(file) {
+    if (!file) return;
+    this.setState({ busy: true, busyFile: file.name, error: '', sheet: false });
+    try {
+      if (!window.claude || !window.claude.complete) throw new Error('no-helper');
+      let content;
+      if (file.type.indexOf('image/') === 0) {
+        content = [
+          { type: 'image', source: { type: 'base64', media_type: file.type, data: await this.readB64(file) } },
+          { type: 'text', text: PARSE_PROMPT }
+        ];
+      } else if (file.type === 'application/pdf') {
+        content = [
+          { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: await this.readB64(file) } },
+          { type: 'text', text: PARSE_PROMPT }
+        ];
+      } else {
+        content = PARSE_PROMPT + '\n\nPLAN:\n' + (await file.text()).slice(0, 12000);
+      }
+      const out = await window.claude.complete({ messages: [{ role: 'user', content: content }], max_tokens: 4000 });
+      const m = String(out).match(/\{[\s\S]*\}/);
+      if (!m) throw new Error('no-json');
+      const data = JSON.parse(m[0]);
+      const plan = this.normalise(data);
+      if (!plan.sections.length) throw new Error('empty');
+      const plans = this.state.plans.concat([plan]);
+      this.persist({ plans: plans });
+      this.setState({ busy: false, screen: 'plan', planId: plan.id });
+      this.toast('Added ' + plan.sections.reduce((a, s) => a + s.exercises.length, 0) + ' exercises from ' + file.name);
+    } catch (err) {
+      this.setState({
+        busy: false, sheet: true,
+        error: err && err.message === 'no-helper'
+          ? "Reading files needs the app's assistant, which isn't available here. Build the plan by hand instead."
+          : "Couldn't read that one. Try a sharper, straight-on photo — or build the plan by hand."
+      });
+    }
+  }
+  normalise(data) {
+    const stamp = Date.now();
+    const secs = (data.sections || []).map((s, si) => ({
+      title: String(s.title || 'Workout').slice(0, 40),
+      exercises: (s.exercises || []).map((e, ei) => ({
+        id: 'i' + stamp + '_' + si + '_' + ei,
+        name: String(e.name || 'Exercise').slice(0, 90),
+        sets: e.sets ? String(e.sets) : null,
+        reps: e.reps ? String(e.reps) : null,
+        distance: e.distance ? String(e.distance) : null,
+        weight: e.weight ? String(e.weight) : null,
+        isWeighted: !!e.isWeighted,
+        isTimed: !!e.isTimed && !e.isWeighted
+      })).filter(e => e.name)
+    })).filter(s => s.exercises.length);
+    return {
+      id: 'p' + stamp, day: this.state.plans.length + 1,
+      title: String(data.title || 'Imported').slice(0, 24), sections: secs
+    };
+  }
+  duplicate(plan) {
+    const stamp = Date.now();
+    const copy = {
+      id: 'p' + stamp, day: this.state.plans.length + 1, title: plan.title + ' copy',
+      sections: plan.sections.map((s, si) => ({
+        title: s.title,
+        exercises: s.exercises.map((e, ei) => Object.assign({}, e, { id: 'c' + stamp + '_' + si + '_' + ei }))
+      }))
+    };
+    this.persist({ plans: this.state.plans.concat([copy]) });
+    this.setState({ screen: 'plan', planId: copy.id, sheet: false });
+    this.toast('Duplicated — edit as you go');
+  }
+  saveDraft() {
+    const d = this.state.draft || { title: '', rows: [] };
+    const rows = d.rows.filter(r => r.name.trim());
+    if (!rows.length) { this.toast('Add at least one exercise'); return; }
+    const stamp = Date.now();
+    const plan = {
+      id: 'p' + stamp, day: this.state.plans.length + 1,
+      title: (d.title.trim() || 'New plan').slice(0, 24),
+      sections: [{ title: 'Workout', exercises: rows.map((r, i) => ({
+        id: 'm' + stamp + '_' + i, name: r.name.trim(),
+        sets: r.sets || null, reps: r.reps || null, distance: null,
+        weight: null, isWeighted: !!r.weighted
+      })) }]
+    };
+    this.persist({ plans: this.state.plans.concat([plan]) });
+    this.setState({ screen: 'plan', planId: plan.id, draft: null });
+    this.toast('Plan saved');
+  }
+  setDraft(i, key, value) {
+    const d = this.state.draft;
+    const rows = d.rows.map((r, ri) => ri === i ? Object.assign({}, r, { [key]: value }) : r);
+    this.setState({ draft: Object.assign({}, d, { rows: rows }) });
+  }
+
+  // — trending —
+  async fetchSignals() {
+    const results = await Promise.all(TREND_SOURCES.map(async (src) => {
+      try {
+        const res = await fetch(src.url, { headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error('status ' + res.status);
+        const json = await res.json();
+        const posts = ((json.data && json.data.children) || [])
+          .map(c => c.data)
+          .filter(d => d && d.title && !d.stickied)
+          .slice(0, 12)
+          .map(d => ({ source: src.id, title: String(d.title).slice(0, 140), score: d.ups || d.score || 0 }));
+        return posts.length ? { id: src.id, posts: posts } : null;
+      } catch (e) { return null; }
+    }));
+    const live = results.filter(Boolean);
+    return { sources: live.map(l => l.id), posts: live.reduce((a, l) => a.concat(l.posts), []) };
+  }
+
+  async loadTrends(force) {
+    if (this.state.trendsBusy) return;
+    if (!force && this.state.trends.length) return;
+    this.setState({ trendsBusy: true, trendsError: '' });
+    try {
+      if (!window.claude || !window.claude.complete) throw new Error('no-helper');
+      const signals = await this.fetchSignals();
+      const prompt = signals.posts.length
+        ? TRENDS_PROMPT + '\n\nThese are the most upvoted posts this week in public training communities. Base the five workouts on what these people are actually doing, and set "source" to the community a workout came from and "signal" to a short phrase naming the post or theme behind it:\n' +
+          signals.posts.map(p => '- [' + p.source + ' · ' + p.score + ' upvotes] ' + p.title).join('\n')
+        : TRENDS_PROMPT;
+      const out = await window.claude.complete({
+        messages: [{ role: 'user', content: prompt }], max_tokens: 3000
+      });
+      const m = String(out).match(/\{[\s\S]*\}/);
+      if (!m) throw new Error('no-json');
+      const list = (JSON.parse(m[0]).workouts || []).slice(0, 6).map((w, i) => ({
+        id: 't' + Date.now() + '_' + i,
+        title: String(w.title || 'Workout').slice(0, 44),
+        blurb: String(w.blurb || '').slice(0, 130),
+        tag: String(w.tag || 'Trending').slice(0, 22),
+        level: String(w.level || 'All levels').slice(0, 16),
+        minutes: (parseInt(w.minutes, 10) || 30) + ' min',
+        source: w.source ? String(w.source).slice(0, 24) : null,
+        signal: w.signal ? String(w.signal).slice(0, 90) : null,
+        exercises: (w.exercises || []).slice(0, 8).map(e => ({
+          name: String(e.name || 'Exercise').slice(0, 70),
+          sets: e.sets ? String(e.sets) : null,
+          reps: e.reps ? String(e.reps) : null,
+          distance: null, weight: null,
+          isWeighted: !!e.isWeighted, isTimed: !!e.isTimed && !e.isWeighted
+        })).filter(e => e.name)
+      })).filter(w => w.exercises.length);
+      if (!list.length) throw new Error('empty');
+      const at = new Date().toISOString();
+      const payload = { at: at, list: list, sources: signals.sources, posts: signals.posts.length };
+      try { localStorage.setItem(LS_TRENDS, JSON.stringify(payload)); } catch (e) {}
+      this.setState({ trends: list, trendsAt: at, trendsBusy: false, trendSources: signals.sources, trendPosts: signals.posts.length });
+    } catch (err) {
+      this.setState({
+        trendsBusy: false,
+        trendsError: err && err.message === 'no-helper'
+          ? "Suggestions need the app's assistant, which isn't available here."
+          : 'Could not put a list together just now. Try refresh again in a moment.'
+      });
+    }
+  }
+  addTrend(t) {
+    const stamp = Date.now();
+    const plan = {
+      id: 'p' + stamp, day: this.state.plans.length + 1, title: t.title.slice(0, 24),
+      sections: [{ title: t.tag, exercises: t.exercises.map((e, i) => Object.assign({}, e, { id: 'tr' + stamp + '_' + i })) }]
+    };
+    this.persist({ plans: this.state.plans.concat([plan]) });
+    this.setState({ screen: 'plan', planId: plan.id, openTrend: null });
+    this.toast('Added to your plans');
+  }
+
+  // — play: points, weeks, badges —
+  weekKey(d) {
+    const dt = new Date(d);
+    const day = (dt.getDay() + 6) % 7;
+    dt.setHours(0, 0, 0, 0); dt.setDate(dt.getDate() - day);
+    return dt.toISOString().slice(0, 10);
+  }
+  weekLabel(key) {
+    const a = new Date(key), b = new Date(key);
+    b.setDate(b.getDate() + 6);
+    const f = (x) => x.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    return f(a) + ' – ' + f(b);
+  }
+  isPR(entry) {
+    const before = this.state.log.filter(x => x.exerciseId === entry.exerciseId && new Date(x.date) < new Date(entry.date));
+    if (!before.length) return true;
+    const vals = before.map(x => x.value);
+    return entry.kind === 'time' ? entry.value < Math.min.apply(null, vals) : entry.value > Math.max.apply(null, vals);
+  }
+  weekStats(key) {
+    const sets = this.state.log.filter(e => this.weekKey(e.date) === key);
+    const events = this.state.events.filter(e => this.weekKey(e.date) === key);
+    const prs = sets.filter(e => this.isPR(e)).length;
+    const days = new Set(sets.map(e => new Date(e.date).toDateString())).size;
+    const ghosts = events.filter(e => e.type === 'ghost');
+    const spins = events.filter(e => e.type === 'spin');
+    const done = events.filter(e => e.type === 'session');
+    const allDays = new Set(sets.map(e => new Date(e.date).toDateString()));
+    done.forEach(e => allDays.add(new Date(e.date).toDateString()));
+    const tasks = [
+      { label: 'Log five sets', done: sets.length >= 5, progress: Math.min(sets.length, 5) + '/5' },
+      { label: 'Set a personal best', done: prs >= 1, progress: prs + '/1' },
+      { label: 'Train on three days', done: allDays.size >= 3, progress: Math.min(allDays.size, 3) + '/3' },
+      { label: 'Race your ghost', done: ghosts.length >= 1, progress: Math.min(ghosts.length, 1) + '/1' },
+      { label: 'Spin a finisher', done: spins.length >= 1, progress: Math.min(spins.length, 1) + '/1' }
+    ];
+    const points = sets.length * 10 + prs * 25 + tasks.filter(t => t.done).length * 20 +
+      ghosts.length * 10 + ghosts.filter(g => g.win).length * 30 + spins.length * 5 + done.length * 15;
+    return { key: key, sets: sets.length, prs: prs, days: allDays.size, tasks: tasks, points: points, ghostWins: ghosts.filter(g => g.win).length };
+  }
+  allWeeks() {
+    const keys = {};
+    this.state.log.forEach(e => { keys[this.weekKey(e.date)] = 1; });
+    this.state.events.forEach(e => { keys[this.weekKey(e.date)] = 1; });
+    keys[this.weekKey(new Date())] = 1;
+    return Object.keys(keys).sort().reverse().map(k => this.weekStats(k));
+  }
+  totalPoints() { return this.allWeeks().reduce((a, w) => a + w.points, 0); }
+  streakDays() {
+    const days = this.sessionDates();
+    let n = 0;
+    const d = new Date();
+    if (!days.has(d.toDateString())) d.setDate(d.getDate() - 1);
+    while (days.has(d.toDateString())) { n++; d.setDate(d.getDate() - 1); }
+    return n;
+  }
+  badges() {
+    const total = this.totalPoints();
+    const prs = this.state.log.filter(e => this.isPR(e)).length;
+    const streak = this.streakDays();
+    const ghostWins = this.state.events.filter(e => e.type === 'ghost' && e.win).length;
+    const spins = this.state.events.filter(e => e.type === 'spin').length;
+    return [
+      { label: 'First log', earned: this.state.log.length >= 1 },
+      { label: 'Five PBs', earned: prs >= 5 },
+      { label: 'Three-day streak', earned: streak >= 3 },
+      { label: 'Ghost hunter', earned: ghostWins >= 1 },
+      { label: 'Wheel spinner', earned: spins >= 3 },
+      { label: 'Thousand club', earned: total >= 1000 }
+    ];
+  }
+  addEvent(ev) {
+    const events = this.state.events.concat([Object.assign({ id: 'v' + Date.now(), date: new Date().toISOString() }, ev)]);
+    this.setState({ events: events }, () => {
+      try { localStorage.setItem(LS_EVENTS, JSON.stringify(this.state.events)); } catch (e) {}
+    });
+  }
+
+  // — ghost race —
+  ghostTargets() {
+    return this.allExercises()
+      .map(e => ({ ex: e, st: this.statsFor(e.id) }))
+      .filter(x => x.st && x.st.kind === 'time');
+  }
+  openGhost() {
+    const t = this.ghostTargets();
+    this.setState({ overlay: 'ghost', ghost: t.length ? { exId: t[0].ex.id, target: t[0].st.best, elapsed: 0, running: false, result: null } : null });
+  }
+  startGhost() {
+    clearInterval(this._g);
+    const t0 = Date.now();
+    this.setState({ ghost: Object.assign({}, this.state.ghost, { running: true, elapsed: 0, result: null }) });
+    this._g = setInterval(() => {
+      if (!this.state.ghost || !this.state.ghost.running) return;
+      this.setState({ ghost: Object.assign({}, this.state.ghost, { elapsed: (Date.now() - t0) / 1000 }) });
+    }, 60);
+  }
+  stopGhost() {
+    clearInterval(this._g);
+    const g = this.state.ghost;
+    if (!g || !g.running) return;
+    const value = Math.round(g.elapsed * 100) / 100;
+    const win = value < g.target;
+    const log = this.state.log.concat([{ id: 'e' + Date.now(), exerciseId: g.exId, kind: 'time', value: value, date: new Date().toISOString() }]);
+    this.persist({ log: log });
+    this.addEvent({ type: 'ghost', win: win, exId: g.exId, value: value });
+    this.setState({ ghost: Object.assign({}, g, { running: false, result: { value: value, win: win, gap: Math.round(Math.abs(value - g.target) * 100) / 100 } }) });
+  }
+  componentWillUnmount() { clearInterval(this._g); clearTimeout(this._w); clearTimeout(this._t); clearInterval(this._r); clearInterval(this._sw); clearInterval(this._rd); }
+
+  // — wheel —
+  openWheel() { this.setState({ overlay: 'wheel', wheel: { index: 0, spinning: false, landed: null } }); }
+  spinWheel() {
+    clearTimeout(this._w);
+    const n = FINISHERS.length;
+    const total = n * 3 + Math.floor(Math.random() * n);
+    this.setState({ wheel: { index: 0, spinning: true, landed: null } });
+    let i = 0;
+    const tick = () => {
+      i++;
+      const idx = i % n;
+      if (i >= total) {
+        this.setState({ wheel: { index: idx, spinning: false, landed: FINISHERS[idx] } });
+        this.addEvent({ type: 'spin', finisher: FINISHERS[idx].name });
+        return;
+      }
+      this.setState({ wheel: { index: idx, spinning: true, landed: null } });
+      const left = total - i;
+      this._w = setTimeout(tick, left > 6 ? 55 : 55 + (7 - left) * 65);
+    };
+    this._w = setTimeout(tick, 55);
+  }
+
+  // — editing —
+  mapPlans(fn) {
+    const plans = this.state.plans.map(p => fn(p)).filter(Boolean);
+    this.persist({ plans: plans });
+  }
+  renameExercise(exId, name) {
+    if (!name.trim()) return;
+    this.mapPlans(p => ({ id: p.id, day: p.day, title: p.title, sections: p.sections.map(sec => ({
+      title: sec.title,
+      exercises: sec.exercises.map(e => e.id === exId ? Object.assign({}, e, { name: name.trim().slice(0, 90) }) : e)
+    })) }));
+    this.setState({ editName: null });
+    this.toast('Renamed');
+  }
+  deleteExercise(exId) {
+    const planId = (this.findEx(exId) || {}).planId;
+    this.mapPlans(p => ({ id: p.id, day: p.day, title: p.title, sections: p.sections
+      .map(sec => ({ title: sec.title, exercises: sec.exercises.filter(e => e.id !== exId) }))
+      .filter(sec => sec.exercises.length) }));
+    this.setState({ log: this.state.log.filter(e => e.exerciseId !== exId), screen: 'plan', planId: planId });
+    this.toast('Exercise removed');
+  }
+  deletePlan(planId) {
+    const ids = [];
+    const p = this.state.plans.find(x => x.id === planId);
+    if (p) p.sections.forEach(sec => sec.exercises.forEach(e => ids.push(e.id)));
+    this.persist({
+      plans: this.state.plans.filter(x => x.id !== planId),
+      log: this.state.log.filter(e => ids.indexOf(e.exerciseId) === -1)
+    });
+    this.setState({ screen: 'today', planId: null, confirmPlan: false });
+    this.toast('Plan deleted');
+  }
+  moveExercise(exId, dir) {
+    this.mapPlans(p => ({ id: p.id, day: p.day, title: p.title, sections: p.sections.map(sec => {
+      const i = sec.exercises.findIndex(e => e.id === exId);
+      if (i < 0) return sec;
+      const j = i + dir;
+      if (j < 0 || j >= sec.exercises.length) return sec;
+      const list = sec.exercises.slice();
+      const tmp = list[i]; list[i] = list[j]; list[j] = tmp;
+      return { title: sec.title, exercises: list };
+    }) }));
+  }
+
+  // — stopwatch —
+  startWatch() {
+    clearInterval(this._sw);
+    const base = this.state.watch && this.state.watch.paused ? this.state.watch.elapsed : 0;
+    const t0 = Date.now() - base * 1000;
+    this.setState({ watch: { elapsed: base, running: true, paused: false } });
+    this._sw = setInterval(() => {
+      this.setState({ watch: { elapsed: (Date.now() - t0) / 1000, running: true, paused: false } });
+    }, 60);
+  }
+  stopWatch() {
+    clearInterval(this._sw);
+    const w = this.state.watch;
+    if (!w || !w.running) return;
+    const v = Math.round(w.elapsed * 100) / 100;
+    this.setState({ watch: { elapsed: v, running: false, paused: true }, input: String(v) });
+  }
+  resetWatch() { clearInterval(this._sw); this.setState({ watch: null }); }
+  saveWatch() {
+    const ex = this.findEx(this.state.exId);
+    const w = this.state.watch;
+    if (!ex || !w || !w.elapsed) return;
+    clearInterval(this._sw);
+    this.setState({ input: String(Math.round(w.elapsed * 100) / 100) }, () => {
+      this.saveWeight();
+      this.setState({ watch: null });
+    });
+  }
+
+  // — sound —
+  audio() {
+    if (this.state.muted) return null;
+    if (!this._ac) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      this._ac = new AC();
+    }
+    if (this._ac.state === 'suspended') this._ac.resume();
+    return this._ac;
+  }
+  tone(freq, dur, delay, type, gain) {
+    const ac = this.audio();
+    if (!ac) return;
+    const t = ac.currentTime + (delay || 0);
+    const osc = ac.createOscillator();
+    const g = ac.createGain();
+    osc.type = type || 'sine';
+    osc.frequency.setValueAtTime(freq, t);
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(gain || 0.3, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    osc.connect(g); g.connect(ac.destination);
+    osc.start(t); osc.stop(t + dur + 0.05);
+  }
+  bell(kind) {
+    if (kind === 'start') { this.tone(880, 0.7, 0, 'triangle', 0.34); this.tone(1320, 0.7, 0.02, 'sine', 0.16); }
+    else if (kind === 'rest') { this.tone(520, 0.28, 0); this.tone(390, 0.36, 0.22); }
+    else if (kind === 'done') { [0, 0.32, 0.64].forEach(d => this.tone(880, 0.6, d, 'triangle', 0.32)); }
+    else if (kind === 'warn') { this.tone(700, 0.12, 0, 'square', 0.18); }
+    else this.tone(660, 0.25, 0);
+  }
+  toggleMute() {
+    const muted = !this.state.muted;
+    this.setState({ muted: muted });
+    try { localStorage.setItem(LS_MUTED, muted ? '1' : '0'); } catch (e) {}
+    if (!muted) this.bell('tick');
+  }
+
+  // — round timer —
+  openRounds() {
+    this.setState({ overlay: 'rounds', rounds: { total: 5, work: 180, rest: 60, idx: 0, phase: 'ready', left: 180, running: false } });
+  }
+  tickRounds() {
+    const r = this.state.rounds;
+    if (!r || !r.running) return;
+    if (r.left > 1) {
+      if (r.left <= 4) this.bell('warn');
+      this.setState({ rounds: Object.assign({}, r, { left: r.left - 1 }) });
+      return;
+    }
+    if (r.phase === 'work') {
+      if (r.idx + 1 >= r.total) {
+        clearInterval(this._rd);
+        this.bell('done');
+        this.addEvent({ type: 'rounds', total: r.total, work: r.work, rest: r.rest });
+        this.setState({ rounds: Object.assign({}, r, { phase: 'done', running: false, left: 0, idx: r.total }) });
+        this.toast(r.total + ' rounds done · +15 pts');
+        return;
+      }
+      this.bell('rest');
+      this.setState({ rounds: Object.assign({}, r, { phase: 'rest', left: r.rest }) });
+      return;
+    }
+    this.bell('start');
+    this.setState({ rounds: Object.assign({}, r, { phase: 'work', left: r.work, idx: r.idx + 1 }) });
+  }
+  startRounds() {
+    clearInterval(this._rd);
+    const r = this.state.rounds;
+    this.bell('start');
+    this.setState({ rounds: Object.assign({}, r, { running: true, phase: r.phase === 'ready' || r.phase === 'done' ? 'work' : r.phase, idx: r.phase === 'done' ? 0 : r.idx, left: r.phase === 'ready' || r.phase === 'done' ? r.work : r.left }) });
+    this._rd = setInterval(() => this.tickRounds(), 1000);
+  }
+  pauseRounds() { clearInterval(this._rd); this.setState({ rounds: Object.assign({}, this.state.rounds, { running: false }) }); }
+  setRounds(key, value) {
+    clearInterval(this._rd);
+    const r = Object.assign({}, this.state.rounds, { [key]: value, running: false, phase: 'ready', idx: 0 });
+    r.left = r.work;
+    this.setState({ rounds: r });
+  }
+
+  // — rest timer —
+  startRest(seconds) {
+    clearInterval(this._r);
+    this.bell('tick');
+    const end = Date.now() + seconds * 1000;
+    this.setState({ rest: { left: seconds, total: seconds } });
+    this._r = setInterval(() => {
+      const left = Math.max(0, Math.round((end - Date.now()) / 1000));
+      if (left <= 0) { clearInterval(this._r); this.bell('start'); this.setState({ rest: { left: 0, total: seconds } }); return; }
+      if (left <= 3 && left !== (this.state.rest || {}).left) this.bell('warn');
+      this.setState({ rest: { left: left, total: seconds } });
+    }, 250);
+  }
+  stopRest() { clearInterval(this._r); this.setState({ rest: null }); }
+
+  // — session completion —
+  completeSession(planId) {
+    const p = this.state.plans.find(x => x.id === planId);
+    this.addEvent({ type: 'session', planId: planId, title: p ? p.title : '' });
+    this.toast('Session marked done · +15 pts');
+  }
+  sessionDates() {
+    const set = new Set(this.state.log.map(e => new Date(e.date).toDateString()));
+    this.state.events.filter(e => e.type === 'session').forEach(e => set.add(new Date(e.date).toDateString()));
+    return set;
+  }
+
+  // — bodyweight —
+  logBodyweight() {
+    const v = parseFloat(this.state.bwInput);
+    if (isNaN(v) || v <= 0) { this.toast('Enter a weight first'); return; }
+    this.addEvent({ type: 'bodyweight', value: this.toKg(v) });
+    const account = Object.assign({}, this.state.account, { bodyweight: this.toKg(v) });
+    this.persistAccount(account, true);
+    this.setState({ account: account, user: account, bwInput: '' });
+    this.toast('Bodyweight logged');
+  }
+  bodyweightEntries() {
+    return this.state.events.filter(e => e.type === 'bodyweight').sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+
+  pick(list, vars) {
+    let t = list[Math.floor(Math.random() * list.length)];
+    if (vars) Object.keys(vars).forEach(k => { t = t.split('{' + k + '}').join(vars[k]); });
+    return t;
+  }
+  cleanProse(raw, maxWords) {
+    let t = String(raw).replace(/```[\s\S]*?```/g, '').replace(/[*_`>#]+/g, '');
+    const paras = t.split(/\n{2,}/).map(p => p.replace(/\s*\n\s*/g, ' ').trim()).filter(Boolean);
+    while (paras.length > 1 && paras[0].split(/\s+/).length <= 5) paras.shift();
+    let words = 0;
+    const kept = [];
+    paras.slice(0, 2).forEach(p => {
+      if (words >= maxWords) return;
+      const w = p.split(/\s+/);
+      if (words + w.length <= maxWords) { kept.push(p); words += w.length; return; }
+      const cut = w.slice(0, maxWords - words).join(' ').replace(/[,;:]$/, '');
+      kept.push(/[.!?]$/.test(cut) ? cut : cut + '.');
+      words = maxWords;
+    });
+    return kept.join('\n\n');
+  }
+
+  // — report —
+  buildReport(scope) {
+    const cutoff = scope === 'day' ? 1 : 7;
+    const since = Date.now() - cutoff * 86400000;
+    const window = this.state.log.filter(e => new Date(e.date).getTime() >= since);
+    const byEx = {};
+    window.forEach(e => { (byEx[e.exerciseId] = byEx[e.exerciseId] || []).push(e); });
+    const strong = [], weak = [];
+    Object.keys(byEx).forEach(id => {
+      const ex = this.findEx(id);
+      if (!ex) return;
+      const all = this.entriesFor(id);
+      const st = this.statsFor(id);
+      const latest = all[0];
+      const prior = all.filter(e => new Date(e.date).getTime() < since);
+      const kind = st.kind;
+      const f = (v) => this.fmtVal(kind, v);
+      if (!prior.length) {
+        strong.push({ name: ex.name, line: 'Baseline set at ' + f(latest.value) });
+        return;
+      }
+      const priorBest = kind === 'time' ? Math.min.apply(null, prior.map(e => e.value)) : Math.max.apply(null, prior.map(e => e.value));
+      const beat = kind === 'time' ? latest.value < priorBest : latest.value > priorBest;
+      const gap = Math.abs(latest.value - priorBest);
+      if (beat) strong.push({ name: ex.name, line: f(latest.value) + ' — past your previous best of ' + f(priorBest) });
+      else if (latest.value === priorBest) strong.push({ name: ex.name, line: 'Held ' + f(latest.value) + ', matching your best' });
+      else weak.push({ name: ex.name, line: f(latest.value) + ' — ' + f(gap) + ' off your best of ' + f(priorBest) });
+    });
+    const stale = [];
+    this.allExercises().forEach(e => {
+      const h = this.entriesFor(e.id);
+      if (!h.length || !this.metricOf(e)) return;
+      const days = Math.floor((Date.now() - new Date(h[0].date).getTime()) / 86400000);
+      if (days >= 14) stale.push({ name: e.name, line: 'Not touched in ' + days + ' days' });
+    });
+    const days = new Set(window.map(e => new Date(e.date).toDateString())).size;
+    return {
+      scope: scope, sets: window.length, days: days,
+      strong: strong.slice(0, 6), weak: weak.slice(0, 6), stale: stale.slice(0, 4)
+    };
+  }
+  async openReport(scope) {
+    const data = this.buildReport(scope);
+    this.setState({ overlay: 'report', report: data, reportText: '', reportBusy: true });
+    try {
+      if (!window.claude || !window.claude.complete) throw new Error('no-helper');
+      const out = await window.claude.complete('You are a strength coach writing a short read-out for one athlete. Exactly two short paragraphs, 60 words maximum in total. Plain sentences only: no markdown, no asterisks, no headings, no title line, no bullet points, no motivational cliches. Address them as "you". Say what went well and what to fix next session.\n\n' +
+        (scope === 'day' ? 'TODAY' : 'THIS WEEK') + ': ' + data.sets + ' sets across ' + data.days + ' day(s).\n' +
+        'IMPROVED: ' + (data.strong.map(s => s.name + ' (' + s.line + ')').join('; ') || 'nothing') + '\n' +
+        'BELOW BEST: ' + (data.weak.map(s => s.name + ' (' + s.line + ')').join('; ') || 'nothing') + '\n' +
+        'NEGLECTED: ' + (data.stale.map(s => s.name).join('; ') || 'nothing'));
+      this.setState({ reportText: this.cleanProse(out, 70), reportBusy: false });
+    } catch (e) {
+      this.setState({ reportBusy: false, reportText: '' });
+    }
+  }
+
+  // — coach roster —
+  clientEntries(c) {
+    return c.sets.map((s, i) => ({
+      id: c.id + '_' + i, name: s[0], kind: s[1], value: s[2],
+      date: new Date(Date.now() - s[3] * 86400000).toISOString(), days: s[3]
+    })).sort((a, b) => a.days - b.days);
+  }
+  clientStats(c) {
+    const all = this.clientEntries(c);
+    const last = all[0];
+    const quiet = last ? last.days : 99;
+    const days = new Set(all.filter(e => e.days <= 7).map(e => e.days)).size;
+    const byName = {};
+    all.forEach(e => { (byName[e.name] = byName[e.name] || []).push(e); });
+    const bests = Object.keys(byName).map(name => {
+      const list = byName[name];
+      const kind = list[0].kind;
+      const vals = list.map(e => e.value);
+      const best = kind === 'time' ? Math.min.apply(null, vals) : Math.max.apply(null, vals);
+      const latest = list[0].value;
+      const prior = list.slice(1);
+      const priorBest = prior.length ? (kind === 'time' ? Math.min.apply(null, prior.map(e => e.value)) : Math.max.apply(null, prior.map(e => e.value))) : null;
+      const dir = priorBest === null ? 0 : (kind === 'time' ? (latest < priorBest ? 1 : latest > priorBest ? -1 : 0) : (latest > priorBest ? 1 : latest < priorBest ? -1 : 0));
+      return { name: name, kind: kind, best: best, latest: latest, dir: dir, count: list.length };
+    });
+    const prs = bests.filter(b => b.dir > 0).length;
+    const backwards = bests.filter(b => b.dir < 0);
+    const flags = [];
+    if (quiet >= 7) flags.push('No session in ' + quiet + ' days');
+    else if (quiet >= 5) flags.push('Quiet for ' + quiet + ' days');
+    if (backwards.length) flags.push(backwards[0].name + ' going backwards');
+    return { all: all, last: last, quiet: quiet, days: days, bests: bests, prs: prs, flags: flags, needsAttention: flags.length > 0 };
+  }
+  assignPlan(clientId, planId) {
+    const p = this.state.plans.find(x => x.id === planId);
+    const clients = this.state.clients.map(c => c.id === clientId ? Object.assign({}, c, { plan: p ? 'Day ' + p.day + ' — ' + p.title : c.plan, assigned: true }) : c);
+    this.setState({ clients: clients, assignFor: null }, () => {
+      try { localStorage.setItem(LS_CLIENTS, JSON.stringify(this.state.clients)); } catch (e) {}
+    });
+    this.toast('Plan assigned');
+  }
+
+  // — export —
+  exportData() {
+    const blob = new Blob([JSON.stringify({
+      exported: new Date().toISOString(), account: this.state.account,
+      plans: this.state.plans, log: this.state.log, events: this.state.events
+    }, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'fittrack-history.json';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    this.toast('History exported');
+  }
+
+  // — follow-along session —
+  sessionList(planId) {
+    const p = this.state.plans.find(x => x.id === planId);
+    if (!p) return [];
+    const out = [];
+    p.sections.forEach(sec => sec.exercises.forEach(e => out.push(Object.assign({}, e, { section: sec.title }))));
+    return out;
+  }
+  startSession(planId) {
+    this.setState({ overlay: 'session', session: { planId: planId, idx: 0, logged: 0, skipped: 0, done: false }, input: '' });
+  }
+  followTrend(t) {
+    const stamp = Date.now();
+    const plan = {
+      id: 'p' + stamp, day: this.state.plans.length + 1, title: t.title.slice(0, 24),
+      sections: [{ title: t.tag, exercises: t.exercises.map((e, i) => Object.assign({}, e, { id: 'tr' + stamp + '_' + i })) }]
+    };
+    this.persist({ plans: this.state.plans.concat([plan]) });
+    this.setState({ openTrend: null });
+    this.startSession(plan.id);
+  }
+  sessionAdvance(logged) {
+    const s = this.state.session;
+    const list = this.sessionList(s.planId);
+    const next = s.idx + 1;
+    this.setState({
+      input: '',
+      session: Object.assign({}, s, {
+        idx: next, done: next >= list.length,
+        logged: s.logged + (logged ? 1 : 0), skipped: s.skipped + (logged ? 0 : 1)
+      })
+    });
+  }
+  sessionLog() {
+    const s = this.state.session;
+    const ex = this.sessionList(s.planId)[s.idx];
+    const kind = this.metricOf(ex);
+    const v = parseFloat(this.state.input);
+    if (!kind || isNaN(v) || v <= 0) { this.sessionAdvance(false); return; }
+    const value = kind === 'time' ? Math.round(v * 100) / 100 : kind === 'reps' ? Math.round(v * 10) / 10 : this.toKg(v);
+    this.persist({ log: this.state.log.concat([{ id: 'e' + Date.now(), exerciseId: ex.id, kind: kind, value: value, date: new Date().toISOString() }]) });
+    this.sessionAdvance(true);
+  }
+
+  recap() {
+    const week = this.state.log.filter(e => Date.now() - new Date(e.date).getTime() < 7 * 86400000);
+    const days = new Set(week.map(e => new Date(e.date).toDateString()));
+    let prs = 0;
+    week.forEach(e => {
+      const before = this.state.log.filter(x => x.exerciseId === e.exerciseId && new Date(x.date) < new Date(e.date));
+      if (!before.length) { prs++; return; }
+      const vals = before.map(x => x.value);
+      if (e.kind === 'time' ? e.value < Math.min.apply(null, vals) : e.value > Math.max.apply(null, vals)) prs++;
+    });
+    const loads = week.filter(e => e.kind === 'load').map(e => e.value);
+    const vol = loads.length ? Math.max.apply(null, loads) : 0;
+    const prNames = [];
+    week.forEach(e => {
+      if (!this.isPR(e)) return;
+      const ex = this.findEx(e.exerciseId);
+      if (ex && prNames.indexOf(ex.name) === -1) prNames.push(ex.name);
+    });
+    return { sessions: days.size, prs: prs, sets: week.length, volume: vol, prNames: prNames };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const u = s.unit.toUpperCase();
+    const segOn = 'border:0;padding:8px 11px;cursor:pointer;font:800 11px/1 Archivo;letter-spacing:.08em;background:#201e1d;color:#f3f2f2';
+    const segOff = 'border:0;padding:8px 11px;cursor:pointer;font:800 11px/1 Archivo;letter-spacing:.08em;background:transparent;color:#605d5d';
+    const authTab = (active) => 'border:0;padding:14px 14px;cursor:pointer;text-align:left;font:800 11px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;' +
+      (active ? 'background:#201e1d;color:#f3f2f2' : 'background:#f3f2f2;color:#605d5d;border-right:1px solid rgba(32,30,29,.25)');
+    const unitCell = (active) => 'border:0;padding:14px 14px;cursor:pointer;text-align:left;font:800 12px/1 Archivo;letter-spacing:.08em;text-transform:uppercase;' +
+      (active ? 'background:#201e1d;color:#f3f2f2' : 'background:#fff;color:#605d5d');
+    const tab = (active, last) => 'display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding:11px 14px 9px;cursor:pointer;border:0;' +
+      (last ? '' : 'border-right:1px solid rgba(32,30,29,.2);') +
+      (active ? 'background:#201e1d;color:#f3f2f2' : 'background:transparent;color:#201e1d');
+
+    const plan = s.plans.find(p => p.id === s.planId) || null;
+    const ex = this.findEx(s.exId);
+    const exKind = this.metricOf(ex);
+    const st = ex ? this.statsFor(ex.id) : null;
+    const hist = ex ? this.entriesFor(ex.id) : [];
+    const r = this.recap();
+    const weeks = this.allWeeks();
+    const thisWeek = this.weekStats(this.weekKey(new Date()));
+    const lastWeekKey = (() => { const d = new Date(); d.setDate(d.getDate() - 7); return this.weekKey(d); })();
+    const lastWeek = weeks.find(w => w.key === lastWeekKey) || null;
+    const sessionEx = s.session && !s.session.done ? this.sessionList(s.session.planId)[s.session.idx] : null;
+    const coach = !!(s.user && s.user.role === 'coach');
+    const client = s.clients.find(c => c.id === s.clientId) || null;
+    const cst = client ? this.clientStats(client) : null;
+    const bw = this.bodyweightEntries();
+    const total = this.totalPoints();
+    const level = Math.floor(total / 200) + 1;
+    const streak = this.streakDays();
+
+    const vals = {
+      // shell
+      isToday: s.screen === 'today', isPlan: s.screen === 'plan' && !!plan,
+      isExercise: s.screen === 'exercise' && !!ex, isProgress: s.screen === 'progress',
+      isBuilder: s.screen === 'builder' && !!s.draft,
+      goHome: () => this.go('today', { draft: null }), goProgress: () => this.go('progress'),
+      goPlay: () => this.go(coach ? 'clients' : 'play'), isPlay: s.screen === 'play',
+      tabTwoLabel: coach ? 'Clients' : 'Play',
+      tabTwoStyle: tab(coach ? (s.screen === 'clients' || s.screen === 'client') : s.screen === 'play'),
+      goTrending: () => { this.go('trending'); this.loadTrends(false); },
+      isTrending: s.screen === 'trending',
+      trendsBusy: s.trendsBusy, trendsError: !!s.trendsError, trendsErrorText: s.trendsError,
+      trendsEmpty: !s.trends.length && !s.trendsBusy && !s.trendsError,
+      trendsMeta: s.trendsAt ? 'Updated ' + this.daysAgo(s.trendsAt) : 'Not loaded yet',
+      refreshTrends: () => this.loadTrends(true),
+      liveSources: s.trendSources.length
+        ? 'Live · ' + s.trendSources.join(', ') + ' · ' + s.trendPosts + ' posts read'
+        : 'Composed by the assistant · connect a feed for live community signal',
+      liveStyle: 'padding:9px 16px;border-bottom:1px solid rgba(32,30,29,.18);font:800 9px/1.3 Archivo;letter-spacing:.1em;text-transform:uppercase;' +
+        (s.trendSources.length ? 'background:#201e1d;color:#f3f2f2' : 'background:#eae9e9;color:#605d5d'),
+      trendCards: s.trends.map((t, i) => ({
+        rank: String(i + 1).padStart(2, '0'), title: t.title, blurb: t.blurb,
+        tag: t.tag, level: t.level, minutes: t.minutes,
+        hasSignal: !!(t.source || t.signal),
+        signal: [t.source, t.signal].filter(Boolean).join(' · '),
+        open: s.openTrend === t.id,
+        toggle: () => this.setState({ openTrend: s.openTrend === t.id ? null : t.id }),
+        add: () => this.addTrend(t),
+        follow: () => this.followTrend(t),
+        watchAll: () => this.watch({ name: t.title + ' workout' }),
+        exercises: t.exercises.map(e => ({
+          name: e.name,
+          detail: [e.sets ? e.sets + ' sets' : null, e.reps ? e.reps + ' reps' : null].filter(Boolean).join(' · ') || (e.isTimed ? 'For time' : 'As prescribed'),
+          watch: (evt) => { if (evt) evt.stopPropagation(); this.watch(e); }
+        }))
+      })),
+      openAdd: () => this.setState({ sheet: true, error: '' }),
+      closeAdd: () => this.setState({ sheet: false, error: '' }),
+      sheetOpen: s.sheet, busy: s.busy, busyFile: s.busyFile,
+      busyLine: 'Pulling exercises, sets and loads out of your file.',
+      sheetError: !!s.error, errorText: s.error,
+      toastOpen: !!s.toast, toastText: s.toast,
+      tabHomeStyle: tab(s.screen === 'today'), tabPlayStyle: tab(s.screen === 'play'),
+      tabTrendingStyle: tab(s.screen === 'trending'),
+      tabProgressStyle: tab(s.screen === 'progress', true),
+      setKg: () => this.persist({ unit: 'kg' }), setLb: () => this.persist({ unit: 'lb' }),
+      kgStyle: s.unit === 'kg' ? segOn : segOff, lbStyle: s.unit === 'lb' ? segOn : segOff,
+      unitLabel: u,
+      photoRef: this.photoRef, fileRef: this.fileRef,
+      pickPhoto: () => this.photoRef.current && this.photoRef.current.click(),
+      pickFile: () => this.fileRef.current && this.fileRef.current.click(),
+      onPhoto: (e) => { const f = e.target.files[0]; e.target.value = ''; this.handleFile(f); },
+      onFile: (e) => { const f = e.target.files[0]; e.target.value = ''; this.handleFile(f); },
+      startBuilder: () => this.setState({ screen: 'builder', sheet: false, draft: { title: '', rows: [{ name: '', sets: '', reps: '', weighted: true }] } }),
+      dupOptions: s.plans.slice(0, 4).map(p => ({ label: 'Duplicate “Day ' + p.day + ' — ' + p.title + '”', run: () => this.duplicate(p) })),
+
+      // editing, rest, notes, calendar, export
+      isEditing: s.editName !== null, notEditing: s.editName === null,
+      editValue: s.editName || '',
+      startRename: () => ex && this.setState({ editName: ex.name }),
+      onEditName: (e) => this.setState({ editName: e.target.value }),
+      saveRename: () => ex && this.renameExercise(ex.id, s.editName),
+      cancelRename: () => this.setState({ editName: null }),
+      deleteExercise: () => ex && this.deleteExercise(ex.id),
+      confirmPlanOpen: s.confirmPlan,
+      askDeletePlan: () => this.setState({ confirmPlan: true }),
+      cancelDeletePlan: () => this.setState({ confirmPlan: false }),
+      deletePlan: () => plan && this.deletePlan(plan.id),
+      completeSession: () => plan && this.completeSession(plan.id),
+      restOpen: !!s.rest,
+      restClock: s.rest ? Math.floor(s.rest.left / 60) + ':' + String(s.rest.left % 60).padStart(2, '0') : '',
+      restBarStyle: s.rest ? 'height:100%;background:#ec3013;width:' + Math.round(100 * s.rest.left / Math.max(1, s.rest.total)) + '%' : '',
+      restDone: !!(s.rest && s.rest.left === 0),
+      stopRest: () => this.stopRest(),
+      restOptions: [60, 120, 180].map(sec => ({
+        label: sec < 60 ? sec + 's' : (sec / 60) + ' min',
+        start: () => this.startRest(sec)
+      })),
+      noteValue: s.note,
+      onNote: (e) => this.setState({ note: e.target.value }),
+      exportData: () => this.exportData(),
+      openDayReport: () => this.openReport('day'),
+      openWeekReport: () => this.openReport('week'),
+      reportOpen: s.overlay === 'report' && !!s.report,
+      reportTitle: s.report ? (s.report.scope === 'day' ? "Today's report" : "This week's report") : '',
+      reportSub: s.report ? s.report.sets + ' set' + (s.report.sets === 1 ? '' : 's') + ' · ' + s.report.days + ' day' + (s.report.days === 1 ? '' : 's') : '',
+      reportBusy: s.reportBusy,
+      hasReportText: !!s.reportText, reportText: s.reportText,
+      hasStrong: !!(s.report && s.report.strong.length),
+      hasWeak: !!(s.report && s.report.weak.length),
+      hasStale: !!(s.report && s.report.stale.length),
+      reportEmpty: !!(s.report && !s.report.sets),
+      strongRows: s.report ? s.report.strong : [],
+      weakRows: s.report ? s.report.weak : [],
+      staleRows: s.report ? s.report.stale : [],
+      closeReport: () => this.setState({ overlay: null, report: null, reportText: '' }),
+      queryValue: s.query,
+      onQuery: (e) => this.setState({ query: e.target.value }),
+      hasQuery: s.query.trim().length > 0,
+      searchResults: s.query.trim() ? this.allExercises()
+        .filter(e => e.name.toLowerCase().indexOf(s.query.trim().toLowerCase()) > -1)
+        .slice(0, 12).map(e => {
+          const est = this.statsFor(e.id);
+          return {
+            name: e.name,
+            detail: 'Day ' + e.planDay + ' — ' + e.planTitle + (est ? ' · best ' + this.fmtVal(est.kind, est.best) : ' · no record'),
+            open: () => this.openExercise(e.id)
+          };
+        }) : [],
+      calendarCells: (() => {
+        const dates = this.sessionDates();
+        const out = [];
+        for (let i = 27; i >= 0; i--) {
+          const d = new Date(); d.setDate(d.getDate() - i);
+          const on = dates.has(d.toDateString());
+          out.push({
+            label: String(d.getDate()),
+            style: 'aspect-ratio:1;display:flex;align-items:center;justify-content:center;font:800 10px/1 Archivo;border-right:1px solid rgba(32,30,29,.18);border-bottom:1px solid rgba(32,30,29,.18);' +
+              (on ? 'background:#ec3013;color:#fff' : 'background:#fff;color:#bab6b6')
+          });
+        }
+        return out;
+      })(),
+      bwValue: s.bwInput,
+      onBwInput: (e) => this.setState({ bwInput: e.target.value }),
+      logBodyweight: () => this.logBodyweight(),
+      bwLatest: bw.length ? this.fmt(bw[0].value) : '—',
+      bwChange: bw.length > 1 ? (bw[0].value > bw[bw.length - 1].value ? '+' : '') + this.round(this.toDisplay(bw[0].value - bw[bw.length - 1].value)) + ' since start' : 'One reading so far',
+      bwChart: bw.length > 1 ? this.chart(bw.slice().reverse().map(e => e.value), 'load') : null,
+      hasBwChart: bw.length > 1,
+
+      // account
+      isAuthed: !!s.user && s.screen !== 'onboard',
+      isWelcome: s.screen === 'welcome',
+      backToWelcome: () => this.setState({ screen: 'welcome', authError: '' }),
+      goAuthRegister: () => this.setState({ screen: 'auth', mode: 'register', authError: '' }),
+      goAuthSignin: () => this.setState({ screen: 'auth', mode: 'signin', authError: '' }),
+      welcomePoints: [
+        { n: '01', label: 'Bring your plan', note: 'Photograph a written sheet and it becomes a workout you can log' },
+        { n: '02', label: 'Log the number', note: 'Weight, time or reps — one tap and the history builds itself' },
+        { n: '03', label: 'Get told what to beat', note: 'Every exercise shows your last, your best and the next target' }
+      ],
+      isAuth: s.screen === 'auth', isOnboard: s.screen === 'onboard',
+      onboardStepLabel: 'Step ' + (s.step + 1) + ' of 3',
+      onboardRailStyle: 'height:100%;background:#ec3013;width:' + Math.round(((s.step + 1) / 3) * 100) + '%',
+      onboardHeading: ['Who are you training?', 'How do you measure?', 'What are you chasing?'][s.step],
+      onboardNote: [
+        'This sets what the app puts first.',
+        'Loads and reminders read in your units.',
+        'Used to pick the plans and challenges you see.'
+      ][s.step],
+      stepRole: s.step === 0, stepUnits: s.step === 1, stepGoal: s.step === 2,
+      onboardLast: s.step === 2,
+      nextStep: () => s.step < 2 ? this.setState({ step: s.step + 1 }) : this.finishOnboard(),
+      prevStep: () => s.step > 0 && this.setState({ step: s.step - 1 }),
+      canGoBack: s.step > 0,
+      nextLabel: s.step === 2 ? 'Start training' : 'Continue',
+      roleOptions: [
+        { id: 'solo', label: 'Just me', note: 'Training on my own, tracking my own numbers' },
+        { id: 'client', label: 'I have a coach', note: 'Someone else writes my plans, I log the work' },
+        { id: 'coach', label: 'I coach others', note: 'I train clients and want to watch their progress' }
+      ].map(o => ({
+        label: o.label, note: o.note,
+        style: 'width:100%;display:flex;flex-direction:column;align-items:flex-start;text-align:left;border:2px solid #201e1d;border-top-width:0;padding:14px;cursor:pointer;' +
+          (o.id === 'solo' ? 'border-top-width:2px;' : '') +
+          (s.form.role === o.id ? 'background:#201e1d;color:#f3f2f2' : 'background:#fff;color:#201e1d'),
+        pick: () => this.setForm('role', o.id)
+      })),
+      dayOptions: [2, 3, 4, 5, 6].map(n => ({
+        label: String(n),
+        style: 'flex:1;border:0;border-right:1px solid rgba(32,30,29,.25);padding:14px 0;cursor:pointer;font:800 15px/1 Archivo;' +
+          (s.form.days === n ? 'background:#ec3013;color:#fff' : 'background:#fff;color:#605d5d'),
+        pick: () => this.setForm('days', n)
+      })),
+      isRegister: s.mode === 'register',
+      setRegister: () => this.setState({ mode: 'register', authError: '' }),
+      setSignin: () => this.setState({ mode: 'signin', authError: '' }),
+      regTabStyle: authTab(s.mode === 'register'), signTabStyle: authTab(s.mode === 'signin'),
+      formName: s.form.name, formEmail: s.form.email, formPassword: s.form.password,
+      formConfirm: s.form.confirm, formBodyweight: s.form.bodyweight,
+      onName: (e) => this.setForm('name', e.target.value),
+      onEmail: (e) => this.setForm('email', e.target.value),
+      onPassword: (e) => this.setForm('password', e.target.value),
+      onConfirm: (e) => this.setForm('confirm', e.target.value),
+      onBodyweight: (e) => this.setForm('bodyweight', e.target.value),
+      hasAuthError: !!s.authError, authError: s.authError,
+      submitAuth: () => this.submitAuth(),
+      submitLabel: s.mode === 'register' ? 'Create account' : 'Sign in',
+      authFootnote: s.mode === 'register'
+        ? 'Prototype: the account lives on this device only — nothing is sent anywhere.'
+        : 'Signing in restores the plans and weights saved on this device.',
+      onboardGreeting: 'Welcome, ' + (s.account ? s.account.name.split(' ')[0] : 'athlete') + '.',
+      unitCellKg: unitCell(s.unit === 'kg'), unitCellLb: unitCell(s.unit === 'lb'),
+      goalOptions: GOALS.map(g => ({
+        label: g.label, note: g.note,
+        style: 'width:100%;display:flex;flex-direction:column;align-items:flex-start;text-align:left;border:2px solid #201e1d;border-top-width:0;padding:13px 14px;cursor:pointer;' +
+          (GOALS[0].id === g.id ? 'border-top-width:2px;margin-top:8px;' : '') +
+          (s.form.goal === g.id ? 'background:#201e1d;color:#f3f2f2' : 'background:#fff;color:#201e1d'),
+        pick: () => this.setForm('goal', g.id)
+      })),
+      finishOnboard: () => this.finishOnboard(),
+      signOut: () => this.signOut(),
+      userName: s.user ? s.user.name : '',
+      userMeta: s.user ? (s.user.email + (s.user.bodyweight ? ' · ' + this.fmt(s.user.bodyweight) : '')) : '',
+
+      // play
+      levelLabel: 'Level ' + level, pointsLabel: total + ' pts',
+      levelTitle: LEVEL_TITLES[Math.min(level - 1, LEVEL_TITLES.length - 1)],
+      levelBarStyle: 'height:100%;width:' + Math.round(((total % 200) / 200) * 100) + '%;background:#ec3013',
+      toNextLevel: (200 - (total % 200)) + ' pts to level ' + (level + 1),
+      streakLabel: streak ? streak + ' day' + (streak > 1 ? 's' : '') : 'No streak',
+      streakNote: streak ? 'Keep logging to hold it' : 'Log today to start one',
+      weekTasks: thisWeek.tasks.map(t => ({
+        label: t.label, progress: t.progress,
+        markStyle: 'width:22px;height:22px;flex:none;display:flex;align-items:center;justify-content:center;font:800 11px/1 Archivo;' +
+          (t.done ? 'background:#ec3013;color:#fff' : 'background:#eae9e9;color:#9b9797;border:1px solid rgba(32,30,29,.2)'),
+        mark: t.done ? '✓' : '',
+        rowStyle: 'display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(32,30,29,.14);' + (t.done ? 'background:#fff2ef' : 'background:#fff')
+      })),
+      weekDone: thisWeek.tasks.filter(t => t.done).length + ' of 5 done',
+      weekPoints: thisWeek.points + ' pts this week',
+      rivalLine: lastWeek ? 'Last week you scored ' + lastWeek.points + ' pts' : 'No score last week yet',
+      rivalVerdict: lastWeek ? (thisWeek.points >= lastWeek.points ? 'You are ahead of yourself by ' + (thisWeek.points - lastWeek.points) + ' pts' : (lastWeek.points - thisWeek.points) + ' pts behind your own pace') : 'Set the bar this week',
+      rivalBarYou: 'height:14px;background:#ec3013;width:' + Math.round(100 * thisWeek.points / Math.max(1, Math.max(thisWeek.points, lastWeek ? lastWeek.points : 1))) + '%',
+      rivalBarThem: 'height:14px;background:#201e1d;width:' + Math.round(100 * (lastWeek ? lastWeek.points : 0) / Math.max(1, Math.max(thisWeek.points, lastWeek ? lastWeek.points : 1))) + '%',
+      badgeCells: this.badges().map(b => ({
+        label: b.label,
+        style: 'padding:10px 12px;border-right:1px solid rgba(32,30,29,.18);border-bottom:1px solid rgba(32,30,29,.18);font:800 9px/1.3 Archivo;letter-spacing:.08em;text-transform:uppercase;' +
+          (b.earned ? 'background:#201e1d;color:#f3f2f2' : 'background:#fff;color:#bab6b6')
+      })),
+      leaderRows: weeks.slice(0, 5).map((w, i) => ({
+        rank: String(i + 1).padStart(2, '0'),
+        label: this.weekLabel(w.key) + (w.key === thisWeek.key ? ' · this week' : ''),
+        detail: w.sets + ' sets · ' + w.prs + ' PBs',
+        points: w.points + ' pts',
+        style: 'display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(32,30,29,.14);' + (w.key === thisWeek.key ? 'background:#fff2ef' : 'background:#fff')
+      })),
+      sessionOpen: s.overlay === 'session' && !!s.session,
+      startPlanSession: () => plan && this.startSession(plan.id),
+      sessionRunning: !!(s.session && !s.session.done),
+      sessionDone: !!(s.session && s.session.done),
+      sessionStep: s.session && !s.session.done ? (s.session.idx + 1) + ' of ' + this.sessionList(s.session.planId).length : '',
+      sessionBarStyle: s.session ? 'height:100%;background:#ec3013;width:' + Math.round(100 * s.session.idx / Math.max(1, this.sessionList(s.session.planId).length)) + '%' : '',
+      sessionSection: sessionEx ? sessionEx.section : '',
+      sessionName: sessionEx ? sessionEx.name : '',
+      sessionDetail: sessionEx ? this.prescription(sessionEx) : '',
+      sessionUnit: sessionEx ? (this.metricOf(sessionEx) === 'time' ? 'SEC' : this.metricOf(sessionEx) === 'reps' ? 'REPS' : u) : '',
+      sessionCanLog: !!(sessionEx && this.metricOf(sessionEx)),
+      sessionLast: sessionEx && this.statsFor(sessionEx.id) ? 'Last ' + this.fmtVal(this.statsFor(sessionEx.id).kind, this.statsFor(sessionEx.id).latest) + ' · best ' + this.fmtVal(this.statsFor(sessionEx.id).kind, this.statsFor(sessionEx.id).best) : 'No record yet — set one',
+      sessionWatch: () => sessionEx && this.watch(sessionEx),
+      doSessionLog: () => this.sessionLog(),
+      doSessionSkip: () => this.sessionAdvance(false),
+      sessionSummary: s.session ? s.session.logged + ' logged · ' + s.session.skipped + ' skipped' : '',
+      sessionPoints: s.session ? '+' + (s.session.logged * 10) + ' pts banked' : '',
+      closeSession: () => this.setState({ overlay: null, session: null, input: '' }),
+      isCoach: coach, notCoach: !coach,
+      goClients: () => this.go('clients'),
+      isClients: s.screen === 'clients', isClient: s.screen === 'client' && !!client,
+      tabClientsStyle: tab(s.screen === 'clients' || s.screen === 'client'),
+      attentionCount: (() => { const n = s.clients.filter(c => this.clientStats(c).needsAttention).length; return n ? n + ' need' + (n === 1 ? 's' : '') + ' a look' : 'Everyone on track'; })(),
+      rosterHeadline: s.clients.length + ' client' + (s.clients.length === 1 ? '' : 's'),
+      clientRows: s.clients.map(c => {
+        const st2 = this.clientStats(c);
+        return {
+          name: c.name, focus: c.focus, plan: c.plan,
+          initials: c.name.split(' ').map(x => x[0]).join('').slice(0, 2),
+          last: st2.last ? (st2.last.days === 0 ? 'Trained today' : st2.last.days === 1 ? 'Trained yesterday' : 'Last session ' + st2.last.days + ' days ago') : 'No sessions',
+          flag: st2.flags[0] || '',
+          hasFlag: st2.flags.length > 0,
+          markStyle: 'width:44px;flex:none;display:flex;align-items:center;justify-content:center;font:800 14px/1 Archivo;' +
+            (st2.needsAttention ? 'background:#ec3013;color:#fff' : 'background:#201e1d;color:#f3f2f2'),
+          open: () => this.setState({ screen: 'client', clientId: c.id })
+        };
+      }),
+      clientName: client ? client.name : '',
+      clientFocus: client ? client.focus + ' · ' + client.plan : '',
+      clientFlags: cst ? cst.flags : [],
+      clientHasFlags: !!(cst && cst.flags.length),
+      clientStatCells: cst ? [
+        { label: 'Last session', value: cst.last ? (cst.last.days === 0 ? 'Today' : cst.last.days + 'd ago') : '—' },
+        { label: 'Days this week', value: String(cst.days) },
+        { label: 'Improving', value: String(cst.prs) }
+      ] : [],
+      clientBests: cst ? cst.bests.map(b => ({
+        name: b.name,
+        best: this.fmtVal(b.kind, b.best),
+        latest: 'Latest ' + this.fmtVal(b.kind, b.latest) + ' · ' + b.count + ' entr' + (b.count > 1 ? 'ies' : 'y'),
+        dirLabel: b.dir > 0 ? '▲ up' : b.dir < 0 ? '▼ down' : 'flat',
+        dirColor: b.dir > 0 ? '#ae1800' : b.dir < 0 ? '#605d5d' : '#9b9797'
+      })) : [],
+      clientSets: cst ? cst.all.slice(0, 8).map(e => ({
+        name: e.name, value: this.fmtVal(e.kind, e.value),
+        ago: e.days === 0 ? 'today' : e.days === 1 ? 'yesterday' : e.days + ' days ago'
+      })) : [],
+      backToRoster: () => this.setState({ screen: 'clients', clientId: null, assignFor: null }),
+      openAssign: () => client && this.setState({ assignFor: client.id }),
+      assignOpen: !!s.assignFor,
+      cancelAssign: () => this.setState({ assignFor: null }),
+      assignOptions: s.plans.map(p => ({
+        label: 'Day ' + p.day + ' — ' + p.title,
+        detail: p.sections.reduce((a, x) => a + x.exercises.length, 0) + ' exercises',
+        pick: () => this.assignPlan(s.assignFor, p.id)
+      })),
+      pbOpen: !!s.pb,
+      pbName: s.pb ? s.pb.name : '',
+      pbValue: s.pb ? s.pb.value : '',
+      pbGain: s.pb ? s.pb.gain : '',
+      pbHasPrev: !!(s.pb && s.pb.prev),
+      pbPrev: s.pb && s.pb.prev ? 'Old best ' + s.pb.prev : '',
+      pbHeadline: s.pb ? s.pb.head : '',
+      dismissPb: () => { clearTimeout(this._pb); this.setState({ pb: null }); },
+      pushLine: (() => {
+        const bucket = !streak ? 'none' : streak >= 7 ? 'long' : streak >= 3 ? 'mid' : 'day1';
+        if (this._pushKey !== bucket + streak) {
+          this._pushKey = bucket + streak;
+          this._push = bucket === 'none' ? this.pick(PUSH_NONE)
+            : bucket === 'long' ? this.pick(PUSH_LONG, { n: streak })
+            : bucket === 'mid' ? this.pick(PUSH_MID, { n: streak })
+            : this.pick(PUSH_DAY1);
+        }
+        return this._push;
+      })(),
+      muted: s.muted,
+      soundLabel: s.muted ? 'Sound off' : 'Sound on',
+      soundStyle: 'flex:none;border:1px solid rgba(255,255,255,.5);background:' + (s.muted ? 'transparent' : 'rgba(255,255,255,.2)') +
+        ';color:#fff;padding:9px 11px;cursor:pointer;font:800 9px/1 Archivo;letter-spacing:.12em;text-transform:uppercase',
+      toggleMute: () => this.toggleMute(),
+      openRounds: () => this.openRounds(),
+      roundsOpen: s.overlay === 'rounds' && !!s.rounds,
+      roundsPhaseLabel: s.rounds ? ({ ready: 'Ready', work: 'Round ' + (s.rounds.idx + 1) + ' of ' + s.rounds.total, rest: 'Rest', done: 'Finished' })[s.rounds.phase] : '',
+      roundsClock: s.rounds ? Math.floor(s.rounds.left / 60) + ':' + String(s.rounds.left % 60).padStart(2, '0') : '',
+      roundsShellStyle: 'position:absolute;inset:0;z-index:52;display:flex;flex-direction:column;background:' +
+        (s.rounds && s.rounds.phase === 'rest' ? '#201e1d' : '#ec3013') + ';color:#fff',
+      roundsBarStyle: s.rounds ? 'height:100%;background:#fff;opacity:.9;width:' +
+        Math.round(100 * (1 - s.rounds.left / Math.max(1, s.rounds.phase === 'rest' ? s.rounds.rest : s.rounds.work))) + '%' : '',
+      roundsNote: s.rounds ? ({
+        ready: 'Set it up, then hit the bell.',
+        work: 'Work. Rest comes at zero.',
+        rest: 'Breathe. Next round starts automatically.',
+        done: 'All rounds complete — logged to your week.'
+      })[s.rounds.phase] : '',
+      roundsRunning: !!(s.rounds && s.rounds.running),
+      roundsIdle: !!(s.rounds && !s.rounds.running),
+      roundsSetup: !!(s.rounds && !s.rounds.running && s.rounds.phase !== 'rest'),
+      startRounds: () => this.startRounds(),
+      pauseRounds: () => this.pauseRounds(),
+      closeRounds: () => { clearInterval(this._rd); this.setState({ overlay: null, rounds: null }); },
+      roundCountOptions: [3, 5, 8, 10, 12].map(n => ({
+        label: String(n),
+        style: 'flex:1;border:0;border-right:1px solid rgba(255,255,255,.35);padding:12px 0;cursor:pointer;font:800 14px/1 Archivo;' +
+          (s.rounds && s.rounds.total === n ? 'background:#fff;color:#201e1d' : 'background:transparent;color:#fff'),
+        pick: () => this.setRounds('total', n)
+      })),
+      workOptions: [60, 120, 180, 300].map(sec => ({
+        label: sec >= 60 ? (sec / 60) + ' min' : sec + 's',
+        style: 'flex:1;border:0;border-right:1px solid rgba(255,255,255,.35);padding:12px 0;cursor:pointer;font:800 12px/1 Archivo;letter-spacing:.04em;' +
+          (s.rounds && s.rounds.work === sec ? 'background:#fff;color:#201e1d' : 'background:transparent;color:#fff'),
+        pick: () => this.setRounds('work', sec)
+      })),
+      restOptionsRound: [30, 45, 60, 90].map(sec => ({
+        label: sec + 's',
+        style: 'flex:1;border:0;border-right:1px solid rgba(255,255,255,.35);padding:12px 0;cursor:pointer;font:800 12px/1 Archivo;letter-spacing:.04em;' +
+          (s.rounds && s.rounds.rest === sec ? 'background:#fff;color:#201e1d' : 'background:transparent;color:#fff'),
+        pick: () => this.setRounds('rest', sec)
+      })),
+      openGhost: () => this.openGhost(), openWheel: () => this.openWheel(),
+      closeOverlay: () => { clearInterval(this._g); clearTimeout(this._w); this.setState({ overlay: null, ghost: null, wheel: null }); },
+      ghostOpen: s.overlay === 'ghost', wheelOpen: s.overlay === 'wheel',
+      ghostReady: !!s.ghost, ghostMissing: s.overlay === 'ghost' && !s.ghost,
+      ghostName: s.ghost ? (this.findEx(s.ghost.exId) || {}).name : '',
+      ghostTarget: s.ghost ? this.fmtVal('time', s.ghost.target) : '',
+      ghostClock: s.ghost ? (Math.round(s.ghost.elapsed * 100) / 100).toFixed(2) : '0.00',
+      ghostDiff: s.ghost ? (s.ghost.running ? (s.ghost.elapsed > s.ghost.target ? '+' + (Math.round((s.ghost.elapsed - s.ghost.target) * 100) / 100).toFixed(2) + ' behind ghost' : 'ahead of ghost') : 'Tap start when you go') : '',
+      ghostRunning: !!(s.ghost && s.ghost.running),
+      ghostIdle: !!(s.ghost && !s.ghost.running),
+      startGhost: () => this.startGhost(), stopGhost: () => this.stopGhost(),
+      ghostHasResult: !!(s.ghost && s.ghost.result),
+      ghostResultTitle: s.ghost && s.ghost.result ? (s.ghost.result.win ? 'Ghost beaten by ' + s.ghost.result.gap.toFixed(2) + 's' : 'Ghost won by ' + s.ghost.result.gap.toFixed(2) + 's') : '',
+      ghostResultNote: s.ghost && s.ghost.result ? (s.ghost.result.win ? 'Logged ' + s.ghost.result.value.toFixed(2) + 's · +40 pts' : 'Logged ' + s.ghost.result.value.toFixed(2) + 's · +10 pts for showing up') : '',
+      ghostPicker: this.ghostTargets().map(t => ({
+        label: t.ex.name, detail: 'Best ' + this.fmtVal('time', t.st.best),
+        style: 'width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;border:0;border-bottom:1px solid rgba(32,30,29,.14);padding:11px 14px;cursor:pointer;font:600 12px/1.2 Archivo;' +
+          (s.ghost && s.ghost.exId === t.ex.id ? 'background:#201e1d;color:#f3f2f2' : 'background:#fff;color:#201e1d'),
+        pick: () => this.setState({ ghost: { exId: t.ex.id, target: t.st.best, elapsed: 0, running: false, result: null } })
+      })),
+      wheelName: s.wheel ? (s.wheel.landed ? s.wheel.landed.name : FINISHERS[s.wheel.index].name) : FINISHERS[0].name,
+      wheelNote: s.wheel ? (s.wheel.landed ? s.wheel.landed.note : FINISHERS[s.wheel.index].note) : FINISHERS[0].note,
+      wheelSpinning: !!(s.wheel && s.wheel.spinning),
+      wheelLanded: !!(s.wheel && s.wheel.landed),
+      spinWheel: () => this.spinWheel(),
+      weeklyChallenge: s.trends.length ? s.trends[0].title : null,
+      hasWeeklyChallenge: s.trends.length > 0,
+      weeklyChallengeNote: s.trends.length ? s.trends[0].blurb : '',
+      acceptChallenge: () => s.trends.length && this.addTrend(s.trends[0]),
+
+      // today
+      todayLabel: new Date().toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }),
+      showRecap: this.props.showRecap !== false,
+      recapDays: r.sessions + '/7', recapSets: String(r.sets), recapPrs: String(r.prs),
+      recapVolume: r.volume ? this.fmt(r.volume) : '—',
+      recapHeadline: r.sets
+        ? r.prs
+          ? r.prs + ' personal best' + (r.prs > 1 ? 's' : '') + ' this week.'
+          : r.sets + ' set' + (r.sets > 1 ? 's' : '') + ' logged this week.'
+        : 'Nothing logged yet this week.',
+      hasRecapNames: r.prNames.length > 0,
+      recapNames: r.prNames.length
+        ? (r.prNames.length > 2 ? r.prNames.slice(0, 2).join(', ') + ' and ' + (r.prNames.length - 2) + ' more' : r.prNames.join(' and '))
+        : '',
+      recapSentence: r.sets
+        ? 'You logged ' + r.sets + ' set' + (r.sets > 1 ? 's' : '') + ' across ' + r.sessions + ' day' + (r.sessions > 1 ? 's' : '') + ' this week' + (r.prNames.length ? ', with best-ever numbers on ' + (r.prNames.length > 2 ? r.prNames.slice(0, 2).join(', ') + ' and ' + (r.prNames.length - 2) + ' more' : r.prNames.join(' and ')) + '.' : '. Same loads as before — pick one lift and add a step.')
+        : 'No sets logged in the last seven days. Open a plan and log one to restart the streak.',
+      planCards: s.plans.map(p => {
+        const count = p.sections.reduce((a, x) => a + x.exercises.length, 0);
+        const ids = [];
+        p.sections.forEach(x => x.exercises.forEach(e => ids.push(e.id)));
+        const last = s.log.filter(e => ids.indexOf(e.exerciseId) > -1).sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+        return {
+          day: String(p.day), title: p.title, count: String(count),
+          summary: p.sections.slice(0, 3).map(x => x.title).join(' · '),
+          status: last ? 'Last done ' + this.daysAgo(last.date) : 'Not started',
+          open: () => this.setState({ screen: 'plan', planId: p.id })
+        };
+      }),
+
+      // plan
+      planTitle: plan ? plan.title : '', planDay: plan ? String(plan.day) : '',
+      planSections: plan ? plan.sections.map(sec => ({
+        title: sec.title, count: String(sec.exercises.length),
+        exercises: sec.exercises.map(e => {
+          const n = this.nudgeFor(e);
+          return {
+            name: e.name, prescription: this.prescription(e),
+            hasNudge: !!n, nudge: n,
+            open: () => this.openExercise(e.id),
+            up: (evt) => { if (evt) evt.stopPropagation(); this.moveExercise(e.id, -1); },
+            down: (evt) => { if (evt) evt.stopPropagation(); this.moveExercise(e.id, 1); },
+            watch: (evt) => { if (evt) evt.stopPropagation(); this.watch(e); }
+          };
+        })
+      })) : [],
+
+      // exercise
+      exName: ex ? ex.name : '', exPrescription: ex ? this.prescription(ex) : '',
+      exBackLabel: ex ? 'Day ' + ex.planDay + ' — ' + ex.planTitle : 'Back',
+      backToPlan: () => ex && this.setState({ screen: 'plan', planId: ex.planId }),
+      watchEx: () => ex && this.watch(ex),
+      showWatch: exKind === 'time',
+      watchClock: (() => {
+        const e = s.watch ? s.watch.elapsed : 0;
+        const m = Math.floor(e / 60);
+        const sec = (e - m * 60);
+        return (m ? m + ':' + (sec < 10 ? '0' : '') : '') + sec.toFixed(2);
+      })(),
+      watchRunning: !!(s.watch && s.watch.running),
+      watchIdle: !(s.watch && s.watch.running),
+      watchHasTime: !!(s.watch && !s.watch.running && s.watch.elapsed > 0),
+      watchStartLabel: s.watch && s.watch.paused ? 'Resume' : 'Start',
+      watchTargetLine: st ? 'Best ' + this.fmtVal(st.kind, st.best) + ' · average ' + this.fmtVal(st.kind, st.avg) : 'No time recorded yet',
+      watchPaceStyle: 'font:600 11px/1.3 Archivo;letter-spacing:.06em;text-transform:uppercase;margin-top:8px;color:' +
+        (st && s.watch && s.watch.elapsed > st.best ? '#ff9783' : '#9be8c0'),
+      watchPaceLine: st && s.watch
+        ? (s.watch.elapsed > st.best ? '+' + (s.watch.elapsed - st.best).toFixed(2) + 's off your best' : 'Under your best')
+        : 'Running clock',
+      startWatch: () => this.startWatch(),
+      stopWatch: () => this.stopWatch(),
+      resetWatch: () => this.resetWatch(),
+      saveWatch: () => this.saveWatch(),
+      exLoggable: !!exKind, exNotLoggable: !!(ex && !exKind),
+      exUnitLabel: exKind === 'time' ? 'SEC' : exKind === 'reps' ? 'REPS' : u,
+      logLabel: exKind === 'time' ? 'Log today’s time' : exKind === 'reps' ? 'Log today’s reps' : 'Log today’s load',
+      metricOptions: ex ? [
+        { id: 'load', label: 'Weight', note: 'Kilos or pounds moved' },
+        { id: 'time', label: 'Time', note: 'Seconds — faster is better' },
+        { id: 'reps', label: 'Reps', note: 'Rounds, reps or distance covered' }
+      ].map(m => ({
+        label: m.label, note: m.note,
+        style: 'width:100%;display:flex;flex-direction:column;align-items:flex-start;text-align:left;border:2px solid #201e1d;border-top-width:0;padding:13px 14px;cursor:pointer;' +
+          (m.id === 'load' ? 'border-top-width:2px;' : '') +
+          (exKind === m.id ? 'background:#201e1d;color:#f3f2f2' : 'background:#fff;color:#201e1d'),
+        pick: () => this.setMetric(ex.id, m.id)
+      })) : [],
+      changeMetric: () => ex && this.setMetric(ex.id, 'none'),
+      canChangeMetric: !!(exKind && hist.length === 0),
+      exBestLabel: st ? (exKind === 'time' ? 'Fastest ' + this.fmtVal(exKind, st.best) : 'PB ' + this.fmtVal(exKind, st.best)) : 'No entries yet',
+      hasStats: !!st,
+      statCells: st ? [
+        { label: exKind === 'time' ? 'Fastest' : 'Best', value: this.fmtVal(st.kind, st.best), accent: '#ec3013' },
+        { label: 'Average', value: this.fmtVal(st.kind, st.avg), accent: '#201e1d' },
+        { label: exKind === 'time' ? 'Slowest' : 'Lowest', value: this.fmtVal(st.kind, st.worst), accent: '#605d5d' }
+      ] : [],
+      exFacts: ex ? [
+        { label: 'Sets', value: ex.sets || '—' },
+        { label: 'Reps', value: ex.reps || '—' },
+        { label: 'Distance', value: ex.distance || '—' },
+        { label: 'Rest', value: ex.rest || '—' }
+      ] : [],
+      hasLast: hist.length > 0,
+      lastLine: st ? this.fmtVal(st.kind, st.latest) + ' · ' + this.daysAgo(hist[0].date) : '',
+      nudgeLine: st ? (st.latest === st.best
+        ? this.pick(NUDGE_UP, {
+            last: this.fmtVal(st.kind, st.latest),
+            next: this.fmtVal(st.kind, st.kind === 'time' ? this.suggestTime(st.latest) : this.suggest(st.latest))
+          })
+        : this.pick(NUDGE_BACK, { best: this.fmtVal(st.kind, st.best), avg: this.fmtVal(st.kind, st.avg) })) : '',
+      inputVal: s.input,
+      onInput: (e) => this.setState({ input: e.target.value }),
+      steps: (exKind === 'time' ? [-0.5, -0.1, 0.1, 0.5] : exKind === 'reps' ? [-5, -1, 1, 5] : s.unit === 'kg' ? [-5, -2.5, 2.5, 5] : [-10, -5, 5, 10]).map(d => ({
+        label: (d > 0 ? '+' : '') + d,
+        apply: () => this.setState({ input: String(Math.max(0, Math.round(((parseFloat(this.state.input) || 0) + d) * 100) / 100)) })
+      })),
+      saveWeight: () => this.saveWeight(),
+      hasChart: hist.length > 1,
+      exChart: hist.length > 1 ? this.chart(hist.slice().reverse().map(e => e.value), exKind) : null,
+      noHistory: hist.length === 0,
+      exHistory: hist.map((h, i) => {
+        const prev = hist[i + 1];
+        const d = prev ? h.value - prev.value : 0;
+        const good = h.kind === 'time' ? d < 0 : d > 0;
+        const show = h.kind === 'time' ? (Math.round(Math.abs(d) * 100) / 100) : this.round(Math.abs(this.toDisplay(d)));
+        return {
+          date: this.dateLabel(h.date), ago: this.daysAgo(h.date), weight: this.fmtVal(h.kind, h.value),
+          hasNote: !!h.note, note: h.note || '',
+          delta: prev ? (d === 0 ? 'same' : (good ? '▲ ' : '▼ ') + show) : 'first',
+          deltaColor: prev && d !== 0 ? (good ? '#ae1800' : '#605d5d') : '#605d5d',
+          remove: () => this.removeEntry(h.id)
+        };
+      }),
+
+      // progress
+      progressCards: [], noProgress: true,
+
+      // builder
+      draftTitle: s.draft ? s.draft.title : '',
+      onDraftTitle: (e) => this.setState({ draft: Object.assign({}, this.state.draft, { title: e.target.value }) }),
+      draftRows: s.draft ? s.draft.rows.map((row, i) => ({
+        name: row.name, sets: row.sets, reps: row.reps,
+        weightedStyle: 'flex:none;width:92px;border:0;cursor:pointer;padding:11px 10px;font:800 10px/1 Archivo;letter-spacing:.1em;text-transform:uppercase;text-align:left;' +
+          (row.weighted ? 'background:#ec3013;color:#fff' : 'background:#eae9e9;color:#605d5d'),
+        setName: (e) => this.setDraft(i, 'name', e.target.value),
+        setSets: (e) => this.setDraft(i, 'sets', e.target.value),
+        setReps: (e) => this.setDraft(i, 'reps', e.target.value),
+        toggleWeighted: () => this.setDraft(i, 'weighted', !row.weighted),
+        remove: () => this.setState({ draft: Object.assign({}, this.state.draft, { rows: this.state.draft.rows.filter((_, ri) => ri !== i) }) })
+      })) : [],
+      addRow: () => this.setState({ draft: Object.assign({}, this.state.draft, { rows: this.state.draft.rows.concat([{ name: '', sets: '', reps: '', weighted: true }]) }) }),
+      saveDraft: () => this.saveDraft()
+    };
+
+    const tracked = [];
+    this.allExercises().forEach(e => {
+      const h = this.entriesFor(e.id);
+      if (!h.length) return;
+      const asc = h.slice().reverse();
+      const est = this.statsFor(e.id);
+      const kind = est.kind;
+      const d = h.length > 1 ? h[0].value - h[1].value : 0;
+      const good = kind === 'time' ? d < 0 : d > 0;
+      const show = kind === 'time' ? Math.round(Math.abs(d) * 100) / 100 : this.round(Math.abs(this.toDisplay(d)));
+      tracked.push({
+        name: e.name,
+        sub: (kind === 'time' ? 'Speed' : kind === 'reps' ? 'Reps' : 'Load') + ' · Day ' + e.planDay + ' — ' + e.planTitle + ' · ' + h.length + ' entr' + (h.length > 1 ? 'ies' : 'y') + ' · ' + this.daysAgo(h[0].date),
+        latest: this.fmtVal(kind, est.latest),
+        pb: this.fmtVal(kind, est.best),
+        pbLabel: kind === 'time' ? 'Fastest' : 'Best',
+        avg: this.fmtVal(kind, est.avg),
+        worst: this.fmtVal(kind, est.worst),
+        worstLabel: kind === 'time' ? 'Slowest' : 'Lowest',
+        trend: h.length > 1 ? (d === 0 ? 'Flat' : (good ? '▲ ' : '▼ ') + show) : 'First',
+        trendColor: h.length > 1 && d !== 0 ? (good ? '#ae1800' : '#605d5d') : '#201e1d',
+        chart: this.chart(asc.map(x => x.value), kind) || React.createElement('div', {
+          style: { font: '400 11px/1.3 Archivo', color: '#605d5d', padding: '2px 6px 8px' }
+        }, 'One entry so far — log again to draw the line.'),
+        open: () => this.openExercise(e.id)
+      });
+    });
+    vals.progressCards = tracked;
+    vals.noProgress = tracked.length === 0;
+    return vals;
+  }
+}
+</script>
+</body>
+</html>
