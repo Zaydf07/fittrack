@@ -1308,7 +1308,6 @@ Object.assign(App, {
       '<div class="tint"></div><div class="copy"><div class="welcome-title">Log the load.<br>Beat it next<br>week.</div><div class="welcome-sub">A training log that remembers what you lifted and tells you what to beat.</div></div></div>' +
       '<div class="photo-band"><img src="images/dumbbell.jpg" alt=""><div class="tint"></div><div class="cap">Every session, on the record</div></div>' +
       '<div class="welcome-points">' + points.map(p => '<div class="welcome-point"><div class="n">' + p.n + '</div><div><div class="label">' + esc(p.label) + '</div><div class="note">' + esc(p.note) + '</div></div></div>').join('') + '</div>' +
-      '<div style="flex:1"></div>' +
       '<div class="welcome-actions">' +
       '<button class="btn btn-dark" onclick="App.set({screen:\'auth\',mode:\'register\',authError:\'\'})">Get started</button>' +
       '<button class="btn btn-outline-light btn-block" onclick="App.set({screen:\'auth\',mode:\'signin\',authError:\'\'})">I have an account</button>' +
