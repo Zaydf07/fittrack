@@ -170,7 +170,7 @@ html, body { height: 100%; overflow: hidden; }
 .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--ink); }
 .auth-tab { border: 0; padding: 14px 14px; cursor: pointer; text-align: left; font: 800 11px/1 Archivo; letter-spacing: .1em; text-transform: uppercase; background: var(--bg); color: var(--muted); border-right: 1px solid var(--line-input); }
 .auth-tab.on { background: var(--ink); color: var(--bg); border-right: 0; }
-.auth-body { padding: 20px 16px 28px; }
+.auth-body { flex: 1; min-height: 0; overflow-y: auto; padding: 20px 16px 28px; }
 .auth-error { border-left: 3px solid var(--accent); background: var(--accent-100); padding: 10px 12px; margin-bottom: 14px; font: 600 12px/1.45 Archivo; color: var(--accent-700); }
 .auth-footnote { font: 400 11px/1.5 Archivo; color: var(--muted); margin-top: 12px; }
 
@@ -181,7 +181,7 @@ html, body { height: 100%; overflow: hidden; }
 .onboard-hero .note { font: 400 13px/1.45 Archivo; color: #d7d3d3; margin-top: 9px; }
 .rail { flex: none; height: 5px; background: #d7d3d3; }
 .rail > div { height: 100%; background: var(--accent); }
-.onboard-body { flex: 1; padding: 20px 16px 0; }
+.onboard-body { flex: 1; min-height: 0; overflow-y: auto; padding: 20px 16px 0; }
 .onboard-actions { flex: none; padding: 20px 16px calc(30px + var(--safe-bottom)); }
 .pick-card { width: 100%; display: flex; flex-direction: column; align-items: flex-start; text-align: left; border: 2px solid var(--ink); border-top-width: 0; padding: 14px; cursor: pointer; background: #fff; color: var(--ink); }
 .pick-card:first-child { border-top-width: 2px; }
