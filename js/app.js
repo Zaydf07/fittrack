@@ -1408,7 +1408,7 @@ Object.assign(App, {
       '<div class="topbar"><div><div class="h1">Fittrack</div><div style="font:600 11px/1.4 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + esc(todayLabel) + '</div></div>' +
       '<div class="seg"><button class="seg-btn' + (s.unit === 'kg' ? ' on' : '') + '" onclick="App.persist({unit:\'kg\'})">KG</button><button class="seg-btn' + (s.unit === 'lb' ? ' on' : '') + '" onclick="App.persist({unit:\'lb\'})">LB</button></div></div>' +
       '<div class="scroll">' +
-      '<div class="band band-lg"><img src="images/row.jpg" alt=""><div class="tint"></div></div>' +
+      '<div class="band band-lg"><img src="images/row.jpg" alt="" style="object-position:50% 58%"><div class="tint"></div></div>' +
       '<button class="push-strip" onclick="App.go(' + js(coach ? 'clients' : 'play') + ')"><span><span class="title">' + total + ' pts · ' + (streak ? streak + ' day' + (streak > 1 ? 's' : '') : 'No streak') + '</span><span class="line">' + esc(this._push) + '</span></span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ec3013" stroke-width="2.5"><path d="m9 18 6-6-6-6"></path></svg></button>' +
       '<div class="section-pad">' +
       '<div class="section-head"><div class="kicker-lg">Your plans</div><button class="btn-ghost" onclick="App.exportData()">Export history</button></div>' +
@@ -1448,7 +1448,7 @@ Object.assign(App, {
       (s.confirmPlan ? '<div class="confirm-box"><div class="msg">Delete this plan and everything logged against it?</div><div class="row"><button class="yes" onclick="App.deletePlan(' + js(plan.id) + ')">Delete</button><button class="no" onclick="App.set({confirmPlan:false})">Keep it</button></div></div>' : '') +
       '</div>' +
       '<div class="scroll">' +
-      '<div class="band band-md"><img src="images/kettlebells.jpg" alt=""><div class="tint"></div></div>' +
+      '<div class="band band-md"><img src="images/kettlebells.jpg" alt="" style="object-position:50% 48%"><div class="tint"></div></div>' +
       sections +
       '</div></div>';
   },
@@ -1601,7 +1601,7 @@ Object.assign(App, {
     return '<div class="screen">' +
       '<div class="topbar-simple"><div class="h1">Play</div><div style="font:600 10px/1.4 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d;margin-top:6px">Level ' + level + ' · ' + esc(LEVEL_TITLES[Math.min(level - 1, LEVEL_TITLES.length - 1)]) + '</div></div>' +
       '<div class="scroll">' +
-      '<div class="band band-md"><img src="images/pulldown.jpg" alt=""><div class="tint"></div></div>' +
+      '<div class="band band-md"><img src="images/pulldown.jpg" alt="" style="object-position:50% 24%"><div class="tint"></div></div>' +
       recap +
       '<div class="level-row"><div class="level-box"><div class="kicker">Level ' + level + ' · ' + esc(LEVEL_TITLES[Math.min(level - 1, LEVEL_TITLES.length - 1)]) + '</div><div class="pts">' + total + ' pts</div><div class="mini-rail"><div style="width:' + Math.round(((total % 200) / 200) * 100) + '%"></div></div><div class="note">' + (200 - (total % 200)) + ' pts to level ' + (level + 1) + '</div></div>' +
       '<div class="streak-box"><div class="kicker">Streak</div><div class="v">' + esc(streak ? streak + ' day' + (streak > 1 ? 's' : '') : 'No streak') + '</div><div class="note">' + (streak ? 'Keep logging to hold it' : 'Log today to start one') + '</div></div></div>' +
@@ -1648,7 +1648,7 @@ Object.assign(App, {
       '<div class="topbar"><div><div class="h1">Trending</div><div style="font:600 10px/1.4 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d;margin-top:6px">' + esc(s.trendsAt ? 'Updated ' + this.daysAgo(s.trendsAt) : 'Not loaded yet') + '</div></div>' +
       '<button class="btn-outline" style="width:auto;padding:9px 11px;font-size:10px" onclick="App.loadTrends(true)">Refresh</button></div>' +
       '<div class="scroll">' +
-      '<div class="band" style="height:120px"><img src="images/plates.jpg" alt=""><div class="tint"></div></div>' +
+      '<div class="band" style="height:120px"><img src="images/plates.jpg" alt="" style="object-position:50% 28%"><div class="tint"></div></div>' +
       '<div class="live-bar off">From FitTrack\'s own workout library — not a live feed</div>' +
       cards +
       (!s.trends.length ? '<div class="empty-note-pad">Nothing loaded yet. Hit refresh and the library will put together what is popular in training right now.</div>' : '') +
@@ -1698,7 +1698,7 @@ Object.assign(App, {
     return '<div class="screen">' +
       '<div class="topbar"><div class="h1">Progress</div><div class="seg"><button class="seg-btn' + (s.unit === 'kg' ? ' on' : '') + '" onclick="App.persist({unit:\'kg\'})">KG</button><button class="seg-btn' + (s.unit === 'lb' ? ' on' : '') + '" onclick="App.persist({unit:\'lb\'})">LB</button></div></div>' +
       '<div class="scroll">' +
-      '<div class="band band-md"><img src="images/curl.jpg" alt=""><div class="tint"></div></div>' +
+      '<div class="band band-md"><img src="images/curl.jpg" alt="" style="object-position:50% 14%"><div class="tint"></div></div>' +
       '<div class="recap-box"><div class="kicker">Weekly recap</div><div class="sentence">' + esc(recapSentence) + '</div>' +
       '<div class="row"><button class="btn-dark" onclick="App.openReport(\'day\')">Today\'s report</button><button class="btn" onclick="App.openReport(\'week\')">Week report</button></div></div>' +
       '<div class="section-pad"><div class="kicker-lg">Last four weeks</div><div class="calendar-grid">' + cal.join('') + '</div><div class="auth-footnote">Red days are days you trained.</div></div>' +
