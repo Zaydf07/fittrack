@@ -249,6 +249,10 @@ const TRENDING_LIBRARY = [
   { title: '4x4 Interval Protocol', tag: 'Conditioning', blurb: 'Four hard four-minute efforts with active recovery — a sports-science interval format having a viral moment.', minutes: 32, level: 'Advanced', exercises: [
     { name: 'Hard Interval (90% effort)', sets: '4', reps: '4 min', isTimed: true },
     { name: 'Active Recovery Jog', sets: '4', reps: '3 min', isTimed: true }
+  ]},
+  { title: 'Deficit Push-up Finisher', tag: 'Bodyweight', blurb: 'Push-ups off raised handles for extra range of motion — the go-to chest burnout clip when the gym part of the day is already done.', minutes: 10, level: 'Intermediate', exercises: [
+    { name: 'Deficit Push-up (parallettes or blocks)', sets: '4', reps: 'To failure' },
+    { name: 'Rest', sets: '4', reps: '45s', isTimed: true }
   ]}
 ];
 
