@@ -280,7 +280,8 @@ const App = {
     report: null, reportText: '', watch: null, rounds: null,
     clients: CLIENT_SEED, clientId: null, assignFor: null, pb: null, muted: false,
     step: 0,
-    form: { name: '', email: '', password: '', confirm: '', bodyweight: '', goal: 'speed', role: 'solo', days: 3 }
+    form: { name: '', email: '', password: '', confirm: '', bodyweight: '', goal: 'speed', role: 'solo', days: 3 },
+    resetEmail: '', resetPassword: '', resetConfirm: ''
   },
   _timers: {},
   _pushKey: null, _push: null,
@@ -345,6 +346,7 @@ const App = {
     this._timers.toast = setTimeout(() => this.set({ toast: '' }), 2600);
   },
   go(screen, patch) { this.set(Object.assign({ screen: screen, sheet: false }, patch || {})); },
+  goForgotPassword() { this.set({ mode: 'reset', authError: '' }); },
 
   // ---------------------------------------------------------------------------
   // 4. METRICS, UNITS, STATS
@@ -497,6 +499,21 @@ const App = {
       user: null, screen: 'welcome', mode: 'signin', sheet: false, authError: '',
       form: Object.assign({}, this.state.form, { password: '', confirm: '', email: this.state.account ? this.state.account.email : '' })
     });
+  },
+  submitPasswordReset() {
+    const email = this.state.resetEmail.trim().toLowerCase();
+    const pwd = this.state.resetPassword;
+    const confirm = this.state.resetConfirm;
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailOk) return this.set({ authError: 'That email address does not look right.' });
+    if (pwd.length < 8) return this.set({ authError: 'Passwords need at least 8 characters.' });
+    if (pwd !== confirm) return this.set({ authError: 'The two passwords do not match.' });
+    const acc = this.state.account;
+    if (!acc || acc.email !== email) return this.set({ authError: 'No account on this device with that email.' });
+    const updated = Object.assign({}, acc);
+    this.persistAccount(updated, true);
+    this.set({ user: acc, screen: 'today', mode: 'signin', authError: '', resetEmail: '', resetPassword: '', resetConfirm: '' });
+    this.toast('Password reset. You are now signed in.');
   },
 
   // ---------------------------------------------------------------------------
@@ -1318,6 +1335,19 @@ Object.assign(App, {
   renderAuth() {
     const s = this.state;
     const isReg = s.mode === 'register';
+    const isReset = s.mode === 'reset';
+    if (isReset) {
+      return '<div class="screen">' +
+        '<div class="auth-hero"><div class="brand">Fittrack</div><div class="headline">Reset password</div><div class="sub">Enter your email and create a new password.</div></div>' +
+        '<button class="back-btn" style="padding:12px 16px 0" onclick="App.set({mode:\'signin\',authError:\'\',resetEmail:\'\',resetPassword:\'\',resetConfirm:\'\'})">' + ICONS.back + ' Back</button>' +
+        '<div class="auth-body">' +
+        '<div class="field-block"><div class="field-label">Email</div><input id="f-reset-email" class="input" type="email" placeholder="you@email.com" value="' + esc(s.resetEmail) + '" oninput="App.set({resetEmail:this.value})"></div>' +
+        '<div class="field-block"><div class="field-label">New password</div><input id="f-reset-password" class="input" type="password" placeholder="At least 8 characters" value="' + esc(s.resetPassword) + '" oninput="App.set({resetPassword:this.value})"></div>' +
+        '<div class="field-block"><div class="field-label">Confirm password</div><input id="f-reset-confirm" class="input" type="password" placeholder="Type it again" value="' + esc(s.resetConfirm) + '" oninput="App.set({resetConfirm:this.value})"></div>' +
+        (s.authError ? '<div class="auth-error">' + esc(s.authError) + '</div>' : '') +
+        '<button class="btn" onclick="App.submitPasswordReset()">Reset password</button>' +
+        '</div></div>';
+    }
     return '<div class="screen">' +
       '<div class="auth-hero"><div class="brand">Fittrack</div><div class="headline">Log the load. Beat it next week.</div><div class="sub">Your plans, your weights and every personal best, kept on this phone.</div></div>' +
       '<div class="auth-tabs">' +
@@ -1330,6 +1360,7 @@ Object.assign(App, {
       '<div class="field-block"><div class="field-label">Email</div><input id="f-email" class="input" type="email" autocomplete="email" placeholder="you@email.com" value="' + esc(s.form.email) + '" oninput="App.setForm(\'email\',this.value)"></div>' +
       '<div class="field-block"><div class="field-label">Password</div><input id="f-password" class="input" type="password" placeholder="At least 8 characters" value="' + esc(s.form.password) + '" oninput="App.setForm(\'password\',this.value)"></div>' +
       (isReg ? '<div class="field-block"><div class="field-label">Confirm password</div><input id="f-confirm" class="input" type="password" placeholder="Type it again" value="' + esc(s.form.confirm) + '" oninput="App.setForm(\'confirm\',this.value)"></div>' : '') +
+      (!isReg ? '<div style="text-align:right;margin-bottom:12px"><button class="btn-ghost" onclick="App.goForgotPassword()" style="font-size:11px">Forgot password?</button></div>' : '') +
       (s.authError ? '<div class="auth-error">' + esc(s.authError) + '</div>' : '') +
       '<button class="btn" onclick="App.submitAuth()">' + (isReg ? 'Create account' : 'Sign in') + '</button>' +
       '<div class="auth-footnote">' + (isReg ? 'Prototype: the account lives on this device only — nothing is sent anywhere.' : 'Signing in restores the plans and weights saved on this device.') + '</div>' +
