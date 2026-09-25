@@ -225,6 +225,20 @@ const TRENDING_LIBRARY = [
     { name: 'EMOM: Kettlebell Swings', sets: '10', reps: '15', isWeighted: true },
     { name: 'EMOM: Push-ups', sets: '10', reps: '10' },
     { name: 'EMOM: Air Squats', sets: '10', reps: '15' }
+  ]},
+  { title: 'HIIT Circuit', tag: 'HIIT', blurb: '30 seconds on, 15 off, four rounds — the go-to short-and-brutal format on every fitness feed.', minutes: 20, level: 'Intermediate', exercises: [
+    { name: 'Burpees', sets: '4', reps: '30s', isTimed: true },
+    { name: 'Jump Squats', sets: '4', reps: '30s', isTimed: true },
+    { name: 'Mountain Climbers', sets: '4', reps: '30s', isTimed: true },
+    { name: 'Plank Shoulder Taps', sets: '4', reps: '30s', isTimed: true },
+    { name: 'High Knees', sets: '4', reps: '30s', isTimed: true }
+  ]},
+  { title: 'Incline Treadmill Walk', tag: 'Cardio', blurb: 'Low-impact, high-incline steady walk — one of the most repeated cardio formats on social fitness feeds right now.', minutes: 30, level: 'Beginner', exercises: [
+    { name: 'Incline Treadmill Walk (12% grade)', reps: '30 min', isTimed: true }
+  ]},
+  { title: '4x4 Interval Protocol', tag: 'Conditioning', blurb: 'Four hard four-minute efforts with active recovery — a sports-science interval format having a viral moment.', minutes: 32, level: 'Advanced', exercises: [
+    { name: 'Hard Interval (90% effort)', sets: '4', reps: '4 min', isTimed: true },
+    { name: 'Active Recovery Jog', sets: '4', reps: '3 min', isTimed: true }
   ]}
 ];
 
