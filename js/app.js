@@ -265,6 +265,58 @@ const ICONS = {
 };
 
 // -----------------------------------------------------------------------------
+// 2.5 ON-DEVICE CLIP STORAGE (IndexedDB — video blobs don't fit localStorage)
+// -----------------------------------------------------------------------------
+const MEDIA_DB = 'fittrack_media_v1', MEDIA_STORE = 'clips';
+function idbOpen() {
+  return new Promise((resolve, reject) => {
+    if (!window.indexedDB) return reject(new Error('no-indexeddb'));
+    const req = indexedDB.open(MEDIA_DB, 1);
+    req.onupgradeneeded = () => {
+      if (!req.result.objectStoreNames.contains(MEDIA_STORE)) req.result.createObjectStore(MEDIA_STORE, { keyPath: 'id' });
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+async function idbPutClip(record) {
+  const db = await idbOpen();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(MEDIA_STORE, 'readwrite');
+    tx.objectStore(MEDIA_STORE).put(record);
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+async function idbGetClip(id) {
+  const db = await idbOpen();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(MEDIA_STORE, 'readonly');
+    const req = tx.objectStore(MEDIA_STORE).get(id);
+    req.onsuccess = () => resolve(req.result || null);
+    req.onerror = () => reject(req.error);
+  });
+}
+async function idbDeleteClip(id) {
+  const db = await idbOpen();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(MEDIA_STORE, 'readwrite');
+    tx.objectStore(MEDIA_STORE).delete(id);
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+async function idbAllClips() {
+  const db = await idbOpen();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(MEDIA_STORE, 'readonly');
+    const req = tx.objectStore(MEDIA_STORE).getAll();
+    req.onsuccess = () => resolve(req.result || []);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+// -----------------------------------------------------------------------------
 // 3. APP STATE
 // -----------------------------------------------------------------------------
 const App = {
@@ -279,6 +331,7 @@ const App = {
     editName: null, confirmPlan: false, rest: null, note: '', bwInput: '', query: '',
     report: null, reportText: '', watch: null, rounds: null,
     clients: CLIENT_SEED, clientId: null, assignFor: null, pb: null, muted: false,
+    clips: [], record: null,
     step: 0,
     form: { name: '', email: '', password: '', confirm: '', bodyweight: '', goal: 'speed', role: 'solo', days: 3 }
   },
@@ -320,6 +373,7 @@ const App = {
       const f = e.target.files[0]; e.target.value = ''; this.handleFile(f);
     });
     if (this.state.user && !this.state.trends.length) this.loadTrends(false);
+    this.loadClips();
     this.render();
   },
 
@@ -1216,6 +1270,7 @@ Object.assign(App, {
       focusInfo = { id: active.id, start: active.selectionStart, end: active.selectionEnd };
     }
     mount.innerHTML = '<div id="app-shell">' + this.renderScreen() + this.renderTabbar() + this.renderSheet() + this.renderOverlays() + '</div>';
+    if (this.state.overlay === 'record' && this.state.record && !this.state.record.done) this.attachPreview();
     if (focusInfo) {
       const el = document.getElementById(focusInfo.id);
       if (el) {
@@ -1280,6 +1335,7 @@ Object.assign(App, {
     if (s.overlay === 'ghost') out += this.renderGhost();
     if (s.overlay === 'wheel') out += this.renderWheel();
     if (s.overlay === 'report' && s.report) out += this.renderReport();
+    if (s.overlay === 'record' && s.record) out += this.renderRecord();
     if (s.busy) out += this.renderBusy();
     if (s.rest) out += this.renderRest();
     if (s.pb) out += this.renderPb();
@@ -1641,7 +1697,8 @@ Object.assign(App, {
           '<button class="btn" onclick="App.addTrendById(' + js(t.id) + ')">' + ICONS.plusSm + 'Add to my plans</button>' +
           '<button class="btn btn-dark" onclick="App.followTrendById(' + js(t.id) + ')">' + ICONS.playSm + 'Follow it now</button>' +
           '<button class="btn-outline" onclick="App.watchName(' + js(t.title + ' workout') + ')">' + ICONS.playSm + 'Watch this workout</button>' +
-          '</div></div>' : '') +
+          '<button class="btn-outline record-btn" onclick="App.openRecorderById(' + js(t.id) + ')">' + ICONS.playSm + 'Record yourself trying it</button>' +
+          '</div>' + this.renderClipsFor(t.id) + '</div>' : '') +
         '</div>';
     }).join('');
     return '<div class="screen">' +
@@ -1885,6 +1942,145 @@ Object.assign(App, {
 });
 
 // -----------------------------------------------------------------------------
-// 25. BOOTSTRAP
+// 25. RECORD YOURSELF — camera capture + on-device clip storage
+// -----------------------------------------------------------------------------
+Object.assign(App, {
+  async loadClips() {
+    try {
+      const all = await idbAllClips();
+      this.set({ clips: all.map(c => ({ id: c.id, trendId: c.trendId, title: c.title, date: c.date })).sort((a, b) => new Date(b.date) - new Date(a.date)) });
+    } catch (e) {}
+  },
+  pickMimeType() {
+    const options = ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm', 'video/mp4'];
+    for (const o of options) { if (window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(o)) return o; }
+    return '';
+  },
+  async openRecorder(trendId, title) {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      this.toast('This browser has no camera access to record with'); return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: true });
+      this._stream = stream;
+      this.set({ overlay: 'record', record: { trendId: trendId, title: title, recording: false, done: false, elapsed: 0, error: '' } });
+    } catch (e) {
+      this.toast('Camera access denied — check your browser permissions');
+    }
+  },
+  openRecorderById(id) {
+    const t = this.state.trends.find(x => x.id === id);
+    if (t) this.openRecorder(t.id, t.title);
+  },
+  attachPreview() {
+    const v = document.getElementById('record-video');
+    if (v && this._stream && !v.srcObject) v.srcObject = this._stream;
+  },
+  startRecording() {
+    if (!this._stream) return;
+    const chunks = [];
+    const mimeType = this.pickMimeType();
+    const mr = new MediaRecorder(this._stream, mimeType ? { mimeType: mimeType } : undefined);
+    mr.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+    mr.onstop = () => {
+      const blob = new Blob(chunks, { type: mr.mimeType || 'video/webm' });
+      this._recordedBlob = blob;
+      const url = URL.createObjectURL(blob);
+      this.set({ record: Object.assign({}, this.state.record, { recording: false, done: true, previewUrl: url }) });
+    };
+    this._recorder = mr;
+    mr.start();
+    const t0 = Date.now();
+    clearInterval(this._timers.rec);
+    this.set({ record: Object.assign({}, this.state.record, { recording: true, elapsed: 0 }) });
+    this._timers.rec = setInterval(() => {
+      this.set({ record: Object.assign({}, this.state.record, { elapsed: (Date.now() - t0) / 1000 }) });
+    }, 250);
+  },
+  stopRecording() {
+    clearInterval(this._timers.rec);
+    if (this._recorder && this._recorder.state !== 'inactive') this._recorder.stop();
+  },
+  retakeRecording() {
+    if (this.state.record && this.state.record.previewUrl) URL.revokeObjectURL(this.state.record.previewUrl);
+    this._recordedBlob = null;
+    this.set({ record: Object.assign({}, this.state.record, { recording: false, done: false, elapsed: 0, previewUrl: null }) });
+  },
+  async saveRecording() {
+    const r = this.state.record;
+    if (!r || !this._recordedBlob) return;
+    const id = uid('clip');
+    const record = { id: id, trendId: r.trendId, title: r.title, date: new Date().toISOString(), blob: this._recordedBlob };
+    try {
+      await idbPutClip(record);
+      this.toast('Saved to this workout');
+      this.closeRecorder();
+      this.loadClips();
+    } catch (e) {
+      this.toast("Couldn't save that clip — storage may be full");
+    }
+  },
+  closeRecorder() {
+    clearInterval(this._timers.rec);
+    if (this._recorder && this._recorder.state !== 'inactive') { try { this._recorder.stop(); } catch (e) {} }
+    if (this._stream) { this._stream.getTracks().forEach(t => t.stop()); this._stream = null; }
+    if (this.state.record && this.state.record.previewUrl) URL.revokeObjectURL(this.state.record.previewUrl);
+    this._recorder = null; this._recordedBlob = null;
+    this.set({ overlay: null, record: null });
+  },
+  async togglePlayClip(id) {
+    const openId = this._openClipId === id ? null : id;
+    this._openClipId = openId;
+    if (openId && !this._clipUrls) this._clipUrls = {};
+    if (openId && !this._clipUrls[openId]) {
+      const rec = await idbGetClip(openId);
+      if (rec) this._clipUrls[openId] = URL.createObjectURL(rec.blob);
+    }
+    this.render();
+  },
+  async deleteClip(id) {
+    await idbDeleteClip(id);
+    if (this._clipUrls && this._clipUrls[id]) { URL.revokeObjectURL(this._clipUrls[id]); delete this._clipUrls[id]; }
+    if (this._openClipId === id) this._openClipId = null;
+    this.toast('Recording deleted');
+    this.loadClips();
+  },
+  renderRecord() {
+    const r = this.state.record;
+    const clock = (Math.floor(r.elapsed / 60)) + ':' + pad2(Math.floor(r.elapsed % 60));
+    let body;
+    if (r.done) {
+      body = '<video id="record-playback" src="' + esc(r.previewUrl) + '" class="record-video" controls playsinline></video>' +
+        '<div class="record-actions">' +
+        '<button class="btn" onclick="App.saveRecording()">' + ICONS.plusSm + 'Save clip</button>' +
+        '<button class="btn-outline" onclick="App.retakeRecording()">Retake</button>' +
+        '</div>';
+    } else {
+      body = '<video id="record-video" class="record-video" autoplay muted playsinline></video>' +
+        (r.recording ? '<div class="record-clock">' + clock + '</div>' : '') +
+        '<div class="record-actions">' +
+        (!r.recording ? '<button class="btn" onclick="App.startRecording()">' + ICONS.play + 'Start recording</button>' : '<button class="btn light" onclick="App.stopRecording()">Stop</button>') +
+        '</div>';
+    }
+    return '<div class="overlay overlay-dark"><div class="overlay-head b-dark"><div><div class="t">Record yourself</div><div style="font:400 11px/1.3 Archivo;color:#d7d3d3;margin-top:4px">' + esc(r.title) + '</div></div>' +
+      '<button class="close-btn on-dark" onclick="App.closeRecorder()">' + ICONS.x + '</button></div>' +
+      '<div class="overlay-body"><div class="record-body">' + body + '<div class="auth-footnote" style="color:#9b9797">Stays on this device — nothing is uploaded.</div></div></div></div>';
+  },
+  renderClipsFor(trendId) {
+    const list = this.state.clips.filter(c => c.trendId === trendId);
+    if (!list.length) return '';
+    return '<div class="clip-list"><div class="clip-list-label">Your recordings</div>' +
+      list.map(c => {
+        const open = this._openClipId === c.id;
+        const url = this._clipUrls && this._clipUrls[c.id];
+        return '<div class="clip-row"><button class="clip-play" onclick="event.stopPropagation();App.togglePlayClip(' + js(c.id) + ')">' + (open ? ICONS.x : ICONS.playSm) + '<span>' + esc(this.dateLabel(c.date)) + ' · ' + esc(this.daysAgo(c.date)) + '</span></button>' +
+          '<button class="icon-btn" title="Delete recording" onclick="event.stopPropagation();App.deleteClip(' + js(c.id) + ')">' + ICONS.x + '</button></div>' +
+          (open && url ? '<video src="' + esc(url) + '" class="clip-video" controls playsinline></video>' : '');
+      }).join('') + '</div>';
+  }
+});
+
+// -----------------------------------------------------------------------------
+// 26. BOOTSTRAP
 // -----------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => App.init());
