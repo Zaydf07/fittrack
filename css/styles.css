@@ -636,6 +636,7 @@ html, body { height: 100%; overflow: hidden; }
 .clip-play span { font: 600 12px/1.2 Archivo; }
 .clip-play svg { flex: none; }
 .clip-video { width: 100%; aspect-ratio: 3/4; background: #000; margin: 4px 0 10px; display: block; }
+.record-log { margin-top: 14px; }
 
 /* — chart svg — */
 .linechart { width: 100%; height: auto; display: block; }

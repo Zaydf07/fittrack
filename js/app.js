@@ -72,6 +72,16 @@ const FINISHERS = [
   { name: '60 mountain climbers', note: 'Hips down' }
 ];
 
+// Public, unauthenticated JSON reads — no API key exists for this. If the
+// browser's CORS policy or a network block refuses these, loadTrends()
+// falls back to the curated library alone and says so honestly.
+const TREND_SOURCES = [
+  { id: 'r/Fitness', url: 'https://www.reddit.com/r/Fitness/top.json?t=week&limit=15' },
+  { id: 'r/running', url: 'https://www.reddit.com/r/running/top.json?t=week&limit=10' },
+  { id: 'r/bodyweightfitness', url: 'https://www.reddit.com/r/bodyweightfitness/top.json?t=week&limit=10' },
+  { id: 'r/crossfit', url: 'https://www.reddit.com/r/crossfit/top.json?t=week&limit=10' }
+];
+
 const GOALS = [
   { id: 'speed', label: 'Speed', note: 'Sprints, sled and plyometrics' },
   { id: 'strength', label: 'Strength', note: 'Heavy loads, low reps' },
@@ -340,7 +350,7 @@ const App = {
     input: '', sheet: false, busy: false, busyFile: '', error: '',
     toast: '', draft: null,
     user: null, account: null, mode: 'register', authError: '',
-    trends: [], trendsAt: null, openTrend: null,
+    trends: [], trendsAt: null, openTrend: null, trendsBusy: false, trendSources: [], trendPosts: 0,
     events: [], overlay: null, ghost: null, wheel: null, session: null,
     editName: null, confirmPlan: false, rest: null, note: '', bwInput: '', query: '',
     report: null, reportText: '', watch: null, rounds: null,
@@ -362,17 +372,17 @@ const App = {
       const a = localStorage.getItem(LS.user); if (a) account = JSON.parse(a);
       session = localStorage.getItem(LS.session) === '1';
     } catch (e) {}
-    let trends = [], trendsAt = null, events = [], clients = CLIENT_SEED, muted = false;
+    let trends = [], trendsAt = null, events = [], clients = CLIENT_SEED, muted = false, trendSources = [], trendPosts = 0;
     try {
       const ev = localStorage.getItem(LS.events); if (ev) events = JSON.parse(ev);
       const cl = localStorage.getItem(LS.clients); if (cl) clients = JSON.parse(cl);
       muted = localStorage.getItem(LS.muted) === '1';
       const t = localStorage.getItem(LS.trends);
-      if (t) { const parsed = JSON.parse(t); trends = parsed.list || []; trendsAt = parsed.at || null; }
+      if (t) { const parsed = JSON.parse(t); trends = parsed.list || []; trendsAt = parsed.at || null; trendSources = parsed.sources || []; trendPosts = parsed.posts || 0; }
     } catch (e) {}
     const user = session && account ? account : null;
     Object.assign(this.state, {
-      plans, log, unit, account, user, trends, trendsAt, events, clients, muted,
+      plans, log, unit, account, user, trends, trendsAt, events, clients, muted, trendSources, trendPosts,
       screen: user ? 'today' : account ? 'auth' : 'welcome',
       mode: account ? 'signin' : 'register',
       form: Object.assign({}, this.state.form, { email: account ? account.email : '' })
@@ -581,16 +591,24 @@ const App = {
     const q = encodeURIComponent(ex.name.replace(/[—–]/g, ' ') + ' exercise technique');
     window.open('https://www.youtube.com/results?search_query=' + q, '_blank', 'noopener');
   },
-  saveWeight() {
-    const ex = this.findEx(this.state.exId);
+  // Shared by the exercise screen's "Save this set" and the record-yourself
+  // flow, so a clip can link to the exact entry it was taken alongside.
+  // rawInput left blank (after trim) returns null silently — caller decides
+  // what that means; invalid non-empty input toasts and returns null too.
+  commitLog(exId, rawInput, rawNote) {
+    const ex = this.findEx(exId);
     const kind = this.metricOf(ex);
-    const v = parseFloat(this.state.input);
-    if (!ex || !kind || isNaN(v) || v <= 0) { this.toast(kind === 'time' ? 'Enter a time first' : 'Enter a weight first'); return; }
+    if (!ex || !kind) return null;
+    const raw = (rawInput || '').toString().trim();
+    if (!raw) return null;
+    const v = parseFloat(raw);
+    if (isNaN(v) || v <= 0) { this.toast(kind === 'time' ? 'Enter a time first' : 'Enter a weight first'); return null; }
     const value = kind === 'time' ? Math.round(v * 100) / 100 : kind === 'reps' ? Math.round(v * 10) / 10 : this.toKg(v);
     const st = this.statsFor(ex.id);
     const prev = this.entriesFor(ex.id)[0];
-    const log = this.state.log.concat([{ id: uid('e'), exerciseId: ex.id, kind: kind, value: value, date: new Date().toISOString(), note: this.state.note.trim().slice(0, 120) || null }]);
-    this.persist({ log: log, note: '' });
+    const entry = { id: uid('e'), exerciseId: ex.id, kind: kind, value: value, date: new Date().toISOString(), note: (rawNote || '').trim().slice(0, 120) || null };
+    const log = this.state.log.concat([entry]);
+    this.persist({ log: log });
     const f = (x) => this.fmtVal(kind, x);
     const improved = st && (kind === 'time' ? value < st.best : value > st.best);
     if (improved) {
@@ -609,6 +627,11 @@ const App = {
     else if (prev && value === prev.value) this.toast('Logged ' + f(value) + ' — matched last session');
     else if (prev) this.toast('Logged ' + f(value) + ' · best ' + f(now.best) + ' · average ' + f(now.avg));
     else this.toast('Logged ' + f(value) + ' — baseline set');
+    return entry;
+  },
+  saveWeight() {
+    const entry = this.commitLog(this.state.exId, this.state.input, this.state.note);
+    if (entry) this.set({ input: '', note: '' });
   },
   removeEntry(id) { this.persist({ log: this.state.log.filter(e => e.id !== id) }); this.toast('Entry deleted'); },
   duplicateById(id) { const p = this.state.plans.find(x => x.id === id); if (p) this.duplicate(p); },
@@ -754,22 +777,47 @@ const App = {
     const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
     return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
   },
-  loadTrends(force) {
+  async fetchSignals() {
+    const results = await Promise.all(TREND_SOURCES.map(async (src) => {
+      try {
+        const res = await fetch(src.url, { headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error('status ' + res.status);
+        const json = await res.json();
+        const posts = ((json.data && json.data.children) || [])
+          .map(c => c.data)
+          .filter(d => d && d.title && !d.stickied)
+          .slice(0, 12)
+          .map(d => ({ source: src.id, title: String(d.title).slice(0, 140) }));
+        return posts.length ? { id: src.id, posts: posts } : null;
+      } catch (e) { return null; }
+    }));
+    const live = results.filter(Boolean);
+    return { sources: live.map(l => l.id), posts: live.reduce((a, l) => a.concat(l.posts), []) };
+  },
+  async loadTrends(force) {
     if (!force && this.state.trends.length) return;
+    if (this.state.trendsBusy) return;
+    this.set({ trendsBusy: true });
     const seed = force ? Date.now() : this.weekOfYear(new Date()) + new Date().getFullYear() * 100;
     const pool = TRENDING_LIBRARY.slice();
     let s = seed;
     const rand = () => { s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; };
     for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+    const picked = pool.slice(0, 5);
+    let signals = { sources: [], posts: [] };
+    try { signals = await this.fetchSignals(); } catch (e) {}
     const stamp = Date.now();
-    const list = pool.slice(0, 5).map((w, i) => ({
-      id: 't' + stamp + '_' + i, title: w.title, blurb: w.blurb, tag: w.tag, level: w.level,
-      minutes: w.minutes + ' min', source: null, signal: null,
-      exercises: w.exercises.map(e => this.normaliseTrend(e))
-    }));
+    const list = picked.map((w, i) => {
+      const post = signals.posts[i] || null;
+      return {
+        id: 't' + stamp + '_' + i, title: w.title, blurb: w.blurb, tag: w.tag, level: w.level,
+        minutes: w.minutes + ' min', source: post ? post.source : null, signal: post ? post.title : null,
+        exercises: w.exercises.map(e => this.normaliseTrend(e))
+      };
+    });
     const at = new Date().toISOString();
-    try { localStorage.setItem(LS.trends, JSON.stringify({ at: at, list: list })); } catch (e) {}
-    this.set({ trends: list, trendsAt: at });
+    try { localStorage.setItem(LS.trends, JSON.stringify({ at: at, list: list, sources: signals.sources, posts: signals.posts.length })); } catch (e) {}
+    this.set({ trends: list, trendsAt: at, trendsBusy: false, trendSources: signals.sources, trendPosts: signals.posts.length });
   },
   addTrend(t) {
     const stamp = Date.now();
@@ -1588,8 +1636,10 @@ Object.assign(App, {
         '<div class="input-row" style="margin-top:10px"><input id="log-input" class="input-big" type="number" step="0.5" min="0" inputmode="decimal" placeholder="0" value="' + esc(s.input) + '" oninput="App.set({input:this.value})"><div class="unit">' + (kind === 'time' ? 'SEC' : kind === 'reps' ? 'REPS' : u) + '</div></div>' +
         steps +
         '<button class="btn" style="margin-top:10px" onclick="App.saveWeight()">Save this set</button>' +
+        '<button class="btn-outline" style="margin-top:8px" onclick="App.openRecorderForExercise(' + js(ex.id) + ')">' + ICONS.playSm + 'Record yourself</button>' +
         '<input id="note-input" class="search-input" type="text" placeholder="Note — felt heavy, shoulder tight…" value="' + esc(s.note) + '" oninput="App.set({note:this.value})">' +
         '<div class="rest-row"><div class="k">Rest</div>' + [60, 120, 180].map(sec => '<button onclick="App.startRest(' + sec + ')">' + (sec < 60 ? sec + 's' : (sec / 60) + ' min') + '</button>').join('') + '</div>' +
+        this.renderClipsFor('exId', ex.id) +
         '</div>';
       const statGrid = st ? '<div class="stat-grid">' +
         '<div class="stat-cell"><div class="k">' + (kind === 'time' ? 'Fastest' : 'Best') + '</div><div class="v" style="color:#ec3013">' + esc(this.fmtVal(st.kind, st.best)) + '</div></div>' +
@@ -1706,24 +1756,31 @@ Object.assign(App, {
       return '<div class="trend-card">' +
         '<div class="trend-head" onclick="App.toggleTrend(' + js(t.id) + ')"><div class="trend-rank">' + String(i + 1).padStart(2, '0') + '</div>' +
         '<div class="trend-body"><div class="title">' + esc(t.title) + '</div><div class="blurb">' + esc(t.blurb) + '</div>' +
-        '<div class="trend-tags"><span class="tag-a">' + esc(t.tag) + '</span><span class="tag-b">' + esc(t.level) + '</span><span class="tag-b">' + esc(t.minutes) + '</span></div></div></div>' +
+        '<div class="trend-tags"><span class="tag-a">' + esc(t.tag) + '</span><span class="tag-b">' + esc(t.level) + '</span><span class="tag-b">' + esc(t.minutes) + '</span></div>' +
+        (t.source ? '<div class="trend-signal"><span>' + esc(t.source) + (t.signal ? ' · ' + t.signal : '') + '</span></div>' : '') +
+        '</div></div>' +
         (open ? '<div class="trend-open">' + exRows + '<div class="trend-actions">' +
           '<button class="btn" onclick="App.addTrendById(' + js(t.id) + ')">' + ICONS.plusSm + 'Add to my plans</button>' +
           '<button class="btn btn-dark" onclick="App.followTrendById(' + js(t.id) + ')">' + ICONS.playSm + 'Follow it now</button>' +
           '<button class="btn-outline" onclick="App.watchName(' + js(t.title + ' workout') + ')">' + ICONS.playSm + 'Watch this workout</button>' +
           '<button class="btn-outline record-btn" onclick="App.openRecorderById(' + js(t.id) + ')">' + ICONS.playSm + 'Record yourself trying it</button>' +
-          '</div>' + this.renderClipsFor(t.id) + '</div>' : '') +
+          '</div>' + this.renderClipsFor('trendId', t.id) + '</div>' : '') +
         '</div>';
     }).join('');
+    const isLive = s.trendSources.length > 0;
+    const liveText = s.trendsBusy ? 'Checking live feeds…' : isLive ? 'Live · ' + s.trendSources.join(', ') + ' · ' + s.trendPosts + ' posts read' : 'Composed · connect a feed for live community signal';
+    const footnote = isLive
+      ? 'Workouts are FitTrack\'s own library, matched against real posts read this week from ' + s.trendSources.join(', ') + '. Check anything unfamiliar before you load it heavy.'
+      : 'Curated from FitTrack\'s own workout library — the live feed wasn\'t reachable just now, so nothing here is claimed as live. Check anything unfamiliar before you load it heavy.';
     return '<div class="screen">' +
       '<div class="topbar"><div><div class="h1">Trending</div><div style="font:600 10px/1.4 Archivo;letter-spacing:.12em;text-transform:uppercase;color:#605d5d;margin-top:6px">' + esc(s.trendsAt ? 'Updated ' + this.daysAgo(s.trendsAt) : 'Not loaded yet') + '</div></div>' +
       '<button class="btn-outline" style="width:auto;padding:9px 11px;font-size:10px" onclick="App.loadTrends(true)">Refresh</button></div>' +
       '<div class="scroll">' +
       '<div class="band" style="height:120px"><img src="images/plates.jpg" alt="" style="object-position:50% 28%"><div class="tint"></div></div>' +
-      '<div class="live-bar off">From FitTrack\'s own workout library — not a live feed</div>' +
+      '<div class="live-bar' + (isLive ? ' live' : ' off') + '">' + esc(liveText) + '</div>' +
       cards +
       (!s.trends.length ? '<div class="empty-note-pad">Nothing loaded yet. Hit refresh and the library will put together what is popular in training right now.</div>' : '') +
-      '<div class="trend-footnote">Curated from FitTrack\'s own workout library, not a live feed. Check anything unfamiliar before you load it heavy.</div>' +
+      '<div class="trend-footnote">' + esc(footnote) + '</div>' +
       '</div></div>';
   }
 });
@@ -1962,7 +2019,7 @@ Object.assign(App, {
   async loadClips() {
     try {
       const all = await idbAllClips();
-      this.set({ clips: all.map(c => ({ id: c.id, trendId: c.trendId, title: c.title, date: c.date })).sort((a, b) => new Date(b.date) - new Date(a.date)) });
+      this.set({ clips: all.map(c => ({ id: c.id, trendId: c.trendId || null, exId: c.exId || null, logEntryId: c.logEntryId || null, title: c.title, date: c.date })).sort((a, b) => new Date(b.date) - new Date(a.date)) });
     } catch (e) {}
   },
   pickMimeType() {
@@ -1970,21 +2027,25 @@ Object.assign(App, {
     for (const o of options) { if (window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(o)) return o; }
     return '';
   },
-  async openRecorder(trendId, title) {
+  async openRecorder(opts) {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       this.toast('This browser has no camera access to record with'); return;
     }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: true });
       this._stream = stream;
-      this.set({ overlay: 'record', record: { trendId: trendId, title: title, recording: false, done: false, elapsed: 0, error: '' } });
+      this.set({ overlay: 'record', record: { trendId: opts.trendId || null, exId: opts.exId || null, title: opts.title, recording: false, done: false, elapsed: 0, value: '', note: '' } });
     } catch (e) {
       this.toast('Camera access denied — check your browser permissions');
     }
   },
   openRecorderById(id) {
     const t = this.state.trends.find(x => x.id === id);
-    if (t) this.openRecorder(t.id, t.title);
+    if (t) this.openRecorder({ trendId: t.id, title: t.title });
+  },
+  openRecorderForExercise(exId) {
+    const ex = this.findEx(exId);
+    if (ex) this.openRecorder({ exId: exId, title: ex.name });
   },
   attachPreview() {
     const v = document.getElementById('record-video');
@@ -2023,11 +2084,16 @@ Object.assign(App, {
   async saveRecording() {
     const r = this.state.record;
     if (!r || !this._recordedBlob) return;
+    let logEntryId = null;
+    if (r.exId) {
+      const entry = this.commitLog(r.exId, r.value, r.note);
+      if (entry) logEntryId = entry.id;
+    }
     const id = uid('clip');
-    const record = { id: id, trendId: r.trendId, title: r.title, date: new Date().toISOString(), blob: this._recordedBlob };
+    const record = { id: id, trendId: r.trendId || null, exId: r.exId || null, logEntryId: logEntryId, title: r.title, date: new Date().toISOString(), blob: this._recordedBlob };
     try {
       await idbPutClip(record);
-      this.toast('Saved to this workout');
+      this.toast(logEntryId ? 'Saved the set and the clip' : 'Saved to this workout');
       this.closeRecorder();
       this.loadClips();
     } catch (e) {
@@ -2060,13 +2126,26 @@ Object.assign(App, {
     this.loadClips();
   },
   renderRecord() {
-    const r = this.state.record;
+    const s = this.state;
+    const r = s.record;
     const clock = (Math.floor(r.elapsed / 60)) + ':' + pad2(Math.floor(r.elapsed % 60));
+    const ex = r.exId ? this.findEx(r.exId) : null;
+    const kind = ex ? this.metricOf(ex) : null;
     let body;
     if (r.done) {
+      let logBlock = '';
+      if (ex && kind) {
+        const u = s.unit.toUpperCase();
+        const stepsVals = kind === 'time' ? [-0.5, -0.1, 0.1, 0.5] : kind === 'reps' ? [-5, -1, 1, 5] : s.unit === 'kg' ? [-5, -2.5, 2.5, 5] : [-10, -5, 5, 10];
+        const steps = '<div class="steps-grid">' + stepsVals.map(d => '<button onclick="App.set({record:Object.assign({},App.state.record,{value:String(Math.max(0,Math.round((parseFloat(App.state.record.value)||0)*100+' + (d * 100) + ')/100))})})">' + (d > 0 ? '+' : '') + d + '</button>').join('') + '</div>';
+        logBlock = '<div class="record-log"><div class="kicker-lg">Log this set — optional</div>' +
+          '<div class="input-row" style="margin-top:8px"><input id="record-value" class="input-big" type="number" step="0.5" min="0" inputmode="decimal" placeholder="0" value="' + esc(r.value || '') + '" oninput="App.set({record:Object.assign({},App.state.record,{value:this.value})})"><div class="unit">' + (kind === 'time' ? 'SEC' : kind === 'reps' ? 'REPS' : u) + '</div></div>' +
+          steps + '</div>';
+      }
       body = '<video id="record-playback" src="' + esc(r.previewUrl) + '" class="record-video" controls playsinline></video>' +
+        logBlock +
         '<div class="record-actions">' +
-        '<button class="btn" onclick="App.saveRecording()">' + ICONS.plusSm + 'Save clip</button>' +
+        '<button class="btn" onclick="App.saveRecording()">' + ICONS.plusSm + (ex && kind ? 'Save set &amp; clip' : 'Save clip') + '</button>' +
         '<button class="btn-outline" onclick="App.retakeRecording()">Retake</button>' +
         '</div>';
     } else {
@@ -2080,14 +2159,15 @@ Object.assign(App, {
       '<button class="close-btn on-dark" onclick="App.closeRecorder()">' + ICONS.x + '</button></div>' +
       '<div class="overlay-body"><div class="record-body">' + body + '<div class="auth-footnote" style="color:#9b9797">Stays on this device — nothing is uploaded.</div></div></div></div>';
   },
-  renderClipsFor(trendId) {
-    const list = this.state.clips.filter(c => c.trendId === trendId);
+  renderClipsFor(matchKey, matchId) {
+    const list = this.state.clips.filter(c => c[matchKey] === matchId);
     if (!list.length) return '';
     return '<div class="clip-list"><div class="clip-list-label">Your recordings</div>' +
       list.map(c => {
         const open = this._openClipId === c.id;
         const url = this._clipUrls && this._clipUrls[c.id];
-        return '<div class="clip-row"><button class="clip-play" onclick="event.stopPropagation();App.togglePlayClip(' + js(c.id) + ')">' + (open ? ICONS.x : ICONS.playSm) + '<span>' + esc(this.dateLabel(c.date)) + ' · ' + esc(this.daysAgo(c.date)) + '</span></button>' +
+        const entry = c.logEntryId ? this.state.log.find(e => e.id === c.logEntryId) : null;
+        return '<div class="clip-row"><button class="clip-play" onclick="event.stopPropagation();App.togglePlayClip(' + js(c.id) + ')">' + (open ? ICONS.x : ICONS.playSm) + '<span>' + esc(this.dateLabel(c.date)) + ' · ' + esc(this.daysAgo(c.date)) + (entry ? ' · ' + esc(this.fmtVal(entry.kind, entry.value)) : '') + '</span></button>' +
           '<button class="icon-btn" title="Delete recording" onclick="event.stopPropagation();App.deleteClip(' + js(c.id) + ')">' + ICONS.x + '</button></div>' +
           (open && url ? '<video src="' + esc(url) + '" class="clip-video" controls playsinline></video>' : '');
       }).join('') + '</div>';
