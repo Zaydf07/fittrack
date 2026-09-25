@@ -173,7 +173,7 @@ html, body { height: 100%; overflow: hidden; }
 .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--ink); }
 .auth-tab { border: 0; padding: 10px 12px; cursor: pointer; text-align: left; font: 800 10px/1 Archivo; letter-spacing: .1em; text-transform: uppercase; background: var(--bg); color: var(--muted); border-right: 1px solid var(--line-input); }
 .auth-tab.on { background: var(--ink); color: var(--bg); border-right: 0; }
-.auth-body { padding: 12px 16px 16px; overflow-y: auto; max-height: calc(100vh - 220px); }
+.auth-body { flex: 1; min-height: 0; overflow-y: auto; padding: 12px 16px 16px; }
 .auth-error { border-left: 3px solid var(--accent); background: var(--accent-100); padding: 8px 10px; margin-bottom: 10px; font: 600 11px/1.3 Archivo; color: var(--accent-700); }
 .auth-footnote { font: 400 10px/1.4 Archivo; color: var(--muted); margin-top: 8px; }
 
@@ -184,7 +184,7 @@ html, body { height: 100%; overflow: hidden; }
 .onboard-hero .note { font: 400 13px/1.45 Archivo; color: #d7d3d3; margin-top: 9px; }
 .rail { flex: none; height: 5px; background: #d7d3d3; }
 .rail > div { height: 100%; background: var(--accent); }
-.onboard-body { flex: 1; padding: 20px 16px 0; }
+.onboard-body { flex: 1; min-height: 0; overflow-y: auto; padding: 20px 16px 0; }
 .onboard-actions { flex: none; padding: 20px 16px calc(30px + var(--safe-bottom)); }
 .pick-card { width: 100%; display: flex; flex-direction: column; align-items: flex-start; text-align: left; border: 2px solid var(--ink); border-top-width: 0; padding: 14px; cursor: pointer; background: #fff; color: var(--ink); }
 .pick-card:first-child { border-top-width: 2px; }
@@ -452,8 +452,8 @@ html, body { height: 100%; overflow: hidden; }
 .trend-ex button { flex: none; width: 40px; height: 40px; border: 1px solid var(--line-soft); background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink); }
 .trend-ex button:hover { background: var(--ink); color: var(--bg); }
 .trend-actions { padding: 12px 14px 16px; }
-.trend-actions .btn { margin-top: 8px; padding: 15px 14px; font-size: 12px; }
-.trend-actions .btn:first-child { margin-top: 0; }
+.trend-actions .btn, .trend-actions .btn-outline { display: flex; width: 100%; align-items: center; gap: 8px; margin-top: 8px; padding: 15px 14px; font-size: 12px; }
+.trend-actions .btn:first-child, .trend-actions .btn-outline:first-child { margin-top: 0; }
 .trend-footnote { margin: 20px 16px 0; border-top: 2px solid var(--line); padding-top: 10px; font: 400 11px/1.5 Archivo; color: var(--muted); }
 
 /* — progress — */
@@ -623,6 +623,23 @@ html, body { height: 100%; overflow: hidden; }
 .pb-overlay .tap { font: 600 10px/1 Archivo; letter-spacing: .14em; text-transform: uppercase; margin-top: 26px; opacity: .7; }
 
 .toast { position: absolute; left: 16px; right: 16px; bottom: 108px; z-index: 70; background: var(--ink); color: var(--bg); padding: 13px 14px; font: 600 12px/1.3 Archivo; animation: ftup .16s ease-out; }
+
+/* — record yourself — */
+.record-body { padding: 16px; }
+.record-video { width: 100%; aspect-ratio: 3/4; background: #000; object-fit: cover; display: block; }
+.record-clock { font: 800 15px/1 Archivo; font-variant-numeric: tabular-nums; color: var(--accent-400); margin-top: 10px; }
+.record-actions { display: flex; gap: 8px; margin-top: 14px; }
+.record-actions .btn, .record-actions .btn-outline { flex: 1; width: auto; }
+.record-actions .light { background: #fff; color: var(--ink); }
+.record-actions .light:hover { background: var(--bg); }
+.clip-list { margin-top: 12px; border-top: 1px solid var(--line-soft); padding-top: 10px; }
+.clip-list-label { font: 600 9px/1 Archivo; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.clip-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0; }
+.clip-play { flex: 1; display: flex; align-items: center; gap: 8px; border: 0; background: transparent; padding: 0; cursor: pointer; text-align: left; color: var(--ink); }
+.clip-play span { font: 600 12px/1.2 Archivo; }
+.clip-play svg { flex: none; }
+.clip-video { width: 100%; aspect-ratio: 3/4; background: #000; margin: 4px 0 10px; display: block; }
+.record-log { margin-top: 14px; }
 
 /* — chart svg — */
 .linechart { width: 100%; height: auto; display: block; }
