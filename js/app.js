@@ -243,8 +243,8 @@ const TRENDING_LIBRARY = [
     { name: 'Plank Shoulder Taps', sets: '4', reps: '30s', isTimed: true },
     { name: 'High Knees', sets: '4', reps: '30s', isTimed: true }
   ]},
-  { title: 'Incline Treadmill Walk', tag: 'Cardio', blurb: 'Low-impact, high-incline steady walk — one of the most repeated cardio formats on social fitness feeds right now.', minutes: 30, level: 'Beginner', exercises: [
-    { name: 'Incline Treadmill Walk (12% grade)', reps: '30 min', isTimed: true }
+  { title: '12-3-30 Treadmill Walk', tag: 'Cardio', blurb: '12% incline, 3 mph, 30 minutes — the treadmill formula that keeps racking up views on every fitness feed.', minutes: 30, level: 'Beginner', exercises: [
+    { name: 'Treadmill Walk (12% incline, 3 mph)', reps: '30 min', isTimed: true }
   ]},
   { title: '4x4 Interval Protocol', tag: 'Conditioning', blurb: 'Four hard four-minute efforts with active recovery — a sports-science interval format having a viral moment.', minutes: 32, level: 'Advanced', exercises: [
     { name: 'Hard Interval (90% effort)', sets: '4', reps: '4 min', isTimed: true },
@@ -253,6 +253,14 @@ const TRENDING_LIBRARY = [
   { title: 'Deficit Push-up Finisher', tag: 'Bodyweight', blurb: 'Push-ups off raised handles for extra range of motion — the go-to chest burnout clip when the gym part of the day is already done.', minutes: 10, level: 'Intermediate', exercises: [
     { name: 'Deficit Push-up (parallettes or blocks)', sets: '4', reps: 'To failure' },
     { name: 'Rest', sets: '4', reps: '45s', isTimed: true }
+  ]},
+  { title: 'Pull-up Ladder Challenge', tag: 'Bodyweight', blurb: 'Climb one rep higher each round until you can\'t — a simple format currently all over GymTok.', minutes: 15, level: 'Advanced', exercises: [
+    { name: 'Pull-up Ladder (1-2-3-4-5…)', reps: 'To failure' },
+    { name: 'Rest Between Rungs', reps: '30s', isTimed: true }
+  ]},
+  { title: 'Partner Push-up Challenge', tag: 'Bodyweight', blurb: 'Alternating push-ups with a partner, no rest until the set target is hit — a duo format spreading fast as a family/friend clip.', minutes: 12, level: 'Intermediate', exercises: [
+    { name: 'Alternating Push-ups (with partner)', sets: '3', reps: '20' },
+    { name: 'Rest', sets: '3', reps: '30s', isTimed: true }
   ]}
 ];
 
