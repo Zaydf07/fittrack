@@ -538,7 +538,17 @@ const App = {
   // 5. AUTH & ONBOARDING
   // ---------------------------------------------------------------------------
   setForm(key, value) { Object.assign(this.state.form, { [key]: value }); this.set({ authError: '' }); },
-  submitAuth() {
+  // On-device only — this hash keeps a plaintext password out of localStorage,
+  // but it is not a real security boundary: anyone with access to this
+  // device's storage already has everything. It exists so "reset password"
+  // actually changes what sign-in checks, not to protect against attackers.
+  async hashPassword(pwd) {
+    if (!window.crypto || !crypto.subtle) return 'plain:' + pwd; // very old browser fallback
+    const bytes = new TextEncoder().encode(pwd);
+    const digest = await crypto.subtle.digest('SHA-256', bytes);
+    return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+  },
+  async submitAuth() {
     const f = this.state.form;
     const email = f.email.trim().toLowerCase();
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -547,7 +557,8 @@ const App = {
       if (!emailOk) return this.set({ authError: 'That email address does not look right.' });
       if (f.password.length < 8) return this.set({ authError: 'Passwords need at least 8 characters.' });
       if (f.password !== f.confirm) return this.set({ authError: 'The two passwords do not match.' });
-      const account = { name: f.name.trim(), email: email, goal: 'speed', role: 'solo', days: 3, bodyweight: null, joined: new Date().toISOString() };
+      const passwordHash = await this.hashPassword(f.password);
+      const account = { name: f.name.trim(), email: email, passwordHash: passwordHash, goal: 'speed', role: 'solo', days: 3, bodyweight: null, joined: new Date().toISOString() };
       this.persistAccount(account, true);
       this.set({ account: account, user: account, screen: 'onboard', step: 0, authError: '' });
       return;
@@ -556,9 +567,29 @@ const App = {
     if (!f.password) return this.set({ authError: 'Enter your password.' });
     const acc = this.state.account;
     if (!acc || acc.email !== email) return this.set({ authError: 'No account on this device with that email. Create one instead.' });
+    if (acc.passwordHash) {
+      const hash = await this.hashPassword(f.password);
+      if (hash !== acc.passwordHash) return this.set({ authError: 'That password doesn\'t match. Try again or reset it.' });
+    }
     this.persistAccount(acc, true);
     this.set({ user: acc, screen: 'today', authError: '' });
     this.toast('Welcome back, ' + acc.name.split(' ')[0]);
+  },
+  async submitPasswordReset() {
+    const email = this.state.resetEmail.trim().toLowerCase();
+    const pwd = this.state.resetPassword;
+    const confirm = this.state.resetConfirm;
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailOk) return this.set({ authError: 'That email address does not look right.' });
+    if (pwd.length < 8) return this.set({ authError: 'Passwords need at least 8 characters.' });
+    if (pwd !== confirm) return this.set({ authError: 'The two passwords do not match.' });
+    const acc = this.state.account;
+    if (!acc || acc.email !== email) return this.set({ authError: 'No account on this device with that email.' });
+    const passwordHash = await this.hashPassword(pwd);
+    const updated = Object.assign({}, acc, { passwordHash: passwordHash });
+    this.persistAccount(updated, true);
+    this.set({ account: updated, user: updated, screen: 'today', mode: 'signin', authError: '', resetEmail: '', resetPassword: '', resetConfirm: '' });
+    this.toast('Password reset. You are now signed in.');
   },
   finishOnboard() {
     const f = this.state.form;
@@ -577,21 +608,6 @@ const App = {
       user: null, screen: 'welcome', mode: 'signin', sheet: false, authError: '',
       form: Object.assign({}, this.state.form, { password: '', confirm: '', email: this.state.account ? this.state.account.email : '' })
     });
-  },
-  submitPasswordReset() {
-    const email = this.state.resetEmail.trim().toLowerCase();
-    const pwd = this.state.resetPassword;
-    const confirm = this.state.resetConfirm;
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!emailOk) return this.set({ authError: 'That email address does not look right.' });
-    if (pwd.length < 8) return this.set({ authError: 'Passwords need at least 8 characters.' });
-    if (pwd !== confirm) return this.set({ authError: 'The two passwords do not match.' });
-    const acc = this.state.account;
-    if (!acc || acc.email !== email) return this.set({ authError: 'No account on this device with that email.' });
-    const updated = Object.assign({}, acc);
-    this.persistAccount(updated, true);
-    this.set({ user: acc, screen: 'today', mode: 'signin', authError: '', resetEmail: '', resetPassword: '', resetConfirm: '' });
-    this.toast('Password reset. You are now signed in.');
   },
 
   // ---------------------------------------------------------------------------
